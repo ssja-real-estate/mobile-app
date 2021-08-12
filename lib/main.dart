@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saja/home.dart';
 
 void main() {
   runApp(MainApp());
@@ -11,11 +12,11 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.blue,
+        primaryColor: Colors.deepPurple.shade800,
+        accentColor: Colors.deepPurpleAccent.shade400,
+        brightness: Brightness.light,
       ),
-      home: Container(
-        child: Text('Hello World!'),
-      ),
+      home: HomeScreen(),
     );
   }
 }
