@@ -27,16 +27,19 @@ class MainApp extends StatelessWidget {
         brightness: Brightness.light,
         fontFamily: 'IRANSans',
       ),
-      home: Navigator(
-        pages: [
-          MaterialPage(
-            key: HomeScreen.valueKey,
-            child: HomeScreen(),
-          ),
-        ],
-        onPopPage: (route, result) {
-          return route.didPop(result);
-        },
+      home: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Navigator(
+          pages: [
+            MaterialPage(
+              key: HomeScreen.valueKey,
+              child: HomeScreen(),
+            ),
+          ],
+          onPopPage: (route, result) {
+            return route.didPop(result);
+          },
+        ),
       ),
     );
   }
