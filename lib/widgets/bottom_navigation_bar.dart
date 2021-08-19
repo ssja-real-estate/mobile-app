@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:saja/resources/colors.dart';
 
 class AppBottomNavigationBar extends StatefulWidget {
   final pageIndex;
@@ -38,10 +39,10 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         ),
       ],
       animationDuration: Duration(milliseconds: 300),
-      height: 50,
+      height: 55,
       backgroundColor: Colors.white,
-      color: Colors.deepPurple.shade800,
-      buttonBackgroundColor: Colors.deepPurple.shade800,
+      color: AppColors.primary(),
+      buttonBackgroundColor: AppColors.accent(),
       onTap: widget.onTap,
     );
   }

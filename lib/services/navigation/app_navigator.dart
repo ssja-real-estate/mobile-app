@@ -22,32 +22,37 @@ class _AppNavigatorState extends State<AppNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      pages: [
-        if (widget.pageIndex == 0)
-          MaterialPage(
-            child: HomeScreen(),
-            key: HomeScreen.valueKey,
-          )
-        else if (widget.pageIndex == 1)
-          MaterialPage(
-            child: AddEstateScreen(),
-            key: HomeScreen.valueKey,
-          )
-        else if (widget.pageIndex == 2)
-          MaterialPage(
-            child: LoginScreen(),
-            key: HomeScreen.valueKey,
-          ),
-        if (_loading)
-          MaterialPage(
-            child: LoadingWidget(),
-            key: LoadingWidget.valueKey,
-          )
-      ],
-      onPopPage: (route, result) {
-        return route.didPop(result);
-      },
+    return Container(
+      margin: EdgeInsets.only(
+        top: 30,
+      ),
+      child: Navigator(
+        pages: [
+          if (widget.pageIndex == 0)
+            MaterialPage(
+              child: HomeScreen(),
+              key: HomeScreen.valueKey,
+            )
+          else if (widget.pageIndex == 1)
+            MaterialPage(
+              child: AddEstateScreen(),
+              key: HomeScreen.valueKey,
+            )
+          else if (widget.pageIndex == 2)
+            MaterialPage(
+              child: LoginScreen(),
+              key: HomeScreen.valueKey,
+            ),
+          if (_loading)
+            MaterialPage(
+              child: LoadingWidget(),
+              key: LoadingWidget.valueKey,
+            )
+        ],
+        onPopPage: (route, result) {
+          return route.didPop(result);
+        },
+      ),
     );
   }
 }
