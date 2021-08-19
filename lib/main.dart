@@ -1,7 +1,7 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
+import 'package:saja/widgets/bottom_navigation_bar.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -23,8 +23,6 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   int _pageIndex = 0;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  bool _loggedIn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,31 +39,8 @@ class _MainAppState extends State<MainApp> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           body: AppNavigator(_pageIndex),
-          bottomNavigationBar: CurvedNavigationBar(
-            index: _pageIndex,
-            key: _bottomNavigationKey,
-            items: [
-              Icon(
-                Icons.home_rounded,
-                size: 30,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.add_circle_rounded,
-                size: 30,
-                color: Colors.white,
-              ),
-              Icon(
-                _loggedIn ? Icons.dashboard : Icons.person_rounded,
-                size: 30,
-                color: Colors.white,
-              ),
-            ],
-            animationDuration: Duration(milliseconds: 300),
-            height: 50,
-            backgroundColor: Colors.white,
-            color: Colors.deepPurple.shade800,
-            buttonBackgroundColor: Colors.deepPurple.shade800,
+          bottomNavigationBar: AppBottomNavigationBar(
+            pageIndex: _pageIndex,
             onTap: (index) {
               setState(() {
                 _pageIndex = index;
