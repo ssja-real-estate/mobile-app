@@ -10,10 +10,10 @@ class LoadingWidget extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 500),
-        curve: Curves.elasticOut,
+        duration: Duration(milliseconds: 1000),
+        curve: Curves.bounceOut,
         child: Center(
-          child: SpinKitWave(
+          child: SpinKitSquareCircle(
             color: Colors.deepPurple.shade800,
             // duration: Duration(milliseconds: 1000),
             size: 50,

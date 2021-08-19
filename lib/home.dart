@@ -36,60 +36,57 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return loading
         ? LoadingWidget()
-        : Scaffold(
-            body: Container(
-              margin: EdgeInsets.all(40),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AnimatedContainer(
+        : Container(
+            margin: EdgeInsets.all(40),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedContainer(
+                    duration: Duration(
+                      milliseconds: 900,
+                    ),
+                    curve: Curves.bounceOut,
+                    width: width,
+                    height: width,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.purple,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(radius),
+                      color: Colors.purple.shade100,
+                    ),
+                    child: AnimatedDefaultTextStyle(
                       duration: Duration(
                         milliseconds: 900,
                       ),
                       curve: Curves.bounceOut,
-                      width: width,
-                      height: width,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.purple,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(radius),
-                        color: Colors.purple.shade100,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: fontSize,
+                        fontFamily: 'IRANSans',
                       ),
-                      child: AnimatedDefaultTextStyle(
-                        duration: Duration(
-                          milliseconds: 900,
-                        ),
-                        curve: Curves.bounceOut,
-                        style: TextStyle(
-                          color: color,
-                          fontSize: fontSize,
-                          fontFamily: 'IRANSans',
-                        ),
-                        child: Text(
-                          'سامانه ثجا',
-                          textAlign: TextAlign.center,
-                        ),
+                      child: Text(
+                        'سامانه ثجا',
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        widget.setLoading(true);
-                        await Future.delayed(
-                            Duration(seconds: 2), _updateState);
-                        widget.setLoading(false);
-                      },
-                      child: Text('ثبت'),
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      widget.setLoading(true);
+                      await Future.delayed(Duration(seconds: 2), _updateState);
+                      widget.setLoading(false);
+                    },
+                    child: Text('ثبت'),
+                  ),
+                ],
               ),
             ),
           );
