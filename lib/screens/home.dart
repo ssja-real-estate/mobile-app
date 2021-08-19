@@ -1,0 +1,22 @@
+import 'package:flutter/material.dart';
+
+class HomeScreen extends StatefulWidget {
+  static const valueKey = ValueKey('HomeScreen');
+
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(40),
+      child: Center(
+        child: Text('Home'),
+      ),
+    );
+  }
+}

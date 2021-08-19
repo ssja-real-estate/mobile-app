@@ -1,10 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:saja/add.dart';
-import 'package:saja/home.dart';
-import 'package:saja/loading.dart';
-import 'package:saja/profile.dart';
+import 'package:saja/services/navigation/app_navigator.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -25,9 +22,8 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  int _page = 0;
+  int _pageIndex = 0;
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  bool _loading = false;
   bool _loggedIn = false;
 
   @override
@@ -44,35 +40,9 @@ class _MainAppState extends State<MainApp> {
       home: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          body: Navigator(
-            pages: [
-              if (_page == 0)
-                MaterialPage(
-                  key: HomeScreen.valueKey,
-                  child: HomeScreen(setLoading),
-                ),
-              if (_page == 1)
-                MaterialPage(
-                  child: Add(),
-                  key: ValueKey('Add'),
-                ),
-              if (_page == 2)
-                MaterialPage(
-                  child: Profile(),
-                  key: ValueKey('Profile'),
-                ),
-              if (_loading)
-                MaterialPage(
-                  child: LoadingWidget(),
-                  key: LoadingWidget.valueKey,
-                ),
-            ],
-            onPopPage: (route, result) {
-              return route.didPop(result);
-            },
-          ),
+          body: AppNavigator(_pageIndex),
           bottomNavigationBar: CurvedNavigationBar(
-            index: _page,
+            index: _pageIndex,
             key: _bottomNavigationKey,
             items: [
               Icon(
@@ -98,18 +68,12 @@ class _MainAppState extends State<MainApp> {
             buttonBackgroundColor: Colors.deepPurple.shade800,
             onTap: (index) {
               setState(() {
-                _page = index;
+                _pageIndex = index;
               });
             },
           ),
         ),
       ),
     );
-  }
-
-  void setLoading(bool boolean) {
-    setState(() {
-      _loading = boolean;
-    });
   }
 }
