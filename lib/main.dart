@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saja/home.dart';
+import 'package:saja/loading.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -13,8 +14,15 @@ void main() {
   runApp(MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({Key? key}) : super(key: key);
+
+  @override
+  _MainAppState createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +41,13 @@ class MainApp extends StatelessWidget {
           pages: [
             MaterialPage(
               key: HomeScreen.valueKey,
-              child: HomeScreen(),
+              child: HomeScreen(setLoading),
             ),
+            if (_loading)
+              MaterialPage(
+                child: LoadingWidget(),
+                key: LoadingWidget.valueKey,
+              ),
           ],
           onPopPage: (route, result) {
             return route.didPop(result);
@@ -42,5 +55,11 @@ class MainApp extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void setLoading(bool boolean) {
+    setState(() {
+      _loading = boolean;
+    });
   }
 }
