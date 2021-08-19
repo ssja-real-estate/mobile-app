@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saja/resources/colors.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/widgets/bottom_navigation_bar.dart';
 
@@ -26,26 +27,33 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      theme: ThemeData(
-        primaryColor: Colors.deepPurple.shade800,
-        accentColor: Colors.deepPurpleAccent.shade400,
-        brightness: Brightness.light,
-        fontFamily: 'IRANSans',
-      ),
-      home: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          body: AppNavigator(_pageIndex),
-          bottomNavigationBar: AppBottomNavigationBar(
-            pageIndex: _pageIndex,
-            onTap: (index) {
-              setState(() {
-                _pageIndex = index;
-              });
-            },
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.light,
+        theme: ThemeData(
+          primaryColor: AppColors.primary(),
+          colorScheme: ColorScheme.light(
+            primary: AppColors.accent(),
+          ),
+          brightness: Brightness.light,
+          fontFamily: 'IRANSans',
+        ),
+        home: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+            body: AppNavigator(_pageIndex),
+            bottomNavigationBar: AppBottomNavigationBar(
+              pageIndex: _pageIndex,
+              onTap: (index) {
+                setState(() {
+                  _pageIndex = index;
+                });
+              },
+            ),
           ),
         ),
       ),
