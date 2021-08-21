@@ -8,4 +8,7 @@ class Strings {
   static const loginButtonText = "ورود به سامانه ثجا";
   static const stillNotSignedIn = "حساب کاربری ندارید؟";
   static const signup = "ثبت نام";
+  static const repeatPassword = "تکرار گذرواژه";
+  static const signupButtonText = "ثبت نام در سامانه ثجا";
+  static const alreadyHaveAccount = "حساب کاربری دارید؟";
 }
