@@ -8,8 +8,6 @@ import 'package:saja/widgets/password_input_form_field.dart';
 import 'package:saja/widgets/text_input_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const valueKey = ValueKey('Login');
-
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -24,6 +22,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(
+        top: 15,
+      ),
       padding: EdgeInsets.all(15),
       child: SingleChildScrollView(
         child: Column(
