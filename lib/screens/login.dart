@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/signup.dart';
+import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
@@ -8,8 +10,6 @@ import 'package:saja/widgets/password_input_form_field.dart';
 import 'package:saja/widgets/text_input_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const valueKey = ValueKey('Login');
-
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -24,6 +24,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(
+        top: 15,
+      ),
       padding: EdgeInsets.all(15),
       child: SingleChildScrollView(
         child: Column(
@@ -126,7 +129,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(Strings.stillNotSignedIn),
                         CustomTextButton(
                           title: Strings.signup,
-                          onPressed: () {},
+                          onPressed: () {
+                            AppNavigator.pushScreen(context, SignupScreen());
+                          },
                         ),
                       ],
                     ),
