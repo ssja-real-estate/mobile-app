@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/signup.dart';
+import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
@@ -127,7 +129,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(Strings.stillNotSignedIn),
                         CustomTextButton(
                           title: Strings.signup,
-                          onPressed: () {},
+                          onPressed: () {
+                            AppNavigator.pushScreen(context, SignupScreen());
+                          },
                         ),
                       ],
                     ),
