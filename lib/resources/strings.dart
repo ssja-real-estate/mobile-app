@@ -12,4 +12,5 @@ class AppStrings {
   static const signupButtonText = "ثبت نام در سامانه ثجا";
   static const alreadyHaveAccount = "حساب کاربری دارید؟";
   static const filter = "فیلتر";
+  static const toman = "تومان";
 }
