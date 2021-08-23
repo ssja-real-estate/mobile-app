@@ -1,4 +1,4 @@
-class Strings {
+class AppStrings {
   static const login = "ورود";
   static const phone = "شماره موبایل";
   static const invalidPhone = "شماره تلفن واردشده معتبر نیست";
@@ -11,4 +11,5 @@ class Strings {
   static const repeatPassword = "تکرار گذرواژه";
   static const signupButtonText = "ثبت نام در سامانه ثجا";
   static const alreadyHaveAccount = "حساب کاربری دارید؟";
+  static const filter = "فیلتر";
 }

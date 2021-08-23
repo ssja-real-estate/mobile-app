@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saja/models/estate_item.dart';
+import 'package:saja/resources/colors.dart';
+import 'package:saja/resources/strings.dart';
+import 'package:saja/widgets/custom_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,11 +30,47 @@ class _HomeScreenState extends State<HomeScreen> {
       scrollDirection: Axis.vertical,
       slivers: [
         SliverAppBar(
-          title: Text('filter'),
+          title: CustomButton(
+            color: AppColors.primary(),
+            title: AppStrings.filter,
+            icon: Icons.filter_list_rounded,
+            onPressed: () {},
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            mainAxisSize: MainAxisSize.min,
+            verticalPadding: 5,
+            horizontalPadding: 10,
+            iconPadding: 10,
+            iconSize: 30,
+          ),
           centerTitle: true,
           pinned: true,
           automaticallyImplyLeading: true,
         ),
+
+        // SliverAppBar(
+        //   title: ElevatedButton(
+        //     style: ButtonStyle(
+        //       backgroundColor: MaterialStateProperty.all(AppColors.primary()),
+        //       elevation: MaterialStateProperty.all(0),
+        //     ),
+        //     onPressed: () {
+        //       // TODO: filter
+        //     },
+        //     child: Row(
+        //       mainAxisSize: MainAxisSize.min,
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: [
+        //         Text(AppStrings.filter),
+        //         SizedBox(width: 10),
+        //         Icon(Icons.filter_list_rounded),
+        //       ],
+        //     ),
+        //   ),
+        //   centerTitle: true,
+        //   pinned: true,
+        //   automaticallyImplyLeading: true,
+        // ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
