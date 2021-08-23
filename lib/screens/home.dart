@@ -3,6 +3,7 @@ import 'package:saja/models/estate_item.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/widgets/custom_button.dart';
+import 'package:saja/widgets/estate_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,12 +16,14 @@ class _HomeScreenState extends State<HomeScreen> {
   final estates = List.generate(
     30,
     (index) => EstateItem(
-      id: "id",
-      estateType: "estateType",
-      delegationType: "delegationType",
-      province: "province",
-      city: "city",
+      id: 1,
+      estateType: 0,
+      delegationType: 1,
+      province: "آذربایجان غربی",
+      city: "مهاباد",
       price: 100000,
+      imageUrl:
+          "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5f0c98c0147a4f0006753d4b%2FHouses-of-different-size-with-different-value-on-stacks-of-coins--Concept-of-%2F960x0.jpg%3Ffit%3Dscale",
     ),
   );
 
@@ -47,50 +50,23 @@ class _HomeScreenState extends State<HomeScreen> {
           pinned: true,
           automaticallyImplyLeading: true,
         ),
-
-        // SliverAppBar(
-        //   title: ElevatedButton(
-        //     style: ButtonStyle(
-        //       backgroundColor: MaterialStateProperty.all(AppColors.primary()),
-        //       elevation: MaterialStateProperty.all(0),
-        //     ),
-        //     onPressed: () {
-        //       // TODO: filter
-        //     },
-        //     child: Row(
-        //       mainAxisSize: MainAxisSize.min,
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: [
-        //         Text(AppStrings.filter),
-        //         SizedBox(width: 10),
-        //         Icon(Icons.filter_list_rounded),
-        //       ],
-        //     ),
-        //   ),
-        //   centerTitle: true,
-        //   pinned: true,
-        //   automaticallyImplyLeading: true,
-        // ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               var estate = estates[index];
-              return Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(estate.delegationType),
-                      Text(estate.estateType),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(estate.province),
-                      Text(estate.city),
-                    ],
-                  ),
-                  Text(estate.price.toString())
-                ],
+              return EstateItemWidget(
+                estate,
+                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                padding: EdgeInsets.only(
+                  right: 12,
+                  left: 10,
+                  top: 10,
+                  bottom: 10,
+                ),
+                border: Border.all(
+                  color: AppColors.accent(),
+                  width: 1,
+                ),
               );
             },
             childCount: estates.length,
