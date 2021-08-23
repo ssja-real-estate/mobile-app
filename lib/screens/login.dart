@@ -24,9 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        top: 15,
-      ),
       padding: EdgeInsets.all(15),
       child: SingleChildScrollView(
         child: Column(

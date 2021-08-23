@@ -47,12 +47,14 @@ class _MainAppScreenState extends State<MainAppScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       child: Scaffold(
-        body: Stack(
-          children: [
-            _buildOffstageNavigator(0),
-            _buildOffstageNavigator(1),
-            _buildOffstageNavigator(2),
-          ],
+        body: Container(
+          child: Stack(
+            children: [
+              _buildOffstageNavigator(0),
+              _buildOffstageNavigator(1),
+              _buildOffstageNavigator(2),
+            ],
+          ),
         ),
         bottomNavigationBar: AppBottomNavigationBar(
           pageIndex: _currentTabIndex,
