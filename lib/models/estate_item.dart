@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 class EstateItem {
-  String id;
-  String estateType;
-  String delegationType;
+  int id;
+  int estateType;
+  int delegationType;
   String province;
   String city;
   int price;
-  String? image;
+  String? imageUrl;
 
   EstateItem({
     required this.id,
@@ -16,7 +16,7 @@ class EstateItem {
     required this.province,
     required this.city,
     required this.price,
-    this.image,
+    this.imageUrl,
   });
 
   Map<String, dynamic> toMap() {
@@ -45,4 +45,26 @@ class EstateItem {
 
   factory EstateItem.fromJson(String source) =>
       EstateItem.fromMap(json.decode(source));
+
+  static String getEstateType(int index) {
+    var type = EstateType.values[index];
+    if (type == EstateType.Home) {
+      return "خانه";
+    } else {
+      return "آپارتمان";
+    }
+  }
+
+  static String getDelegationType(int index) {
+    var type = DelegationType.values[index];
+    if (type == DelegationType.Sell) {
+      return "فروش";
+    } else {
+      return "اجاره";
+    }
+  }
 }
+
+enum EstateType { Home, Apartment }
+
+enum DelegationType { Sell, Rent }
