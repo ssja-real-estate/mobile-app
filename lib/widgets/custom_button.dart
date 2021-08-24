@@ -10,6 +10,15 @@ class CustomButton extends StatelessWidget {
   final Color? color;
   final Color? textColor;
   final EdgeInsetsGeometry? margin;
+  final MainAxisSize? mainAxisSize;
+  final double? elevation;
+  final double? borderRadius;
+  final FontWeight? fontWeight;
+  final MainAxisAlignment? mainAxisAlignment;
+  final double? iconPadding;
+  final Color? iconColor;
+  final double? iconSize;
+  final TextAlign? textAlign;
 
   const CustomButton({
     Key? key,
@@ -22,6 +31,15 @@ class CustomButton extends StatelessWidget {
     this.color,
     this.textColor = Colors.white,
     this.margin,
+    this.mainAxisSize,
+    this.elevation,
+    this.borderRadius,
+    this.fontWeight = FontWeight.w300,
+    this.mainAxisAlignment,
+    this.iconPadding,
+    this.iconColor,
+    this.iconSize,
+    this.textAlign = TextAlign.center,
   }) : super(key: key);
 
   @override
@@ -31,22 +49,26 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: this.onPressed,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: mainAxisSize ?? MainAxisSize.max,
+          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
           children: [
             Text(
               title,
               style: TextStyle(
-                fontSize: this.fontSize,
-                fontWeight: FontWeight.w300,
+                fontSize: fontSize,
+                fontWeight: fontWeight,
                 color: textColor,
               ),
+              textAlign: textAlign,
             ),
             SizedBox(
-              width: 5,
+              width: iconPadding ?? 0,
             ),
             (icon != null)
                 ? Icon(
                     icon,
+                    color: iconColor,
+                    size: iconSize,
                   )
                 : SizedBox(),
           ],
@@ -59,10 +81,10 @@ class CustomButton extends StatelessWidget {
             left: horizontalPadding,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 10)),
           ),
-          primary: this.color,
-          elevation: 0,
+          primary: color,
+          elevation: elevation ?? 0,
         ),
       ),
     );

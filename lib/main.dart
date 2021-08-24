@@ -39,9 +39,11 @@ class _AppState extends State<App> {
           brightness: Brightness.light,
           fontFamily: 'IRANSans',
         ),
-        home: Directionality(
-          textDirection: TextDirection.rtl,
-          child: MainAppScreen(),
+        home: SafeArea(
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: MainAppScreen(),
+          ),
         ),
       ),
     );

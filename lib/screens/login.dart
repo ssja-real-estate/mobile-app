@@ -24,9 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        top: 15,
-      ),
       padding: EdgeInsets.all(15),
       child: SingleChildScrollView(
         child: Column(
@@ -46,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 15,
                   ),
                   Text(
-                    Strings.login,
+                    AppStrings.login,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -64,12 +61,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     TextInputFormField(
-                      label: Strings.phone,
+                      label: AppStrings.phone,
                       controller: phoneController,
                       onChanged: (text) {},
                       validator: (value) {
                         if (!RegexValidator.validatePhone(value)) {
-                          return Strings.invalidPhone;
+                          return AppStrings.invalidPhone;
                         }
                         return null;
                       },
@@ -81,12 +78,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 20,
                     ),
                     PasswordInputFormField(
-                      label: Strings.password,
+                      label: AppStrings.password,
                       controller: passwordController,
                       onChanged: (text) {},
                       validator: (value) {
                         if (!RegexValidator.validatePassword(value)) {
-                          return Strings.invalidPassword;
+                          return AppStrings.invalidPassword;
                         } else {
                           return null;
                         }
@@ -102,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomTextButton(
-                          title: Strings.forgotPassword,
+                          title: AppStrings.forgotPassword,
                           onPressed: () {},
                         ),
                       ],
@@ -111,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 30,
                     ),
                     CustomButton(
-                      title: Strings.loginButtonText,
+                      title: AppStrings.loginButtonText,
                       onPressed: () {},
                       horizontalPadding: 20,
                       fontSize: 20,
@@ -126,9 +123,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(Strings.stillNotSignedIn),
+                        Text(AppStrings.stillNotSignedIn),
                         CustomTextButton(
-                          title: Strings.signup,
+                          title: AppStrings.signup,
                           onPressed: () {
                             AppNavigator.pushScreen(context, SignupScreen());
                           },
