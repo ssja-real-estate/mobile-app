@@ -1,4 +1,5 @@
 class AppStrings {
+  static const saja = "سامانه ثجا";
   static const login = "ورود";
   static const phone = "شماره موبایل";
   static const invalidPhone = "شماره تلفن واردشده معتبر نیست";
@@ -13,4 +14,6 @@ class AppStrings {
   static const alreadyHaveAccount = "حساب کاربری دارید؟";
   static const filter = "فیلتر";
   static const toman = "تومان";
+  static const loginBeforeAddEstate = "برای ثبت ملک باید وارد برنامه شوید";
+  static const addEstate = "ثبت ملک";
 }
