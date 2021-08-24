@@ -26,6 +26,19 @@ class EstateItemWidget extends StatelessWidget {
     fontWeight: FontWeight.w500,
   );
 
+  final Widget _loadingImage = ColorFiltered(
+    colorFilter: ColorFilter.mode(
+      Colors.grey,
+      BlendMode.lighten,
+    ),
+    child: Image.asset(
+      'assets/images/logo.png',
+      fit: BoxFit.cover,
+      width: 120,
+      height: 120,
+    ),
+  );
+
   EstateItemWidget(
     this.estate, {
     Key? key,
@@ -44,7 +57,7 @@ class EstateItemWidget extends StatelessWidget {
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
-          side: BorderSide(width: 1, color: AppColors.grey()),
+          side: BorderSide(width: 1, color: AppColors.grey300()),
         ),
         child: InkWell(
           onTap: onTap,
@@ -127,18 +140,7 @@ class EstateItemWidget extends StatelessWidget {
                       Container(
                         child: ClipRRect(
                           child: estate.imageUrl == null
-                              ? ColorFiltered(
-                                  colorFilter: ColorFilter.mode(
-                                    Colors.grey,
-                                    BlendMode.lighten,
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/logo.png',
-                                    fit: BoxFit.cover,
-                                    width: 120,
-                                    height: 120,
-                                  ),
-                                )
+                              ? _loadingImage
                               : Image.network(
                                   estate.imageUrl!,
                                   fit: BoxFit.cover,

@@ -18,6 +18,7 @@ class CustomButton extends StatelessWidget {
   final double? iconPadding;
   final Color? iconColor;
   final double? iconSize;
+  final TextAlign? textAlign;
 
   const CustomButton({
     Key? key,
@@ -35,9 +36,10 @@ class CustomButton extends StatelessWidget {
     this.borderRadius,
     this.fontWeight = FontWeight.w300,
     this.mainAxisAlignment,
-    this.iconPadding = 5,
+    this.iconPadding,
     this.iconColor,
     this.iconSize,
+    this.textAlign = TextAlign.center,
   }) : super(key: key);
 
   @override
@@ -48,7 +50,7 @@ class CustomButton extends StatelessWidget {
         onPressed: this.onPressed,
         child: Row(
           mainAxisSize: mainAxisSize ?? MainAxisSize.max,
-          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
           children: [
             Text(
               title,
@@ -57,9 +59,10 @@ class CustomButton extends StatelessWidget {
                 fontWeight: fontWeight,
                 color: textColor,
               ),
+              textAlign: textAlign,
             ),
             SizedBox(
-              width: iconPadding,
+              width: iconPadding ?? 0,
             ),
             (icon != null)
                 ? Icon(
