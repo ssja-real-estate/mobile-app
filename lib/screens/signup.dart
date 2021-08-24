@@ -132,7 +132,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         CustomButton(
                           title: AppStrings.signupButtonText,
                           onPressed: () {},
-                          horizontalPadding: 20,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 15,
+                          ),
                           fontSize: 20,
                           margin: EdgeInsets.symmetric(
                             horizontal: 20,

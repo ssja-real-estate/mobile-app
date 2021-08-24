@@ -110,7 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomButton(
                       title: AppStrings.loginButtonText,
                       onPressed: () {},
-                      horizontalPadding: 20,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                       fontSize: 20,
                       margin: EdgeInsets.symmetric(
                         horizontal: 20,

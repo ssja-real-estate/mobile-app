@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final String title;
   final VoidCallback? onPressed;
-  final double verticalPadding;
-  final double horizontalPadding;
   final double fontSize;
   final IconData? icon;
   final Color? color;
   final Color? textColor;
   final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
   final MainAxisSize? mainAxisSize;
   final double? elevation;
   final double? borderRadius;
@@ -24,13 +23,12 @@ class CustomButton extends StatelessWidget {
     Key? key,
     this.title = '',
     this.onPressed,
-    this.verticalPadding = 15,
-    this.horizontalPadding = 0,
     this.fontSize = 24,
     this.icon,
     this.color,
     this.textColor = Colors.white,
     this.margin,
+    this.padding,
     this.mainAxisSize,
     this.elevation,
     this.borderRadius,
@@ -74,12 +72,11 @@ class CustomButton extends StatelessWidget {
           ],
         ),
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.only(
-            top: verticalPadding,
-            bottom: verticalPadding,
-            right: horizontalPadding,
-            left: horizontalPadding,
-          ),
+          padding: padding ??
+              EdgeInsets.symmetric(
+                vertical: 15,
+                horizontal: 0,
+              ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 10)),
           ),
