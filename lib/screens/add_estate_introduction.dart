@@ -3,8 +3,8 @@ import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/widgets/custom_button.dart';
 
-class AddEstateScreen extends StatelessWidget {
-  const AddEstateScreen({Key? key}) : super(key: key);
+class AddEstateIntroductionScreen extends StatelessWidget {
+  const AddEstateIntroductionScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +14,13 @@ class AddEstateScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Image(
+            image: AssetImage('assets/images/logo.png'),
+            width: 150,
+            filterQuality: FilterQuality.high,
+          ),
           Column(
             children: [
-              Image(
-                image: AssetImage('assets/images/logo.png'),
-                width: 150,
-                filterQuality: FilterQuality.high,
-              ),
-              SizedBox(
-                height: 20,
-              ),
               Text(
                 AppStrings.saja,
                 style: TextStyle(
