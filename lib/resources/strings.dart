@@ -20,4 +20,7 @@ class AppStrings {
   static const delegationType = "نوع واگذاری";
   static const estateType = "نوع ملک";
   static const nextStep = "مرحله بعد";
+  static const province = "استان";
+  static const city = "شهر";
+  static const completeInfo = "تکمیل اطلاعات";
 }
