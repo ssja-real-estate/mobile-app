@@ -2,23 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/other.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/screens/add_estate/province_city.dart';
-import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_dropdown.dart';
 
-class EstateDelegationTypeScreen extends StatefulWidget {
-  const EstateDelegationTypeScreen({Key? key}) : super(key: key);
+class ProvinceCityScreen extends StatefulWidget {
+  const ProvinceCityScreen({Key? key}) : super(key: key);
 
   @override
-  _EstateDelegationTypeScreenState createState() =>
-      _EstateDelegationTypeScreenState();
+  _ProvinceCityScreenState createState() => _ProvinceCityScreenState();
 }
 
-class _EstateDelegationTypeScreenState
-    extends State<EstateDelegationTypeScreen> {
-  var delegationTypeKey;
-  var estateTypeKey;
+class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
+  var provincesMap = Constants.Provinces;
+  var citiesMap = Constants.Cities;
+  var provinceKey;
+  var cityKey;
   EdgeInsets _margin = EdgeInsets.symmetric(
     horizontal: 30,
     vertical: 5,
@@ -40,14 +38,12 @@ class _EstateDelegationTypeScreenState
               Column(
                 children: [
                   CustomDropDownButton(
-                    AppStrings.delegationType,
-                    Constants.delegationTypeMap.entries
-                        .map((e) => e.key)
-                        .toList(),
-                    dropDownValue: delegationTypeKey,
+                    AppStrings.province,
+                    provincesMap.entries.map((e) => e.key).toList(),
+                    dropDownValue: provinceKey,
                     onChange: (value) {
                       setState(() {
-                        delegationTypeKey = value;
+                        provinceKey = value;
                       });
                     },
                     hint: AppStrings.chooseAnOption,
@@ -59,12 +55,12 @@ class _EstateDelegationTypeScreenState
                     height: 15,
                   ),
                   CustomDropDownButton(
-                    AppStrings.estateType,
-                    Constants.estateTypeMap.entries.map((e) => e.key).toList(),
-                    dropDownValue: estateTypeKey,
+                    AppStrings.city,
+                    getCitiesFromProvinces(),
+                    dropDownValue: cityKey,
                     onChange: (value) {
                       setState(() {
-                        estateTypeKey = value;
+                        cityKey = value;
                       });
                     },
                     hint: AppStrings.chooseAnOption,
@@ -77,19 +73,33 @@ class _EstateDelegationTypeScreenState
               CustomButton(
                 margin: _margin,
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                title: AppStrings.nextStep,
+                title: AppStrings.completeInfo,
                 color: AppColors.primary(),
                 fontSize: 20,
                 icon: Icons.keyboard_arrow_left_sharp,
                 iconPadding: 5,
-                onPressed: () {
-                  AppNavigator.pushScreen(context, ProvinceCityScreen());
-                },
+                onPressed: () {},
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  List<String> getCitiesFromProvinces() {
+    List<String> cities = citiesMap.entries.map((e) => e.key).toList();
+    if (provinceKey != null) {
+      int provinceId = provincesMap[provinceKey] ?? 0;
+      if (provinceId != 0) {
+        if (citiesMap.containsValue(provinceId)) {
+          return citiesMap.entries
+              .where((element) => element.value == provinceId)
+              .map((e) => e.key)
+              .toList();
+        }
+      }
+    }
+    return cities;
   }
 }
