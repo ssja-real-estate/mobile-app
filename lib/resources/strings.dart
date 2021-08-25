@@ -16,4 +16,8 @@ class AppStrings {
   static const toman = "تومان";
   static const loginBeforeAddEstate = "برای ثبت ملک باید وارد برنامه شوید";
   static const addEstate = "ثبت ملک";
+  static const chooseAnOption = "گزینه مورد نظر را انتخاب کنید";
+  static const delegationType = "نوع واگذاری";
+  static const estateType = "نوع ملک";
+  static const nextStep = "مرحله بعد";
 }
