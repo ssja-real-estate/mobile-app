@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saja/screens/add_estate_introduction.dart';
+import 'package:saja/screens/add_estate/introduction.dart';
 import 'package:saja/screens/home.dart';
 import 'package:saja/screens/login.dart';
 

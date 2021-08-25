@@ -18,6 +18,7 @@ class CustomButton extends StatelessWidget {
   final Color? iconColor;
   final double? iconSize;
   final TextAlign? textAlign;
+  final TextDirection textDirection;
 
   const CustomButton({
     Key? key,
@@ -38,50 +39,55 @@ class CustomButton extends StatelessWidget {
     this.iconColor,
     this.iconSize,
     this.textAlign = TextAlign.center,
+    this.textDirection = TextDirection.rtl,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: margin,
-      child: ElevatedButton(
-        onPressed: this.onPressed,
-        child: Row(
-          mainAxisSize: mainAxisSize ?? MainAxisSize.max,
-          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: fontSize,
-                fontWeight: fontWeight,
-                color: textColor,
+    return Directionality(
+      textDirection: textDirection,
+      child: Container(
+        margin: margin,
+        child: ElevatedButton(
+          onPressed: this.onPressed,
+          child: Row(
+            mainAxisSize: mainAxisSize ?? MainAxisSize.max,
+            mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: fontWeight,
+                  color: textColor,
+                ),
+                textAlign: textAlign,
               ),
-              textAlign: textAlign,
-            ),
-            SizedBox(
-              width: iconPadding ?? 0,
-            ),
-            (icon != null)
-                ? Icon(
-                    icon,
-                    color: iconColor,
-                    size: iconSize,
-                  )
-                : SizedBox(),
-          ],
-        ),
-        style: ElevatedButton.styleFrom(
-          padding: padding ??
-              EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: 0,
+              SizedBox(
+                width: iconPadding ?? 0,
               ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 10)),
+              (icon != null)
+                  ? Icon(
+                      icon,
+                      color: iconColor,
+                      size: iconSize,
+                    )
+                  : SizedBox(),
+            ],
           ),
-          primary: color,
-          elevation: elevation ?? 0,
+          style: ElevatedButton.styleFrom(
+            padding: padding ??
+                EdgeInsets.symmetric(
+                  vertical: 15,
+                  horizontal: 0,
+                ),
+            shape: RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.all(Radius.circular(borderRadius ?? 10)),
+            ),
+            primary: color,
+            elevation: elevation ?? 0,
+          ),
         ),
       ),
     );
