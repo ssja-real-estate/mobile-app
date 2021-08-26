@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:saja/services/validation/models_validator.dart';
+
 import 'package:saja/models/section.dart';
 
 class Form {
@@ -12,6 +14,7 @@ class Form {
   });
 
   Map<String, dynamic> toMap() {
+    this.validate();
     return {
       'id': id,
       'sections': sections.map((x) => x.toMap()).toList(),
@@ -19,6 +22,7 @@ class Form {
   }
 
   factory Form.fromMap(Map<String, dynamic> map) {
+    map.validateFormJson();
     return Form(
       id: map['id'],
       sections:

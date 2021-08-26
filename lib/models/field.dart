@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:saja/services/validation/models_validator.dart';
+
 import 'enums/field_type.dart';
 
 class Field {
@@ -23,6 +25,7 @@ class Field {
       this.max});
 
   Map<String, dynamic> toMap() {
+    this.validate();
     return {
       'order': order,
       'type': type.index,
@@ -36,15 +39,26 @@ class Field {
   }
 
   factory Field.fromMap(Map<String, dynamic> map) {
+    map.validateFieldJson();
+    FieldType fieldType = FieldType.values[map['type']];
+    List<String>? options;
+    List<Field>? fields;
+    if (fieldType == FieldType.Select) {
+      options = map.getListValues('options', (option) => option.toString());
+    } else if (fieldType == FieldType.Conditional) {
+      fields =
+          map.getListValues<Field>('fields', (field) => Field.fromMap(field));
+    }
+
     return Field(
       order: map['order'],
       type: FieldType.values[map['type']],
       title: map['title'],
       value: map['value'],
-      options: List<String>.from(map['options'].map((o) => o.toString())),
-      fields: List<Field>.from(map['fields'].map((f) => Field.fromMap(f))),
-      min: map['min'],
-      max: map['max'],
+      options: options,
+      fields: fields,
+      min: map.getValue('min'),
+      max: map.getValue('max'),
     );
   }
 
