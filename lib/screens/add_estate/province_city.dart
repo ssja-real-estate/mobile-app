@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/other.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/add_estate/forms.dart';
+import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_dropdown.dart';
 
@@ -78,7 +80,9 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
                 fontSize: 20,
                 icon: Icons.keyboard_arrow_left_sharp,
                 iconPadding: 5,
-                onPressed: () {},
+                onPressed: () {
+                  AppNavigator.pushScreen(context, AddEstateFormsScreen());
+                },
               ),
             ],
           ),
