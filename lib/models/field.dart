@@ -13,16 +13,19 @@ class Field {
   List<Field>? fields;
   int? min;
   int? max;
+  bool? optional;
 
-  Field(
-      {required this.order,
-      required this.type,
-      required this.title,
-      required this.value,
-      this.options,
-      this.fields,
-      this.min,
-      this.max});
+  Field({
+    required this.order,
+    required this.type,
+    required this.title,
+    required this.value,
+    this.options,
+    this.fields,
+    this.min,
+    this.max,
+    this.optional,
+  });
 
   Map<String, dynamic> toMap() {
     this.validate();
@@ -34,7 +37,8 @@ class Field {
       'options': options,
       'fields': fields?.map((e) => e.toMap()).toList(),
       'min': min,
-      'max': max
+      'max': max,
+      'optional': optional
     };
   }
 
@@ -59,6 +63,7 @@ class Field {
       fields: fields,
       min: map.getValue('min'),
       max: map.getValue('max'),
+      optional: map.getValue('optional'),
     );
   }
 

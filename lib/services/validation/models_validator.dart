@@ -48,9 +48,6 @@ extension JsonValidator on Map<String, dynamic> {
         var fields =
             List<Field>.from(this['fields'].map((f) => Field.fromMap(f)));
         assert(fields.length > 0);
-        fields.forEach((field) {
-          field.validate();
-        });
         break;
       case FieldType.Range:
         assert(this['min'] != null);
@@ -80,6 +77,11 @@ extension FieldValidator on Field {
   void validate() {
     assert(this.order >= 0);
     assert(this.title != "");
+
+    var optional = this.optional ?? false;
+    if (!optional) {
+      assert(this.value != null);
+    }
 
     switch (this.type) {
       case FieldType.Select:

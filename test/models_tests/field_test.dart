@@ -184,6 +184,7 @@ void main() {
         "type": 0,
         "title": "Name",
         "value": null,
+        "optional": true
       };
       var source = json.encode(map);
 
@@ -195,6 +196,7 @@ void main() {
       expect(field.type, FieldType.String);
       expect(field.title, "Name");
       expect(field.value, null);
+      expect(field.optional, true);
     });
 
     test(
