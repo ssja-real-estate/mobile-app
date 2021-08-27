@@ -7,16 +7,19 @@ import 'package:saja/models/field.dart';
 class Section {
   String title;
   List<Field> fields;
+  String? name;
 
   Section({
     required this.title,
     required this.fields,
+    this.name,
   });
 
   Map<String, dynamic> toMap() {
     this.validate();
     return {
       'title': title,
+      'name': name,
       'fields': fields.map((x) => x.toMap()).toList(),
     };
   }
@@ -25,6 +28,7 @@ class Section {
     map.validateSectionJson();
     return Section(
       title: map['title'],
+      name: map['name'],
       fields: List<Field>.from(map['fields'].map((x) => Field.fromMap(x))),
     );
   }

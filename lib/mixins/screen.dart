@@ -43,4 +43,24 @@ mixin ScreenMixin {
       ],
     );
   }
+
+  List<String> getCitiesFromProvinces(
+    dynamic provinceKey,
+    Map<String, int> citiesMap,
+    Map<String, int> provincesMap,
+  ) {
+    List<String> cities = citiesMap.entries.map((e) => e.key).toList();
+    if (provinceKey != null) {
+      int provinceId = provincesMap[provinceKey] ?? 0;
+      if (provinceId != 0) {
+        if (citiesMap.containsValue(provinceId)) {
+          return citiesMap.entries
+              .where((element) => element.value == provinceId)
+              .map((e) => e.key)
+              .toList();
+        }
+      }
+    }
+    return cities;
+  }
 }

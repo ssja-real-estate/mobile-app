@@ -29,4 +29,9 @@ class AppStrings {
   static const sureAboutDelete = "آیا از حذف این تصویر مطمئن هستید؟";
   static const yes = "بله";
   static const no = "خیر";
+  static const submitFilter = "اعمال فیلتر";
+  static const min = "کمترین";
+  static const max = "بیشترین";
+  static const from = "از";
+  static const to = "تا";
 }

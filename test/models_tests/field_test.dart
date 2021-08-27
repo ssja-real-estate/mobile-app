@@ -153,8 +153,8 @@ void main() {
       expect(map['type'], 6);
       expect(map['title'], 'Range');
 
-      int min = map['min'];
-      int max = map['max'];
+      double min = map['min'];
+      double max = map['max'];
       int value = map['value'];
       expect(value > min && value < max, true);
     });
