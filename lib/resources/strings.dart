@@ -23,4 +23,10 @@ class AppStrings {
   static const province = "استان";
   static const city = "شهر";
   static const completeInfo = "تکمیل اطلاعات";
+  static const chooseImage = "انتخاب تصاویر";
+  static const imagesCountMoreThanLimit =
+      "شما حداکثر تعداد تصاویر را انتخاب کرده‌اید";
+  static const sureAboutDelete = "آیا از حذف این تصویر مطمئن هستید؟";
+  static const yes = "بله";
+  static const no = "خیر";
 }

@@ -16,4 +16,6 @@ class AppColors {
   static Color black() => Colors.black;
   static Color shimmerBaseColor() => grey300();
   static Color shimmerHighlightColor() => grey100();
+  static Color green() => Colors.green;
+  static Color red() => Colors.red;
 }
