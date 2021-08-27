@@ -25,6 +25,11 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
   );
   EdgeInsets _padding = EdgeInsets.only(left: 5, right: 10);
 
+  EdgeInsets _titleMargin = EdgeInsets.only(
+    right: 25,
+    top: 10,
+  );
+  EdgeInsets _titlePadding = EdgeInsets.only(left: 5, right: 10);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,6 +57,8 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
                     textDirection: TextDirection.rtl,
                     margin: _margin,
                     padding: _padding,
+                    titleMargin: _titleMargin,
+                    titlePadding: _titlePadding,
                   ),
                   SizedBox(
                     height: 15,
@@ -69,6 +76,8 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
                     textDirection: TextDirection.rtl,
                     margin: _margin,
                     padding: _padding,
+                    titleMargin: _titleMargin,
+                    titlePadding: _titlePadding,
                   ),
                 ],
               ),

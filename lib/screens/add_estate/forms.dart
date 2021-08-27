@@ -77,7 +77,7 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
                 ),
           bottomSheet: CustomButton(
             margin: EdgeInsets.symmetric(
-              horizontal: 40,
+              horizontal: 30,
               vertical: 10,
             ),
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
