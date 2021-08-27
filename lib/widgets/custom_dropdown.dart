@@ -9,6 +9,8 @@ class CustomDropDownButton extends StatefulWidget {
   final Function(Object?)? onChange;
   final String hint;
   final TextDirection? textDirection;
+  final EdgeInsets? titleMargin;
+  final EdgeInsets? titlePadding;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
 
@@ -19,6 +21,8 @@ class CustomDropDownButton extends StatefulWidget {
     this.onChange,
     this.hint = '',
     this.textDirection,
+    this.titleMargin,
+    this.titlePadding,
     this.margin,
     this.padding,
   });
@@ -37,8 +41,8 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
           if (widget.title != null)
             Container(
               alignment: Alignment.centerRight,
-              margin: widget.margin,
-              padding: widget.padding,
+              margin: widget.titleMargin,
+              padding: widget.titlePadding,
               child: Text(
                 widget.title!,
                 style: TextStyle(
@@ -94,7 +98,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
                 );
               }).toList(),
               onChanged: (value) {
-                FocusScope.of(context).requestFocus(FocusNode());
+                FocusScope.of(context).requestFocus(new FocusNode());
                 if (widget.onChange != null) {
                   widget.onChange!.call(value);
                 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final String title;
+  final String? title;
   final VoidCallback? onPressed;
   final double fontSize;
   final IconData? icon;
@@ -19,10 +19,11 @@ class CustomButton extends StatelessWidget {
   final double? iconSize;
   final TextAlign? textAlign;
   final TextDirection textDirection;
+  final BoxBorder? border;
 
   const CustomButton({
     Key? key,
-    this.title = '',
+    this.title,
     this.onPressed,
     this.fontSize = 24,
     this.icon,
@@ -40,6 +41,7 @@ class CustomButton extends StatelessWidget {
     this.iconSize,
     this.textAlign = TextAlign.center,
     this.textDirection = TextDirection.rtl,
+    this.border,
   }) : super(key: key);
 
   @override
@@ -48,21 +50,27 @@ class CustomButton extends StatelessWidget {
       textDirection: textDirection,
       child: Container(
         margin: margin,
+        decoration: BoxDecoration(
+          border: border,
+          borderRadius: BorderRadius.circular(borderRadius ?? 10),
+        ),
         child: ElevatedButton(
           onPressed: this.onPressed,
           child: Row(
             mainAxisSize: mainAxisSize ?? MainAxisSize.max,
             mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight: fontWeight,
-                  color: textColor,
-                ),
-                textAlign: textAlign,
-              ),
+              (title != null)
+                  ? Text(
+                      title!,
+                      style: TextStyle(
+                        fontSize: fontSize,
+                        fontWeight: fontWeight,
+                        color: textColor,
+                      ),
+                      textAlign: textAlign,
+                    )
+                  : SizedBox(),
               SizedBox(
                 width: iconPadding ?? 0,
               ),
