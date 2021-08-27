@@ -8,6 +8,7 @@ class Field {
   FieldType type;
   String title;
   dynamic value;
+  String? name;
   List<String>? options;
   List<Field>? fields;
   int? min;
@@ -18,6 +19,7 @@ class Field {
     required this.type,
     required this.title,
     required this.value,
+    this.name,
     this.options,
     this.fields,
     this.min,
@@ -31,6 +33,7 @@ class Field {
       'type': type.index,
       'title': title,
       'value': value,
+      'name': name,
       'options': options,
       'fields': fields?.map((e) => e.toMap()).toList(),
       'min': min,
@@ -55,6 +58,7 @@ class Field {
       type: FieldType.values[map['type']],
       title: map['title'],
       value: map['value'],
+      name: map['name'],
       options: options,
       fields: fields,
       min: map.getValue('min'),

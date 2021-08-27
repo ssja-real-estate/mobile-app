@@ -12,6 +12,7 @@ void main() {
       // Arrange
       Form form = Form(
         id: 1,
+        name: 'Form',
         sections: [
           Section(
             title: 'Section',
@@ -31,6 +32,7 @@ void main() {
       var map = json.decode(jsonString);
 
       expect(map['id'], 1);
+      expect(map['name'], 'Form');
       expect(map['sections'] != null, true);
       expect(map['sections'].length, 1);
     });
@@ -39,6 +41,7 @@ void main() {
       // Arrange
       const Map<String, dynamic> map = {
         'id': 1,
+        'name': 'Form',
         'sections': [
           {
             'title': 'Section',
@@ -58,6 +61,7 @@ void main() {
       var form = Form.fromJson(source);
 
       expect(form.id, 1);
+      expect(form.name, 'Form');
       expect(form.sections.length, 1);
     });
   });
