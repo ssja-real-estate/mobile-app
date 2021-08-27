@@ -6,8 +6,8 @@ import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
-import 'package:saja/widgets/password_input_form_field.dart';
-import 'package:saja/widgets/text_input_form_field.dart';
+import 'package:saja/widgets/form_password_input.dart';
+import 'package:saja/widgets/form_text_input.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    TextInputFormField(
+                    FormTextInput(
                       label: AppStrings.phone,
                       controller: phoneController,
                       onChanged: (text) {},
@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    PasswordInputFormField(
+                    FormPasswordInput(
                       label: AppStrings.password,
                       controller: passwordController,
                       onChanged: (text) {},
@@ -110,7 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomButton(
                       title: AppStrings.loginButtonText,
                       onPressed: () {},
-                      horizontalPadding: 20,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                       fontSize: 20,
                       margin: EdgeInsets.symmetric(
                         horizontal: 20,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saja/screens/add_estate.dart';
+import 'package:saja/screens/add_estate/introduction.dart';
 import 'package:saja/screens/home.dart';
 import 'package:saja/screens/login.dart';
 
@@ -12,7 +12,7 @@ class TabNavigator extends StatelessWidget {
   Map<int, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
       0: (context) => new HomeScreen(),
-      1: (context) => new AddEstateScreen(),
+      1: (context) => new AddEstateIntroductionScreen(),
       2: (context) => new LoginScreen(),
     };
   }

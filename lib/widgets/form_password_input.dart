@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 
-class PasswordInputFormField extends StatefulWidget {
+class FormPasswordInput extends StatefulWidget {
   final String? label;
   final FormFieldValidator<String>? validator;
   final TextEditingController? controller;
@@ -9,7 +9,7 @@ class PasswordInputFormField extends StatefulWidget {
   final EdgeInsets? margin;
   final EdgeInsets? padding;
 
-  const PasswordInputFormField({
+  const FormPasswordInput({
     Key? key,
     @required this.label,
     this.validator,
@@ -20,10 +20,10 @@ class PasswordInputFormField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _PasswordInputFormFieldState createState() => _PasswordInputFormFieldState();
+  _FormPasswordInputState createState() => _FormPasswordInputState();
 }
 
-class _PasswordInputFormFieldState extends State<PasswordInputFormField> {
+class _FormPasswordInputState extends State<FormPasswordInput> {
   bool isHidden = true;
   Icon icon = Icon(
     Icons.visibility_off_rounded,
