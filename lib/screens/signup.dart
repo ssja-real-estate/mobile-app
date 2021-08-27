@@ -5,8 +5,8 @@ import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
-import 'package:saja/widgets/password_input_form_field.dart';
-import 'package:saja/widgets/text_input_form_field.dart';
+import 'package:saja/widgets/form_password_input.dart';
+import 'package:saja/widgets/form_text_input.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -64,7 +64,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        TextInputFormField(
+                        FormTextInput(
                           label: AppStrings.phone,
                           controller: phoneController,
                           onChanged: (text) {},
@@ -81,7 +81,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(
                           height: 15,
                         ),
-                        PasswordInputFormField(
+                        FormPasswordInput(
                           label: AppStrings.password,
                           controller: passwordController,
                           onChanged: (text) {},
@@ -99,7 +99,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(
                           height: 15,
                         ),
-                        PasswordInputFormField(
+                        FormPasswordInput(
                           label: AppStrings.repeatPassword,
                           controller: repeatPasswordController,
                           onChanged: (text) {},
