@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:saja/models/estate_item.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/base_info.dart';
+import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/estate_item.dart';
 import 'package:saja/widgets/shimmers/estate_item.dart';
@@ -28,7 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
             color: AppColors.primary(),
             title: AppStrings.filter,
             icon: Icons.filter_list_rounded,
-            onPressed: () {},
+            onPressed: () {
+              AppNavigator.pushScreen(context,
+                  BaseInfoScreen(nextScreenType: NextScreenType.Filter));
+            },
             fontSize: 18,
             fontWeight: FontWeight.w500,
             mainAxisSize: MainAxisSize.min,
