@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icons.filter_list_rounded,
             onPressed: () {
               AppNavigator.pushScreen(context,
-                  BaseInfoScreen(nextScreenType: NextScreenType.Filter));
+                  BaseInfoScreen(nextScreenType: NextScreenType.FilterEstate));
             },
             fontSize: 18,
             fontWeight: FontWeight.w500,
