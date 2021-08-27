@@ -9,7 +9,6 @@ void main() {
     test('serializing a Field class instance of String FieldType', () {
       // Arrange
       Field field = Field(
-        order: 0,
         type: FieldType.String,
         title: "Name",
         value: "John",
@@ -20,7 +19,6 @@ void main() {
       var map = json.decode(target);
 
       // Assert
-      expect(map['order'], 0);
       expect(map['type'], 0);
       expect(map['title'], 'Name');
       expect(map['value'], "John");
@@ -29,7 +27,6 @@ void main() {
     test('serializing a Field class instance of Number FieldType', () {
       // Arrange
       Field field = Field(
-        order: 1,
         type: FieldType.Number,
         title: 'Price',
         value: 10000,
@@ -40,7 +37,6 @@ void main() {
       var map = json.decode(target);
 
       // Assert
-      expect(map['order'], 1);
       expect(map['type'], 1);
       expect(map['title'], 'Price');
       expect(map['value'], 10000);
@@ -49,7 +45,6 @@ void main() {
     test('serializing a Field class instance of Select FieldType', () {
       // Arrange
       Field field = Field(
-        order: 2,
         type: FieldType.Select,
         title: 'Items',
         value: "Shoes",
@@ -61,7 +56,6 @@ void main() {
       var map = json.decode(target);
 
       // Assert
-      expect(map['order'], 2);
       expect(map['type'], 2);
       expect(map['title'], 'Items');
       expect(map['value'], "Shoes");
@@ -73,7 +67,6 @@ void main() {
     test('serializing a Field class instance of Bool FieldType', () {
       // Arrange
       Field field = Field(
-        order: 3,
         type: FieldType.Bool,
         title: 'HasWater',
         value: false,
@@ -84,7 +77,6 @@ void main() {
       var map = json.decode(target);
 
       // Assert
-      expect(map['order'], 3);
       expect(map['type'], 3);
       expect(map['title'], 'HasWater');
       expect(map['value'], false);
@@ -93,13 +85,11 @@ void main() {
     test('serializing a Field class instance of Conditional FieldType', () {
       // Arrange
       Field field = Field(
-        order: 4,
         type: FieldType.Conditional,
         title: 'HasLoan',
         value: true,
         fields: [
           Field(
-            order: 0,
             type: FieldType.String,
             title: "Description",
             value: "Loan Description",
@@ -112,14 +102,12 @@ void main() {
       var map = json.decode(target);
 
       // Assert
-      expect(map['order'], 4);
       expect(map['type'], 4);
       expect(map['title'], 'HasLoan');
       expect(map['value'], true);
 
       var fields = map['fields'];
       expect(fields.length, 1);
-      expect(fields[0]['order'], 0);
       expect(fields[0]['type'], 0);
       expect(fields[0]['title'], "Description");
       expect(fields[0]['value'], "Loan Description");
@@ -128,7 +116,6 @@ void main() {
     test('serializing a Field class instance of Image FieldType', () {
       // Arrange
       Field field = Field(
-        order: 5,
         type: FieldType.Image,
         title: 'Images',
         value: ["firstUrl", "secondUrl"],
@@ -139,7 +126,6 @@ void main() {
       var map = json.decode(target);
 
       // Assert
-      expect(map['order'], 5);
       expect(map['type'], 5);
       expect(map['title'], 'Images');
 
@@ -152,7 +138,6 @@ void main() {
     test('serializing a Field class instance of Range FieldType', () {
       // Arrange
       Field field = Field(
-        order: 6,
         type: FieldType.Range,
         title: 'Range',
         value: 150,
@@ -165,7 +150,6 @@ void main() {
       var map = json.decode(target);
 
       // Assert
-      expect(map['order'], 6);
       expect(map['type'], 6);
       expect(map['title'], 'Range');
 
@@ -180,7 +164,6 @@ void main() {
         () {
       // Arrange
       const Map<String, dynamic> map = {
-        "order": 0,
         "type": 0,
         "title": "Name",
         "value": null,
@@ -192,7 +175,6 @@ void main() {
       var field = Field.fromJson(source);
 
       // Assert
-      expect(field.order, 0);
       expect(field.type, FieldType.String);
       expect(field.title, "Name");
       expect(field.value, null);
@@ -204,7 +186,6 @@ void main() {
         () {
       // Arrange
       const Map<String, dynamic> map = {
-        "order": 1,
         "type": 1,
         "title": "Price",
         "value": null,
@@ -215,7 +196,6 @@ void main() {
       var field = Field.fromJson(source);
 
       // Assert
-      expect(field.order, 1);
       expect(field.type, FieldType.Number);
       expect(field.title, "Price");
       expect(field.value, null);
@@ -226,7 +206,6 @@ void main() {
         () {
       // Arrange
       const Map<String, dynamic> map = {
-        "order": 2,
         "type": 2,
         "title": "Items",
         "value": null,
@@ -238,7 +217,6 @@ void main() {
       var field = Field.fromJson(source);
 
       // Assert
-      expect(field.order, 2);
       expect(field.type, FieldType.Select);
       expect(field.title, "Items");
       expect(field.value, null);
@@ -255,7 +233,6 @@ void main() {
         () {
       // Arrange
       const Map<String, dynamic> map = {
-        "order": 3,
         "type": 3,
         "title": "Is Correct",
         "value": null,
@@ -266,7 +243,6 @@ void main() {
       var field = Field.fromJson(source);
 
       // Assert
-      expect(field.order, 3);
       expect(field.type, FieldType.Bool);
       expect(field.title, "Is Correct");
       expect(field.value, null);
@@ -277,13 +253,11 @@ void main() {
         () {
       // Arrange
       const Map<String, dynamic> map = {
-        "order": 4,
         "type": 4,
         "title": "Has Loan",
         "value": null,
         "fields": [
           {
-            "order": 0,
             "type": 1,
             "title": "Loan Price",
             "value": null,
@@ -296,7 +270,6 @@ void main() {
       var field = Field.fromJson(source);
 
       // Assert
-      expect(field.order, 4);
       expect(field.type, FieldType.Conditional);
       expect(field.title, "Has Loan");
       expect(field.value, null);
@@ -304,7 +277,6 @@ void main() {
       var innerFields = field.fields;
       expect(innerFields != null, true);
       expect(innerFields!.length, 1);
-      expect(innerFields[0].order, 0);
       expect(innerFields[0].type, FieldType.Number);
       expect(innerFields[0].title, "Loan Price");
       expect(innerFields[0].value, null);
@@ -315,7 +287,6 @@ void main() {
         () {
       // Arrange
       const Map<String, dynamic> map = {
-        "order": 5,
         "type": 5,
         "title": "Images",
         "value": null,
@@ -326,7 +297,6 @@ void main() {
       var field = Field.fromJson(source);
 
       // Assert
-      expect(field.order, 5);
       expect(field.type, FieldType.Image);
       expect(field.title, "Images");
       expect(field.value, null);
@@ -337,7 +307,6 @@ void main() {
         () {
       // Arrange
       const Map<String, dynamic> map = {
-        "order": 6,
         "type": 6,
         "title": "Price Range",
         "value": null,
@@ -350,7 +319,6 @@ void main() {
       var field = Field.fromJson(source);
 
       // Assert
-      expect(field.order, 6);
       expect(field.type, FieldType.Range);
       expect(field.title, "Price Range");
       expect(field.value, null);

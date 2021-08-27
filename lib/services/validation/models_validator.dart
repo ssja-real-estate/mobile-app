@@ -28,7 +28,6 @@ extension JsonValidator on Map<String, dynamic> {
   }
 
   void validateFieldJson() {
-    assert(this['order'] != null);
     assert(this['type'] != null);
     assert(this['title'] != null);
     assert(this['title'] != "");
@@ -59,7 +58,6 @@ extension JsonValidator on Map<String, dynamic> {
   }
 
   void validateSectionJson() {
-    assert(this['order'] != null);
     assert(this['title'] != null);
     assert(this['title'] != "");
     assert(this['fields'] != null);
@@ -75,7 +73,6 @@ extension JsonValidator on Map<String, dynamic> {
 
 extension FieldValidator on Field {
   void validate() {
-    assert(this.order >= 0);
     assert(this.title != "");
 
     var optional = this.optional ?? false;
@@ -104,7 +101,6 @@ extension FieldValidator on Field {
 
 extension SectionValidator on Section {
   void validate() {
-    assert(this.order >= 0);
     assert(this.title != "");
     assert(this.fields.length > 0);
   }

@@ -14,14 +14,12 @@ void main() {
         id: 1,
         sections: [
           Section(
-            order: 0,
             title: 'Section',
             fields: [
               Field(
-                order: 0,
                 type: FieldType.String,
                 title: 'Name',
-                value: null,
+                value: 'John',
               ),
             ],
           ),
@@ -43,11 +41,9 @@ void main() {
         'id': 1,
         'sections': [
           {
-            'order': 0,
             'title': 'Section',
             'fields': [
               {
-                'order': 0,
                 'type': 0,
                 'title': 'Name',
                 'value': null,

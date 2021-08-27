@@ -5,7 +5,6 @@ import 'package:saja/services/validation/models_validator.dart';
 import 'enums/field_type.dart';
 
 class Field {
-  int order;
   FieldType type;
   String title;
   dynamic value;
@@ -16,7 +15,6 @@ class Field {
   bool? optional;
 
   Field({
-    required this.order,
     required this.type,
     required this.title,
     required this.value,
@@ -30,7 +28,6 @@ class Field {
   Map<String, dynamic> toMap() {
     this.validate();
     return {
-      'order': order,
       'type': type.index,
       'title': title,
       'value': value,
@@ -55,7 +52,6 @@ class Field {
     }
 
     return Field(
-      order: map['order'],
       type: FieldType.values[map['type']],
       title: map['title'],
       value: map['value'],
