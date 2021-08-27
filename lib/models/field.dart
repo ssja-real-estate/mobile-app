@@ -11,8 +11,8 @@ class Field {
   String? name;
   List<String>? options;
   List<Field>? fields;
-  int? min;
-  int? max;
+  double? min;
+  double? max;
   bool? optional;
 
   Field({
@@ -61,8 +61,8 @@ class Field {
       name: map['name'],
       options: options,
       fields: fields,
-      min: map.getValue('min'),
-      max: map.getValue('max'),
+      min: map['min'] != null ? map["min"].toDouble() : null,
+      max: map['max'] != null ? map["max"].toDouble() : null,
       optional: map.getValue('optional'),
     );
   }
