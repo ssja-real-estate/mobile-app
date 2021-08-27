@@ -31,24 +31,13 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
     with ScreenMixin {
   bool enabled = false;
   bool _loading = false;
-  late model.Form form;
+  model.Form form = model.Form(id: 0, sections: []);
   ImagePicker imagePicker = ImagePicker();
   List<XFile> _images = [];
 
   @override
   void initState() {
     super.initState();
-    loadData();
-  }
-
-  void loadData() async {
-    toggleLoading(true);
-    await Future.delayed(Duration(seconds: 2));
-    var data = await Api.getData();
-    setState(() {
-      form = data;
-    });
-    toggleLoading(false);
   }
 
   @override
