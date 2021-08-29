@@ -3,6 +3,7 @@ import 'package:saja/models/estate_item.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/base_info.dart';
+import 'package:saja/screens/estate_detail.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/estate_item.dart';
@@ -19,6 +20,26 @@ class _HomeScreenState extends State<HomeScreen> {
   final _shimmerItemsCount = 5;
   bool isLoading = false;
   List<EstateItem> estates = [];
+
+  @override
+  void initState() {
+    super.initState();
+    String image =
+        'https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=859&q=80';
+    setState(() {
+      estates = List.generate(10, (index) {
+        return EstateItem(
+          id: index,
+          estateType: 0,
+          delegationType: 0,
+          province: 'آذربایجان غربی',
+          city: 'مهاباد',
+          price: 100000,
+          imageUrl: image,
+        );
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              var estate = (isLoading) ? null : estates[index];
+              EstateItem? estate = (isLoading) ? null : estates[index];
               return (isLoading)
                   ? EstateItemShimmer()
                   : EstateItemWidget(
@@ -64,6 +85,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: AppColors.accent(),
                         width: 1,
                       ),
+                      onTap: () {
+                        AppNavigator.pushScreen(
+                          context,
+                          EstateDetailScreen(id: estate.id),
+                        );
+                      },
                     );
             },
             childCount: (isLoading) ? _shimmerItemsCount : estates.length,

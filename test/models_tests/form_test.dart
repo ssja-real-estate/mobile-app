@@ -10,7 +10,7 @@ void main() {
   group('Form Model', () {
     test('serialize an instance of Form class', () {
       // Arrange
-      Form form = Form(
+      EstateForm form = EstateForm(
         id: 1,
         name: 'Form',
         sections: [
@@ -58,7 +58,7 @@ void main() {
 
       // Act
       var source = json.encode(map);
-      var form = Form.fromJson(source);
+      var form = EstateForm.fromJson(source);
 
       expect(form.id, 1);
       expect(form.name, 'Form');
