@@ -3,7 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:saja/mixins/screen.dart';
 import 'package:saja/models/enums/field_type.dart';
 import 'package:saja/models/field.dart';
-import 'package:saja/models/form.dart' as model;
+import 'package:saja/models/form.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/fonts.dart';
 import 'package:saja/resources/strings.dart';
@@ -30,7 +30,7 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
     with ScreenMixin {
   bool enabled = false;
   bool _loading = false;
-  model.Form form = model.Form(id: 0, sections: []);
+  EstateForm form = EstateForm(id: 0, sections: []);
   ImagePicker imagePicker = ImagePicker();
   List<XFile> _images = [];
 

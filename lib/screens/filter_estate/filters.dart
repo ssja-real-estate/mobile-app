@@ -10,7 +10,7 @@ import 'package:saja/widgets/custom_range_slider.dart';
 import 'package:saja/widgets/custom_toggle_switch.dart';
 import 'package:saja/widgets/loading.dart';
 import 'package:saja/widgets/single_text_input.dart';
-import 'package:saja/models/form.dart' as model;
+import 'package:saja/models/form.dart';
 
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class FiltersScreen extends StatefulWidget {
 
 class _FiltersScreenState extends State<FiltersScreen> with ScreenMixin {
   bool _loading = false;
-  model.Form form = model.Form(id: 0, sections: []);
+  EstateForm form = EstateForm(id: 0, sections: []);
   RangeValues? rangeValues;
 
   @override
