@@ -38,6 +38,15 @@ class AppNavigator {
     );
   }
 
+  static Future<T?> pushReplacement<T extends Object?, TO extends Object?>(
+      BuildContext context, Widget screen,
+      {TO? result}) {
+    return Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => screen),
+    );
+  }
+
   static void popScreen<T extends Object?>(BuildContext context, [T? result]) {
     return Navigator.pop(context, result);
   }
