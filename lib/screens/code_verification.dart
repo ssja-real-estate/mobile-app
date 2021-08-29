@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/reset_password.dart';
+import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
@@ -23,7 +26,8 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.only(top: 15),
+            padding: EdgeInsets.all(15),
             child: Form(
               key: _formKey,
               child: Column(
@@ -50,6 +54,9 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
                           }
                           return null;
                         },
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
                       ),
                       SizedBox(
                         height: 10,
@@ -68,9 +75,20 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
                     onPressed: () {
                       if (!_formKey.currentState!.validate()) {
                         print('invalid');
-                      } else {}
+                      } else {
+                        AppNavigator.pushReplacement(
+                          context,
+                          ResetPasswordScreen(),
+                        );
+                      }
                     },
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 15,
+                    ),
                     fontSize: 20,
+                    color: AppColors.primary(),
                   ),
                 ],
               ),

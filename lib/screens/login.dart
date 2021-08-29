@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/phone.dart';
 import 'package:saja/screens/signup.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/validation/regex_validator.dart';
@@ -100,7 +101,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         CustomTextButton(
                           title: AppStrings.forgotPassword,
-                          onPressed: () {},
+                          onPressed: () {
+                            AppNavigator.pushScreen(context, PhoneScreen());
+                          },
                         ),
                       ],
                     ),

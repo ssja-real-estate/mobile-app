@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/code_verification.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
@@ -24,7 +25,8 @@ class _PhoneScreenState extends State<PhoneScreen> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.only(top: 15),
+            padding: EdgeInsets.all(15),
             child: Form(
               key: _formKey,
               child: Column(
@@ -50,6 +52,9 @@ class _PhoneScreenState extends State<PhoneScreen> {
                           }
                           return null;
                         },
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
                       ),
                     ],
                   ),
@@ -62,11 +67,19 @@ class _PhoneScreenState extends State<PhoneScreen> {
                       if (!_formKey.currentState!.validate()) {
                         print('invalid');
                       } else {
-                        AppNavigator.pushScreen(
-                            context, CodeVerificationScreen());
+                        AppNavigator.pushReplacement(
+                          context,
+                          CodeVerificationScreen(),
+                        );
                       }
                     },
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 15,
+                    ),
                     fontSize: 20,
+                    color: AppColors.primary(),
                   ),
                 ],
               ),
