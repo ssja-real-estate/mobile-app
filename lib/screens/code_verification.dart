@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/screens/code_verification.dart';
-import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
+import 'package:saja/widgets/custom_text_button.dart';
 import 'package:saja/widgets/form_text_input.dart';
 
-class PhoneScreen extends StatefulWidget {
-  const PhoneScreen({Key? key}) : super(key: key);
+class CodeVerificationScreen extends StatefulWidget {
+  const CodeVerificationScreen({Key? key}) : super(key: key);
 
   @override
-  _PhoneScreenState createState() => _PhoneScreenState();
+  _CodeVerificationScreenState createState() => _CodeVerificationScreenState();
 }
 
-class _PhoneScreenState extends State<PhoneScreen> {
+class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
   final _formKey = GlobalKey<FormState>();
-  final phoneController = TextEditingController();
+  final codeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,37 +33,42 @@ class _PhoneScreenState extends State<PhoneScreen> {
                   Column(
                     children: [
                       Text(
-                        AppStrings.enterPhone,
+                        AppStrings.enterCode,
                         style: TextStyle(fontSize: 20),
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       FormTextInput(
-                        label: AppStrings.phone,
-                        controller: phoneController,
+                        label: AppStrings.verificationCode,
+                        controller: codeController,
+                        inputType: TextInputType.number,
                         onChanged: (text) {},
                         validator: (value) {
-                          if (!RegexValidator.validatePhone(value)) {
-                            return AppStrings.invalidPhone;
+                          if (!RegexValidator.validateVerificationCode(value)) {
+                            return AppStrings.invalidCode;
                           }
                           return null;
                         },
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      CustomTextButton(
+                        title: AppStrings.resendCode,
+                        onPressed: () {},
+                      )
                     ],
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   CustomButton(
-                    title: AppStrings.receiveCode,
+                    title: AppStrings.nextStep,
                     onPressed: () {
                       if (!_formKey.currentState!.validate()) {
                         print('invalid');
-                      } else {
-                        AppNavigator.pushScreen(
-                            context, CodeVerificationScreen());
-                      }
+                      } else {}
                     },
                     fontSize: 20,
                   ),
