@@ -40,4 +40,8 @@ class AppStrings {
   static const verificationCode = "کد تایید";
   static const invalidCode = "کد تایید نامعتبر است";
   static const resendCode = "ارسال مجدد کد تایید";
+  static const resetPassword = "تغییر گذرواژه";
+  static const newPassword = "گذرواژه جدید";
+  static const repeatNewPassword = "تکرار گذرواژه جدید";
+  static const confirm = "تایید";
 }
