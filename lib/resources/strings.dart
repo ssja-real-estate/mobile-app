@@ -2,7 +2,7 @@ class AppStrings {
   static const saja = "سامانه ثجا";
   static const login = "ورود";
   static const phone = "شماره موبایل";
-  static const invalidPhone = "شماره تلفن واردشده معتبر نیست";
+  static const invalidPhone = "شماره موبایل واردشده معتبر نیست";
   static const password = "گذرواژه";
   static const invalidPassword = "گذرواژه باید بین ۸ تا ۱۶ کاراکتر باشد";
   static const forgotPassword = "گذرواژه خود را فراموش کرده‌اید؟";
@@ -34,4 +34,6 @@ class AppStrings {
   static const max = "بیشترین";
   static const from = "از";
   static const to = "تا";
+  static const enterPhone = "لطفا شماره موبایل خود را وارد کنید";
+  static const receiveCode = "دریافت کد تایید";
 }
