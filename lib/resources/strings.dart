@@ -36,4 +36,8 @@ class AppStrings {
   static const to = "تا";
   static const enterPhone = "لطفا شماره موبایل خود را وارد کنید";
   static const receiveCode = "دریافت کد تایید";
+  static const enterCode = "لطفا کد تایید ارسال‌شده را وارد کنید";
+  static const verificationCode = "کد تایید";
+  static const invalidCode = "کد تایید نامعتبر است";
+  static const resendCode = "ارسال مجدد کد تایید";
 }
