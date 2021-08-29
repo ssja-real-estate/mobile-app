@@ -4,12 +4,12 @@ import 'package:saja/services/validation/models_validator.dart';
 
 import 'package:saja/models/section.dart';
 
-class Form {
+class EstateForm {
   int id;
   List<Section> sections;
   String? name;
 
-  Form({
+  EstateForm({
     required this.id,
     required this.sections,
     this.name,
@@ -24,9 +24,9 @@ class Form {
     };
   }
 
-  factory Form.fromMap(Map<String, dynamic> map) {
+  factory EstateForm.fromMap(Map<String, dynamic> map) {
     map.validateFormJson();
-    return Form(
+    return EstateForm(
       id: map['id'],
       name: map['name'],
       sections:
@@ -36,5 +36,6 @@ class Form {
 
   String toJson() => json.encode(toMap());
 
-  factory Form.fromJson(String source) => Form.fromMap(json.decode(source));
+  factory EstateForm.fromJson(String source) =>
+      EstateForm.fromMap(json.decode(source));
 }
