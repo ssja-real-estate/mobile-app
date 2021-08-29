@@ -106,7 +106,7 @@ extension SectionValidator on Section {
   }
 }
 
-extension FormValidator on Form {
+extension FormValidator on EstateForm {
   void validate() {
     assert(this.sections.length > 0);
   }
