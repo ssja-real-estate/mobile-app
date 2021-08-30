@@ -48,4 +48,7 @@ class AppStrings {
   static const logout = "خروج";
   static const submittedEstates = "ملک های ثبت شده";
   static const estatesToBeSubmitted = "ملک‌های در حال انتظار";
+  static const fullName = "نام کامل";
+  static const invalidName = "نام وارد شده معتبر نیست";
+  static const changePassword = "تغییر گذرواژه";
 }
