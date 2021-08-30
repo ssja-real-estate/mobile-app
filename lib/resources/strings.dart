@@ -44,4 +44,8 @@ class AppStrings {
   static const newPassword = "گذرواژه جدید";
   static const repeatNewPassword = "تکرار گذرواژه جدید";
   static const confirm = "تایید";
+  static const editProfile = "ویرایش حساب کاربری";
+  static const logout = "خروج";
+  static const submittedEstates = "ملک های ثبت شده";
+  static const estatesToBeSubmitted = "ملک‌های در حال انتظار";
 }
