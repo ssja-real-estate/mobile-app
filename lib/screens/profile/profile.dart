@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/profile/edit_profile.dart';
+import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/utility/string_extensions.dart';
 import 'package:saja/widgets/custom_button.dart';
 
@@ -65,7 +67,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             CustomButton(
               title: AppStrings.editProfile,
-              onPressed: () {},
+              onPressed: () {
+                AppNavigator.pushScreen(context, EditProfileScreen());
+              },
               padding: _buttonPadding,
               fontSize: 20,
               margin: _buttonMargin,
