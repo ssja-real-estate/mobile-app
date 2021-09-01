@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/profile/message_list.dart';
 import 'package:saja/screens/profile/edit_profile.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/utility/string_extensions.dart';
@@ -15,15 +16,15 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   var name = "کریم باقری";
-  var phone = "+09123456789";
+  var phone = "09123456789";
 
   final _buttonMargin = EdgeInsets.symmetric(horizontal: 20);
-  final _buttonPadding = EdgeInsets.symmetric(vertical: 15, horizontal: 20);
+  final _buttonPadding = EdgeInsets.symmetric(vertical: 10, horizontal: 15);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.only(right: 20, left: 20, top: 5),
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -96,6 +97,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             CustomButton(
               title: AppStrings.estatesToBeSubmitted,
               onPressed: () {},
+              padding: _buttonPadding,
+              fontSize: 20,
+              margin: _buttonMargin,
+              textColor: AppColors.primary(),
+              border: Border.all(color: AppColors.primary()),
+              color: AppColors.white(),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CustomButton(
+              title: AppStrings.messages,
+              onPressed: () {
+                AppNavigator.pushScreen(context, MessageListScreen());
+              },
               padding: _buttonPadding,
               fontSize: 20,
               margin: _buttonMargin,

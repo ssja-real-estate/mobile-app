@@ -35,81 +35,78 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           body: Container(
             margin: EdgeInsets.only(top: 15),
             padding: EdgeInsets.all(15),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        AppStrings.editProfile,
-                        style: TextStyle(fontSize: 22),
-                      ),
-                      Divider(
-                        thickness: 1,
-                        indent: 10,
-                        endIndent: 10,
-                        color: AppColors.primary(),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      FormTextInput(
-                        label: AppStrings.fullName,
-                        controller: nameController,
-                        onChanged: (text) {},
-                        validator: (value) {
-                          if (!RegexValidator.validateName(value)) {
-                            return AppStrings.invalidName;
-                          }
-                          return null;
-                        },
-                        margin: _inputMargin,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      FormTextInput(
-                        label: AppStrings.phone,
-                        controller: phoneController,
-                        onChanged: (text) {},
-                        validator: (value) {
-                          if (!RegexValidator.validatePhone(value)) {
-                            return AppStrings.invalidPhone;
-                          }
-                          return null;
-                        },
-                        margin: _inputMargin,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      CustomButton(
-                        title: AppStrings.changePassword,
-                        onPressed: () {
-                          AppNavigator.pushReplacement(context, PhoneScreen());
-                        },
-                        fontSize: 20,
-                        margin: _buttonMargin,
-                        padding: _buttonPadding,
-                        color: AppColors.primary(),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      CustomButton(
-                        title: AppStrings.confirm,
-                        onPressed: () {},
-                        fontSize: 20,
-                        margin: _buttonMargin,
-                        padding: _buttonPadding,
-                        color: AppColors.primary(),
-                      ),
-                    ],
-                  ),
-                ],
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Text(
+                      AppStrings.editProfile,
+                      style: TextStyle(fontSize: 22),
+                    ),
+                    Divider(
+                      thickness: 1,
+                      indent: 10,
+                      endIndent: 10,
+                      color: AppColors.primary(),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    FormTextInput(
+                      label: AppStrings.fullName,
+                      controller: nameController,
+                      onChanged: (text) {},
+                      validator: (value) {
+                        if (!RegexValidator.validateName(value)) {
+                          return AppStrings.invalidName;
+                        }
+                        return null;
+                      },
+                      margin: _inputMargin,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    FormTextInput(
+                      label: AppStrings.phone,
+                      controller: phoneController,
+                      onChanged: (text) {},
+                      validator: (value) {
+                        if (!RegexValidator.validatePhone(value)) {
+                          return AppStrings.invalidPhone;
+                        }
+                        return null;
+                      },
+                      margin: _inputMargin,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    CustomButton(
+                      title: AppStrings.changePassword,
+                      onPressed: () {
+                        AppNavigator.pushReplacement(context, PhoneScreen());
+                      },
+                      fontSize: 20,
+                      margin: _buttonMargin,
+                      padding: _buttonPadding,
+                      color: AppColors.primary(),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    CustomButton(
+                      title: AppStrings.confirm,
+                      onPressed: () {},
+                      fontSize: 20,
+                      margin: _buttonMargin,
+                      padding: _buttonPadding,
+                      color: AppColors.primary(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
