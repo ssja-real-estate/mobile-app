@@ -3,6 +3,7 @@ import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
+import 'package:saja/services/snackbar/custom_snack_bar.dart';
 import 'package:saja/services/user_services/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
@@ -67,6 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: Column(
                       children: [
                         FormTextInput(
+                          inputType: TextInputType.number,
                           label: AppStrings.phone,
                           controller: phoneController,
                           onChanged: (text) {},
@@ -108,6 +110,9 @@ class _SignupScreenState extends State<SignupScreen> {
                           validator: (value) {
                             if (!RegexValidator.validatePassword(value)) {
                               return AppStrings.invalidPassword;
+                            } else if (passwordController.value.text !=
+                                repeatPasswordController.value.text) {
+                              return AppStrings.repeadPassWrong;
                             } else {
                               return null;
                             }
@@ -135,8 +140,12 @@ class _SignupScreenState extends State<SignupScreen> {
                           title: AppStrings.signupButtonText,
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              User user = User();
-                              await UserServices.signup(user: user);
+                              {
+                                User user = User();
+                                user.mobile = phoneController.value.text;
+                                user.password = passwordController.value.text;
+                                await UserServices.signup(user: user);
+                              }
                             }
                           },
                           padding: EdgeInsets.symmetric(
