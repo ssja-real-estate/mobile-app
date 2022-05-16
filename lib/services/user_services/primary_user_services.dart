@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/services/api/api.dart';
-import 'package:saja/widgets/custom_text_button.dart';
-
 import '../../resources/api.dart';
 import '../../resources/strings.dart';
 import '../snackbar/custom_snack_bar.dart';
@@ -15,17 +11,16 @@ class UserServices {
       await Api.post(
               json: user.signUptoJson(), unicode: ApiStrings.signupAddress)
           .then((data) {
-        // do something
-        print("data in then is :" + data);
-        // Get.off(()=> VerifySms());
+        CustomSnackBar.showSnackbar(title: "", message: data);
+        //? Get.off(()=> VerifySms());
       }).catchError((error) {
-        print("we have an error in user model signup future");
+        print("we have an error in user services signup future");
 
         CustomSnackBar.showSnackbar(title: AppStrings.error, message: error);
         print(error);
       });
     } catch (e) {
-      print("we have an error in user model signup try-catch");
+      print("we have an error in user services signup try-catch");
       print(e);
     }
   }
@@ -47,14 +42,15 @@ class UserServices {
 
         return true;
       }).catchError((error) {
-        print("we have an error in user model signin future");
+        print("we have an error in user service signin future");
+        print(error);
         CustomSnackBar.showSnackbar(title: AppStrings.error, message: error);
 
         print(error);
         return false;
       });
     } catch (e) {
-      print("we have an error in user model signin try-catch");
+      print("we have an error in user services signin try-catch");
       print(e);
       result = false;
     }
@@ -70,11 +66,11 @@ class UserServices {
               unicode: ApiStrings.verifyAddress)
           .then((value) {})
           .catchError((error) {
-        print("we have an error in user model verify future");
+        print("we have an error in user services verify future");
         print(error);
       });
     } catch (e) {
-      print("we have an error in user model verify try-catch");
+      print("we have an error in user services verify try-catch");
       print(e);
     }
   }

@@ -22,10 +22,12 @@ class Api {
         print(error);
         throw error!;
       });
+
       print(utf8.decode(response.bodyBytes));
       print(response.statusCode);
       var result = jsonDecode(utf8.decode(response.bodyBytes));
       if (response.statusCode == 200) {
+        print("status is 200");
         return result;
       } else {
         print("post in api ended2");

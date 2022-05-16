@@ -66,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     FormTextInput(
                       label: AppStrings.phone,
+                      inputType: TextInputType.number,
                       controller: phoneController,
                       onChanged: (text) {},
                       validator: (value) {
@@ -122,8 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             loading = true;
                             user.mobile = phoneController.text;
                             user.password = passwordController.text;
-                            var result =
-                                await UserServices.signin(user: user);
+                            var result = await UserServices.signin(user: user);
                             if (result) {
                               // navigate to splash
                             } else {
