@@ -12,7 +12,7 @@ import 'package:saja/widgets/custom_alert_dialog.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_dropdown.dart';
 import 'package:saja/widgets/custom_image_picker.dart';
-import 'package:saja/widgets/custom_snack_bar.dart';
+import 'package:saja/services/snackbar/custom_snack_bar.dart';
 import 'package:saja/widgets/custom_toggle_switch.dart';
 import 'package:saja/widgets/image_placeholder.dart';
 import 'package:saja/widgets/image_wrapper.dart';
@@ -85,7 +85,13 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
             color: AppColors.primary(),
             fontSize: 20,
             onPressed: () {
-              print(form.sections[4].fields[2].value);
+              print("pressed");
+              CustomSnackBar.showSnackbar(
+                title: AppStrings.error,
+                message: AppStrings.imagesCountMoreThanLimit,
+              );
+
+              // print(form.sections[4].fields[2].value);
             },
           ),
         ),
@@ -283,20 +289,11 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
 
   _selectImage(List<String> values, int limit) async {
     if (_images.length == limit) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: CustomSnackBar(
-            curve: Curves.easeInOutBack,
-            message: AppStrings.imagesCountMoreThanLimit,
-            style: TextStyle(
-              fontFamily: AppFonts.IranSans,
-            ),
-            duration: Duration(
-              seconds: 3,
-            ),
-          ),
-        ),
+      CustomSnackBar.showSnackbar(
+        title: AppStrings.error,
+        message: AppStrings.imagesCountMoreThanLimit,
       );
+
       return;
     }
     var pickedImages = await imagePicker.pickMultiImage();
@@ -321,7 +318,7 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
           titleTextStyle: TextStyle(
             fontSize: 18,
             color: AppColors.primary(),
-            fontFamily: AppFonts.IranSans,
+            fontFamily: AppFonts.iranSans,
           ),
           actions: [
             ElevatedButton(
