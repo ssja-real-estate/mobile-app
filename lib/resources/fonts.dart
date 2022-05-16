@@ -1,3 +1,3 @@
 class AppFonts {
-  static const IranSans = "IRANSans";
+  static const iranSans = "IRANSans";
 }
