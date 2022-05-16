@@ -70,7 +70,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
               hint: Text(
                 widget.hint,
                 style: TextStyle(
-                  fontFamily: AppFonts.IranSans,
+                  fontFamily: AppFonts.iranSans,
                   color: AppColors.accent(),
                 ),
               ),
@@ -88,7 +88,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
                     child: Text(
                       value,
                       style: TextStyle(
-                        fontFamily: AppFonts.IranSans,
+                        fontFamily: AppFonts.iranSans,
                         color: AppColors.accent(),
                       ),
                       textDirection: TextDirection.rtl,
