@@ -29,4 +29,7 @@ class AppStrings {
   static const sureAboutDelete = "آیا از حذف این تصویر مطمئن هستید؟";
   static const yes = "بله";
   static const no = "خیر";
+
+  static const error = "خطا";
+  static const warning = "هضدار";
 }
