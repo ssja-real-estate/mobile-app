@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
+import 'package:saja/services/user_services/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
@@ -131,7 +133,12 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         CustomButton(
                           title: AppStrings.signupButtonText,
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              User user = User();
+                              await UserServices.signup(user: user);
+                            }
+                          },
                           padding: EdgeInsets.symmetric(
                             horizontal: 10,
                             vertical: 15,
