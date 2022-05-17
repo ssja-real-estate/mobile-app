@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:saja/database/hive/hive.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/api.dart';
+import 'package:saja/resources/database.dart';
 import 'package:saja/resources/strings.dart';
 
 class HiveServices {
@@ -31,7 +32,7 @@ class HiveServices {
   }
 
   static Future getLoginStatus({required Box box}) async {
-    var result = await HiveDatabese.get(box: box, key: AppStrings.isLogin);
+    var result = await HiveDatabese.get(box: box, key: DatabaseStrings.isLogin);
     if (result == null ||
         result == "false" ||
         result.length == 0 ||
