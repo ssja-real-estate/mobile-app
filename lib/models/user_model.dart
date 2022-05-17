@@ -16,8 +16,6 @@ class User {
   //methods
 
   String toJson() {
-    //test
-
     return jsonEncode({
       ApiStrings.id: id ?? "",
       ApiStrings.name: name ?? "",
