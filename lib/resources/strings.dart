@@ -33,4 +33,5 @@ class AppStrings {
   static const error = "خطا";
   static const warning = "هضدار";
   static const repeadPassWrong="رمز عبور تکرار شده اشتباه است";
+  static const isLogin="is_login";
 }

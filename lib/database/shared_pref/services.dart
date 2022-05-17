@@ -11,6 +11,6 @@ class SharedPrefServices {
     user.mobile = object[ApiStrings.mobile];
     user.token = object[ApiStrings.token];
     user.password = object[ApiStrings.password];
-    user.token = object[ApiStrings.token];
+    user.role = object[ApiStrings.role];
   }
 }
