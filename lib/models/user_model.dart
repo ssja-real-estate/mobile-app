@@ -6,8 +6,8 @@ import 'package:saja/services/api/api.dart';
 import '../resources/api.dart';
 
 class User {
-  late int role;
-  late String id, name, password, mobile, token;
+  late int? role;
+  late String? id, name, password, mobile, token;
 
   static final User _instance = User._internal();
   factory User() => _instance;
@@ -15,10 +15,16 @@ class User {
 
   //methods
 
-  String signUptoJson() {
+  String toJson() {
     //test
 
-    return jsonEncode(
-        {ApiStrings.password: password, ApiStrings.mobile: mobile});
+    return jsonEncode({
+      ApiStrings.id: id ?? "",
+      ApiStrings.name: name ?? "",
+      ApiStrings.token: token ?? "",
+      ApiStrings.role: role ?? 0,
+      ApiStrings.password: password,
+      ApiStrings.mobile: mobile,
+    });
   }
 }

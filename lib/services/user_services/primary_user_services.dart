@@ -9,7 +9,7 @@ class UserServices {
   static Future signup({required User user}) async {
     try {
       await Api.post(
-              json: user.signUptoJson(), unicode: ApiStrings.signupAddress)
+              json: user.toJson(), unicode: ApiStrings.signupAddress)
           .then((data) {
         CustomSnackBar.showSnackbar(title: "", message: data);
         //? Get.off(()=> VerifySms());
@@ -31,7 +31,7 @@ class UserServices {
     bool result;
     try {
       result = await Api.post(
-              json: user.signUptoJson(), unicode: ApiStrings.signinAddress)
+              json: user.toJson(), unicode: ApiStrings.signinAddress)
           .then((data) {
         user.id = data[ApiStrings.user][ApiStrings.id];
         user.token = data[ApiStrings.token];
@@ -57,6 +57,11 @@ class UserServices {
     print("signin ended");
     return result;
   }
+
+//? forget passord
+static Future forgetPass({required String mobile})async{
+
+}
 
   //? verify
   static Future verify({required String smsCode, required User user}) async {
