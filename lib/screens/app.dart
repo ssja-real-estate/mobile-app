@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/main_app.dart';
+import 'package:saja/services/size/size_config.dart';
 
 import '../resources/fonts.dart';
 
@@ -15,6 +16,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

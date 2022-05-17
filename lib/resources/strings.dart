@@ -29,8 +29,8 @@ class AppStrings {
   static const sureAboutDelete = "آیا از حذف این تصویر مطمئن هستید؟";
   static const yes = "بله";
   static const no = "خیر";
-
+  static const forget = "فراموشی رمز عبور";
   static const error = "خطا";
   static const warning = "هضدار";
-  static const repeadPassWrong="رمز عبور تکرار شده اشتباه است";
+  static const repeadPassWrong = "رمز عبور تکرار شده اشتباه است";
 }

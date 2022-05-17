@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:saja/resources/screen_indexes.dart';
 import 'package:saja/services/navigation/tab_navigator.dart';
 import 'package:saja/widgets/bottom_navigation_bar.dart';
 
 class MainAppScreen extends StatefulWidget {
-  const MainAppScreen({Key? key}) : super(key: key);
+  MainAppScreen({Key? key, this.tabIndex = ScreenIndexes.home}) : super(key: key);
+  int tabIndex;
 
   @override
   _MainAppScreenState createState() => _MainAppScreenState();
 }
 
 class _MainAppScreenState extends State<MainAppScreen> {
-  int _currentTabIndex = 0;
+  int _currentTabIndex = ScreenIndexes.home;
 
   final _navigatorKeys = {
     0: new GlobalKey<NavigatorState>(),
@@ -19,6 +21,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
   };
 
   void _selectTab(int tabIndex) {
+    widget.tabIndex = ScreenIndexes.home;
     if (tabIndex == _currentTabIndex) {
       // pop to first route
       _navigatorKeys[tabIndex]!
@@ -35,7 +38,8 @@ class _MainAppScreenState extends State<MainAppScreen> {
 
   Widget _buildOffstageNavigator(int tabIndex) {
     return Offstage(
-      offstage: _currentTabIndex != tabIndex,
+      offstage: (_currentTabIndex == ScreenIndexes.home ? widget.tabIndex : _currentTabIndex) !=
+          tabIndex,
       child: TabNavigator(
         _navigatorKeys[tabIndex]!,
         tabIndex: tabIndex,
@@ -57,7 +61,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
           ),
         ),
         bottomNavigationBar: AppBottomNavigationBar(
-          pageIndex: _currentTabIndex,
+          pageIndex: _currentTabIndex == 0 ? widget.tabIndex : _currentTabIndex,
           onTap: _selectTab,
         ),
       ),
@@ -72,7 +76,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
             print('2');
 
             _selectTab(0);
-            
+
             return false;
           }
         } else {

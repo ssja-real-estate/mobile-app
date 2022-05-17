@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/screens/signup.dart';
+import 'package:saja/screens/profile/forget.dart';
+import 'package:saja/screens/profile/signup.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/user_services/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
@@ -11,6 +12,8 @@ import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
 import 'package:saja/widgets/form_password_input.dart';
 import 'package:saja/widgets/form_text_input.dart';
+
+import '../../services/size/size_config.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -25,8 +28,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   bool loading = false;
   User user = User();
+  late SizeConfig sizeConfig;
   @override
   Widget build(BuildContext context) {
+    sizeConfig = SizeConfig(context);
     return Container(
       padding: EdgeInsets.all(15),
       child: SingleChildScrollView(
@@ -80,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: sizeConfig.height(7),
                     ),
                     FormPasswordInput(
                       label: AppStrings.password,
@@ -107,7 +112,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         CustomTextButton(
                           title: AppStrings.forgotPassword,
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.off(() => ForgetPassScreen());
+                          },
                         ),
                       ],
                     ),
