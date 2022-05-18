@@ -138,16 +138,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         CustomButton(
                           title: AppStrings.signupButtonText,
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              {
-                                User user = User();
-                                user.mobile = phoneController.value.text;
-                                user.password = passwordController.value.text;
-                                await UserServices.signup(user: user);
-                              }
-                            }
-                          },
+                          onPressed: onPress,
                           padding: EdgeInsets.symmetric(
                             horizontal: 10,
                             vertical: 15,
@@ -183,5 +174,16 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
+  }
+
+  void onPress() async {
+    if (_formKey.currentState!.validate()) {
+      {
+        User user = User();
+        user.mobile = phoneController.value.text;
+        user.password = passwordController.value.text;
+        await UserServices.signup(user: user);
+      }
+    }
   }
 }
