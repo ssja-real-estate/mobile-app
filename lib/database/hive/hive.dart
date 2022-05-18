@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:hive/hive.dart';
 
 class HiveDatabese {
-  var path = Directory.current.path;
+  static final  path = Directory.current.path;
   late Box hiveBox;
   static Future<Box> openBox({required String boxName}) async {
-    return Hive.box(boxName);
+    return Hive.openBox(boxName);
   }
 
   static Future get({required Box box, required String key}) async {

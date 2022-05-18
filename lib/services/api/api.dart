@@ -12,7 +12,8 @@ class Api {
     try {
       print("post in api started");
       print(ApiStrings.siteName);
-      var uri = Uri.http(ApiStrings.siteName, unicode);
+      Uri uri = Uri.http(ApiStrings.siteName, unicode);
+
       print("json is :" + json);
       var response = await http
           .post(uri, body: json, headers: Api.headeroption)
@@ -34,7 +35,7 @@ class Api {
         throw result['error'];
       }
     } catch (e) {
-      print(e);
+      print(e.toString());
       throw e;
     }
   }

@@ -6,8 +6,8 @@ import 'package:saja/services/api/api.dart';
 import '../resources/api.dart';
 
 class User {
-  late int? role;
-  late String? id, name, password, mobile, token;
+  late int? role = 0;
+  late String? id = "", name = "", password = "", mobile = "", token = "";
 
   static final User _instance = User._internal();
   factory User() => _instance;
