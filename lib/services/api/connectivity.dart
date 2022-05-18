@@ -1,3 +1,4 @@
+import 'package:check_vpn_connection/check_vpn_connection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class CheckInternet {
@@ -11,5 +12,10 @@ class CheckInternet {
     return false;
   }
 
-  static Future usingVpn() async {}
+  static Future usingVpn() async {
+    if (await CheckVpnConnection.isVpnActive()) {
+      return true;
+    }
+    return false;
+  }
 }
