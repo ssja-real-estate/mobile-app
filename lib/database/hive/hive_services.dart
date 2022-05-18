@@ -32,11 +32,16 @@ class HiveServices {
   }
 
   static Future getLoginStatus({required Box box}) async {
-    var result = await HiveDatabese.get(box: box, key: DatabaseStrings.isLogin);
+    var result = await HiveDatabese.get(box: box, key: DatabaseStrings.lognKey);
     if (result == null ||
         result == "false" ||
         result.length == 0 ||
         result == "0") return false;
     return true;
+  }
+
+  static Future setLoginStatus(
+      {required String status, required Box box}) async {
+   await HiveDatabese.put(box: box, key: DatabaseStrings.lognKey, value: status);
   }
 }

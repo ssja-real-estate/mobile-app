@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:saja/database/hive/hive.dart';
+import 'package:saja/database/hive/hive_services.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
+import 'package:saja/resources/database.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/signup.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
@@ -25,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   bool loading = false;
   User user = User();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -88,10 +93,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       onChanged: (text) {},
                       validator: (value) {
                         if (!RegexValidator.validatePassword(value)) {
-                          loading = true;
                           return AppStrings.invalidPassword;
                         } else {
-                          loading = false;
                           return null;
                         }
                       },
@@ -117,22 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // signin button
                     CustomButton(
                       title: AppStrings.loginButtonText,
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          if (!loading) {
-                            loading = true;
-                            user.mobile = phoneController.text;
-                            user.password = passwordController.text;
-                            var result = await UserServices.signin(user: user);
-                            if (result) {
-                              // navigate to splash
-                            } else {
-                              Get.snackbar("d", "");
-                              loading = false;
-                            }
-                          }
-                        }
-                      },
+                      onPressed: onPressed2,
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                       fontSize: 20,
@@ -164,5 +152,29 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+//? methods
+
+  Future onPressed2() async {
+    if (_formKey.currentState!.validate()) {
+      if (!loading) {
+        loading = true;
+        user.mobile = phoneController.text;
+        user.password = passwordController.text;
+        var result = await UserServices.signin(user: user);
+        if (result) {
+          Box box =
+              await HiveDatabese.openBox(boxName: DatabaseStrings.userBox);
+          await HiveServices.putUserToHive(user: user, box: box);
+          box = await HiveDatabese.openBox(boxName: DatabaseStrings.loginBox);
+          await HiveServices.setLoginStatus(
+              status: DatabaseStrings.loginTrue, box: box);
+          // navigate to splash
+        } else {
+          loading = false;
+        }
+      }
+    }
   }
 }

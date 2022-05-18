@@ -72,7 +72,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
             print('2');
 
             _selectTab(0);
-            
+
             return false;
           }
         } else {
