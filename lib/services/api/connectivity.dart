@@ -14,6 +14,7 @@ class CheckInternet {
 
   static Future usingVpn() async {
     if (await CheckVpnConnection.isVpnActive()) {
+      print("this device is using vpn");
       return true;
     }
     return false;
