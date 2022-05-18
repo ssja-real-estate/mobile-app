@@ -10,9 +10,33 @@ class Api {
   // todo post
   static Future post({required String json, required String unicode}) async {
     // unicode :
+<<<<<<< HEAD
     if (await CheckInternet.hasInternet()) {
       if (await CheckInternet.usingVpn()) {
         throw ApiStrings.vpnOff;
+=======
+    try {
+      print("post in api started");
+      print(ApiStrings.siteName);
+      Uri uri = Uri.http(ApiStrings.siteName, unicode);
+
+      print("json is :" + json);
+      var response = await http
+          .post(uri, body: json, headers: Api.headeroption)
+          .onError((error, stackTrace) {
+        //! when get error in posting
+        print("error");
+        print(error);
+        throw error!;
+      });
+
+      print(utf8.decode(response.bodyBytes));
+      print(response.statusCode);
+      var result = jsonDecode(utf8.decode(response.bodyBytes));
+      if (response.statusCode == 200) {
+        print("status is 200");
+        return result;
+>>>>>>> add-database
       } else {
         try {
           print("post in api started");
@@ -42,8 +66,14 @@ class Api {
           throw ApiStrings.apiError;
         }
       }
+<<<<<<< HEAD
     } else {
       throw ApiStrings.noInternet;
+=======
+    } catch (e) {
+      print(e.toString());
+      throw e;
+>>>>>>> add-database
     }
   }
 
