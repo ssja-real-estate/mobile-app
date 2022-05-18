@@ -1,6 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:saja/database/hive/hive.dart';
-import 'package:saja/database/hive/hive_services.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/database.dart';
 import 'package:saja/services/api/api.dart';

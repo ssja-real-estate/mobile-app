@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:saja/database/hive/hive.dart';
-import 'package:saja/database/hive/hive_services.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/database.dart';
@@ -167,12 +165,6 @@ class _LoginScreenState extends State<LoginScreen> {
         user.password = passwordController.text;
         var result = await UserServices.signin(user: user);
         if (result) {
-          Box box =
-              await HiveDatabese.openBox(boxName: DatabaseStrings.userBox);
-          await HiveServices.putUserToHive(user: user, box: box);
-          box = await HiveDatabese.openBox(boxName: DatabaseStrings.loginBox);
-          await HiveServices.setLoginStatus(
-              status: DatabaseStrings.loginTrue, box: box);
           // navigate to splash
         } else {
           loading = false;

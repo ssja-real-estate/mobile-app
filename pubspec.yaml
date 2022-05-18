@@ -32,16 +32,13 @@ dependencies:
   shimmer: ^2.0.0
   http: any
   get: any
-<<<<<<< HEAD
   connectivity_plus: ^2.3.0
   check_vpn_connection: ^0.0.2
 
 
-=======
   shared_preferences: ^2.0.15
   # sqflite: ^2.0.2+1
   hive: ^2.2.0
->>>>>>> add-database
 dev_dependencies:
   flutter_test:
     sdk: flutter
