@@ -24,10 +24,15 @@ class HiveServices {
     user.password = await HiveDatabase.get(key: ApiStrings.password, box: box);
     user.token = await HiveDatabase.get(key: ApiStrings.token, box: box);
     user.role = await HiveDatabase.get(key: ApiStrings.role, box: box);
+    print("values in hive services databasetouser   user box is");
+    print(box.keys);
+    print(box.values);
+    print(user.password);
   }
 
   static Future loginSetStatus(
       {required Box loginBox, required String status}) async {
+   
     await HiveDatabase.put(
         box: loginBox, key: DatabaseStrings.loginKey, value: status);
   }
@@ -37,7 +42,7 @@ class HiveServices {
 
     Box box = await HiveDatabase.openBox(boxName: DatabaseStrings.userBox);
     if (HiveDatabase.boxkeys(box: box).toList().length != 0) {
-      await HiveServices.userToDatabase(userJson: User().toJson(), box: box);
+      await HiveServices.databaseToUser(user: User(), box: box);
       await HiveDatabase.close();
       return true;
     }
