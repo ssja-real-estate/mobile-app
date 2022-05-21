@@ -3,6 +3,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
 class HiveDatabase {
+  static Future close() async {
+    await Hive.close();
+  }
+
   static Future<Box> openBox({required String boxName}) async {
     return await Hive.openBox(boxName);
   }

@@ -27,7 +27,7 @@ class UserServices {
   }
 
   //? signin user
-  static Future signin({required User user}) async {
+  static Future<bool> signin({required User user}) async {
     print("signin started");
     bool result;
     try {

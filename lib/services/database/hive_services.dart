@@ -38,8 +38,10 @@ class HiveServices {
     Box box = await HiveDatabase.openBox(boxName: DatabaseStrings.userBox);
     if (HiveDatabase.boxkeys(box: box).toList().length != 0) {
       await HiveServices.userToDatabase(userJson: User().toJson(), box: box);
+      await HiveDatabase.close();
       return true;
     }
+    await HiveDatabase.close();
     return false;
   }
 
@@ -49,5 +51,6 @@ class HiveServices {
       await HiveServices.loginSetStatus(
           loginBox: box, status: LoginStatuses.notLoggedIn.name);
     }
+    await HiveDatabase.close();
   }
 }
