@@ -20,7 +20,15 @@ class HiveDatabase {
     await box.put(key, value);
   }
 
+  static Future putAll({required Box box, required map}) async {
+    await box.putAll(map);
+  }
+
   static Future delete({required Box box, required String key}) async {
     await box.delete(key);
+  }
+
+  static Iterable boxkeys({required Box box}) {
+    return box.keys;
   }
 }
