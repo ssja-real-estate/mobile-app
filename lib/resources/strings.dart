@@ -32,5 +32,5 @@ class AppStrings {
   static const forget = "فراموشی رمز عبور";
   static const error = "خطا";
   static const warning = "هشدار";
-  static const repeadPassWrong="رمز عبور تکرار شده اشتباه است";
+  static const repeadPassWrong = "رمز عبور تکرار شده اشتباه است";
 }

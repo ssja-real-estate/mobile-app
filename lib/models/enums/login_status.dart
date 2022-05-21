@@ -1,0 +1,1 @@
+enum LoginStatuses { loggedIn, notLoggedIn }
