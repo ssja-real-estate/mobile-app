@@ -25,7 +25,5 @@ class User {
       ApiStrings.mobile: mobile,
     });
   }
-  void toUser(){
-    
-  }
+ 
 }
