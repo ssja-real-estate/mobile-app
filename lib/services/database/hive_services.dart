@@ -1,13 +1,11 @@
 import 'dart:convert';
 
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:saja/database/hive_database.dart';
 import 'package:saja/models/enums/login_status.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/api.dart';
 import 'package:saja/resources/database.dart';
-import 'package:saja/services/api/api.dart';
 
 class HiveServices {
   static Future userToDatabase(
@@ -28,7 +26,7 @@ class HiveServices {
     user.role = await HiveDatabase.get(key: ApiStrings.role, box: box);
   }
 
-  static Future loginSaveStatus(
+  static Future loginSetStatus(
       {required Box loginBox, required String status}) async {
     await HiveDatabase.put(
         box: loginBox, key: DatabaseStrings.loginKey, value: status);
@@ -48,10 +46,8 @@ class HiveServices {
   static Future loginInitializing(bool bool) async {
     if (!bool) {
       Box box = await HiveDatabase.openBox(boxName: DatabaseStrings.loginBox);
-      await HiveDatabase.put(
-          box: box,
-          key: DatabaseStrings.loginKey,
-          value: LoginStatuses.notLoggedIn.name);
+      await HiveServices.loginSetStatus(
+          loginBox: box, status: LoginStatuses.notLoggedIn.name);
     }
   }
 }

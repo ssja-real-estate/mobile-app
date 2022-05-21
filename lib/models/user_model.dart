@@ -1,7 +1,4 @@
 import 'dart:convert';
-import 'package:get/get.dart';
-import 'package:saja/resources/strings.dart';
-import 'package:saja/services/api/api.dart';
 
 import '../resources/api.dart';
 

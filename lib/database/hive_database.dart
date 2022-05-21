@@ -24,11 +24,19 @@ class HiveDatabase {
     await box.putAll(map);
   }
 
-  static Future delete({required Box box, required String key}) async {
+  static Future deleteVal({required Box box, required String key}) async {
     await box.delete(key);
   }
 
   static Iterable boxkeys({required Box box}) {
     return box.keys;
+  }
+
+  static Future deleteDatabase() async {
+    await Hive.deleteFromDisk();
+  }
+
+  static Future deleteBoxFromDatabase({required String boxName}) async {
+    await Hive.deleteBoxFromDisk(boxName);
   }
 }
