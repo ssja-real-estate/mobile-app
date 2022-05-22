@@ -79,6 +79,7 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
                     titleMargin: _titleMargin,
                     titlePadding: _titlePadding,
                   ),
+                
                 ],
               ),
               CustomButton(
@@ -92,6 +93,7 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
                 onPressed: () {
                   AppNavigator.pushScreen(context, AddEstateFormsScreen());
                 },
+
               ),
             ],
           ),
