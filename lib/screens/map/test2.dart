@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/painting/image_provider.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:saja/screens/map/test.dart' as test;
 
-class MyTile implements TileProvider {
+class MyTile extends TileProvider {
   @override
   ImageProvider<Object> getImage(Coords<num> coords, TileLayerOptions options) {
     // TODO: implement getImage
-    var x = AssetImage("assets/images/logo.png");
     try {
-      return NetworkTileProvider().getImage(coords, options);
+      return test.NetworkTileProvider().getImage(coords, options);
+      // return test.NetworkImageWithRetry();
+      ;
     } catch (e) {
+      var x = AssetImage("assets/images/logo.png");
+
       print("error");
       print(e);
       return x;
