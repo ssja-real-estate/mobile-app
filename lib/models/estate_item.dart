@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 class EstateItem {
-  late int id=0;
-  late int estateType=0;
-  late int delegationType=0;
-  late String province="";
-  late String city="";
-  late int price=0;
-  late String? imageUrl="";
+  late int id = 0;
+  late int estateType = 0;
+  late int delegationType = 0;
+  late String province = "";
+  late String city = "";
+  late int price = 0;
+  late String? imageUrl = "";
 
   // EstateItem({
   //   required this.id,
