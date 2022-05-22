@@ -19,7 +19,6 @@ class MainServices {
     bool init = await HiveServices.databaseInitializing(box: userBox);
     Box loginBox =
         await HiveDatabase.openBox(boxName: DatabaseStrings.loginBox);
-
     await HiveServices.loginInitializing(
       bool: init,
       box: loginBox,

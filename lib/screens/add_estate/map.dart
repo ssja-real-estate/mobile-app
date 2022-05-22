@@ -2,8 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
+import 'package:hive/hive.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:saja/database/hive_database.dart';
 import 'package:saja/models/enums/map_type.dart';
+import 'package:saja/resources/database.dart';
+import 'package:saja/services/database/hive_services.dart';
 
 class MapScreeen extends StatefulWidget {
   MapScreeen({Key? key, required this.mapType}) : super(key: key);
@@ -17,6 +21,7 @@ class _MapScreeenState extends State<MapScreeen> {
 
   late MapOptions mapOptions;
   late Marker markers;
+  late LatLng lastLatLng;
 
   void move() {
     mapControllerImpl.move(LatLng(36.740438, 45.718937), 17);
@@ -26,12 +31,11 @@ class _MapScreeenState extends State<MapScreeen> {
   @override
   void initState() {
     super.initState();
+    initialOptions();
   }
 
   @override
   Widget build(BuildContext context) {
-    initialOptions();
-
     return Scaffold(
       body: Stack(
         children: [
@@ -62,19 +66,21 @@ class _MapScreeenState extends State<MapScreeen> {
     );
   }
 
-  void initialOptions() {
-    markers = Marker(
-      width: 40.0,
-      height: 40.0,
-      point: LatLng(36.736379, 45.719397),
-      builder: (ctx) => InkWell(
-        child: const FlutterLogo(),
-        onTap: () {
-          print(LatLng(36.736379, 45.719397));
-          print('added');
-        },
-      ),
-    );
+  void initialOptions() async {
+    lastLatLng = await getLastPosition();
+    markerInitialize(latLng: lastLatLng);
+    mapOptionsInitialize();
+    await HiveDatabase.close();
+  }
+
+  Future<LatLng> getLastPosition() async {
+    Box latLngBox =
+        await HiveDatabase.openBox(boxName: DatabaseStrings.latLngBox);
+    LatLng latLng = await HiveServices.getLastLatLngPosition(box: latLngBox);
+    return latLng;
+  }
+
+  void mapOptionsInitialize() {
     mapOptions = MapOptions(
         center: LatLng(36.7631, 45.7222), //geolocator
         zoom: 14.0,
@@ -95,5 +101,20 @@ class _MapScreeenState extends State<MapScreeen> {
           setState(() {});
           // print(x);
         });
+  }
+
+  void markerInitialize({required LatLng latLng}) {
+    markers = Marker(
+      width: 40.0,
+      height: 40.0,
+      point: latLng,
+      builder: (ctx) => InkWell(
+        child: const FlutterLogo(),
+        onTap: () {
+          print(latLng);
+          print('added');
+        },
+      ),
+    );
   }
 }

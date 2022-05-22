@@ -71,10 +71,12 @@ class HiveServices {
   }
 
   static Future<LatLng> getLastLatLngPosition({required Box box}) async {
-    double longitude = double.parse(
-        await HiveDatabase.get(box: box, key: DatabaseStrings.longitude));
-    double latitude = double.parse(
-        await HiveDatabase.get(box: box, key: DatabaseStrings.latitude));
+    double? longitude = double.parse(
+        await HiveDatabase.get(box: box, key: DatabaseStrings.longitude) ??
+            DatabaseStrings.mahabadLong);
+    double? latitude = double.parse(
+        await HiveDatabase.get(box: box, key: DatabaseStrings.latitude) ??
+            DatabaseStrings.mahabadLat);
     return LatLng(latitude, longitude);
   }
 }
