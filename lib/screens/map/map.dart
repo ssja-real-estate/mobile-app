@@ -13,7 +13,6 @@ import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/database.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/services/database/hive_services.dart';
-import 'package:saja/services/map_services/map_geoLocator.dart';
 import 'package:saja/widgets/custom_text_button.dart';
 
 class MapScreeen extends StatelessWidget {
@@ -26,7 +25,6 @@ class MapScreeen extends StatelessWidget {
   late LatLng lastLatLng;
   final GeolocatorPlatform geolocatorPlatform = GeolocatorPlatform.instance;
   late Future future;
-// Future future=initialOptions().then((value) => null);
   void move() {
     mapControllerImpl.move(LatLng(36.740438, 45.718937), 17);
   }
@@ -49,11 +47,11 @@ class MapScreeen extends StatelessWidget {
           future: future.then((value) => value),
           builder: (context, snap) {
             if (snap.hasError || !snap.hasData) {
-              return Center(
+              return (Center(
                 child: CircularProgressIndicator(
                   color: AppColors.accent(),
                 ),
-              );
+              ));
             }
             return Stack(
               children: [
@@ -64,13 +62,24 @@ class MapScreeen extends StatelessWidget {
                     options: mapOptions.value!,
                     layers: [
                       TileLayerOptions(
-                        urlTemplate:
-                            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                        subdomains: ['a', 'b', 'c'],
-                        attributionBuilder: (_) {
-                          return const Text("Amlak");
-                        },
-                      ),
+                          backgroundColor: AppColors.accent(),
+                          urlTemplate:
+                              "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                          subdomains: ['a', 'b', 'c'],
+                          attributionBuilder: (_) {
+                            return Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: const Text("Amlak"),
+                                ));
+                          },
+                          // errorImage: AssetImage("assets/images/logo.png"),
+
+                          errorTileCallback: (x, y) async {
+                            print("error eccured");
+                          }),
+                      //  CustomTile(),
                       MarkerLayerOptions(
                         markers: [markers.value],
                       ),
