@@ -8,10 +8,13 @@ import 'package:hive/hive.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:saja/database/hive_database.dart';
 import 'package:saja/models/enums/map_type.dart';
+import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/database.dart';
+import 'package:saja/resources/strings.dart';
 import 'package:saja/services/database/hive_services.dart';
 import 'package:saja/services/map_services/map_geoLocator.dart';
+import 'package:saja/widgets/custom_text_button.dart';
 
 class MapScreeen extends StatelessWidget {
   MapScreeen({Key? key, required this.mapType}) : super(key: key);
@@ -34,6 +37,14 @@ class MapScreeen extends StatelessWidget {
     future = initialOptions();
     // initialOptions();
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          CustomTextButton(
+            title: AppStrings.ok,
+            color: AppColors.white(),
+          )
+        ],
+      ),
       body: FutureBuilder(
           future: future.then((value) => value),
           builder: (context, snap) {
@@ -112,7 +123,7 @@ class MapScreeen extends StatelessWidget {
             height: 40.0,
             point: lng,
             builder: (ctx) => InkWell(
-              child: const FlutterLogo(),
+              child: Image.asset(AppAssetAddress.mapMarkerAddress),
               onTap: () {},
             ),
           );
@@ -125,7 +136,7 @@ class MapScreeen extends StatelessWidget {
       height: 40.0,
       point: latLng,
       builder: (ctx) => InkWell(
-        child: const FlutterLogo(),
+        child: Image.asset(AppAssetAddress.mapMarkerAddress),
         onTap: () {},
       ),
     ));
