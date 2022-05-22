@@ -38,7 +38,6 @@ class HiveServices {
   }
 
   static Future<bool> databaseInitializing({required Box box}) async {
-    await Hive.initFlutter();
 
     if (HiveDatabase.boxkeys(box: box).toList().length != 0) {
       await HiveServices.databaseToUser(user: User(), box: box);

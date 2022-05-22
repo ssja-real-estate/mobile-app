@@ -15,6 +15,7 @@ class MainServices {
   }
 
   static Future<void> databaseInitializing() async {
+        await Hive.initFlutter();
     Box userBox = await HiveDatabase.openBox(boxName: DatabaseStrings.userBox);
     bool init = await HiveServices.databaseInitializing(box: userBox);
     Box loginBox =
