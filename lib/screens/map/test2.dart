@@ -2,13 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/painting/image_provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 
-class MyTile extends TileProvider {
+class MyTile implements TileProvider {
   @override
-   getImage(Coords<num> coords, TileLayerOptions options)async {
+  ImageProvider<Object> getImage(Coords<num> coords, TileLayerOptions options) {
     // TODO: implement getImage
-    
     var x = AssetImage("assets/images/logo.png");
-    return x;
+    try {
+      return NetworkTileProvider().getImage(coords, options);
+    } catch (e) {
+      print("error");
+      print(e);
+      return x;
+    }
+    throw UnimplementedError();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
+
+  @override
+  String getSubdomain(Coords<num> coords, TileLayerOptions options) {
+    // TODO: implement getSubdomain
+    throw UnimplementedError();
+  }
+
+  @override
+  String getTileUrl(Coords<num> coords, TileLayerOptions options) {
+    // TODO: implement getTileUrl
+    throw UnimplementedError();
+  }
+
+  @override
+  int invertY(int y, int z) {
+    // TODO: implement invertY
+    throw UnimplementedError();
   }
 }
 

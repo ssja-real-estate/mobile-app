@@ -45,6 +45,7 @@ dependencies:
   latlong2: ^0.8.1
   cached_network_image: ^3.2.1
   flutter_cache_manager:
+  network_image_with_retry:
 dev_dependencies:
   flutter_test:
     sdk: flutter

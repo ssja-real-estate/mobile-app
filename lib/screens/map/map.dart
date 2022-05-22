@@ -12,6 +12,7 @@ import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/database.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/map/test2.dart';
 import 'package:saja/services/database/hive_services.dart';
 import 'package:saja/widgets/custom_text_button.dart';
 
@@ -34,6 +35,7 @@ class MapScreeen extends StatelessWidget {
   Widget build(BuildContext context) {
     future = initialOptions();
     // initialOptions();
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -75,11 +77,10 @@ class MapScreeen extends StatelessWidget {
                                 ));
                           },
                           // errorImage: AssetImage("assets/images/logo.png"),
-
+                          tileProvider: MyTile(),
                           errorTileCallback: (x, y) async {
                             print("error eccured");
                           }),
-                      //  CustomTile(),
                       MarkerLayerOptions(
                         markers: [markers.value],
                       ),

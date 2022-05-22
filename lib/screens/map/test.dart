@@ -1,125 +1,66 @@
-// // other imports
-// import 'dart:typed_data';
+import 'dart:ffi';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
+import 'package:path_provider/path_provider.dart';
 
-// import 'package:cached_network_image/cached_network_image.dart';
-// import 'package:file/src/interface/file.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-// // import 'package:flutter_cache_manager/src/web_helper.dart'; // ignore: implementation_imports
-// import 'package:flutter_map/flutter_map.dart';
-// import 'package:http/http.dart' as http;
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/painting.dart' ;
+import 'package:http/http.dart';
+import 'package:http/retry.dart';
 
-// typedef ErrorResponseHandler = Future<http.Response> Function(Object error,
-//     [StackTrace stack]);
+class NetworkImageWithRetry extends ImageProvider<NetworkImageWithRetry> {
+  /// The URL from which the image will be fetched.
+  final String url;
 
-// class MyTileProvider extends TileProvider {
-//   MyTileProvider({required this.errorHandler});
+  /// The scale to place in the [ImageInfo] object of the image.
+  final double scale;
 
-//   final ErrorResponseHandler errorHandler;
+  /// The http RetryClient that is used for the requests
+  final RetryClient retryClient = RetryClient(Client());
 
-//   @override
-//   ImageProvider getImage(Coords<num> coords, TileLayerOptions options) {
-//     final url = getTileUrl(coords, options);
-//     final cacheManager = MyCacheManager.instance..errorHandler = errorHandler;
-//     return CachedNetworkImageProvider(
-//       url,
-//       cacheManager: cacheManager,
-//     );
-//   }
-// }
+  NetworkImageWithRetry(this.url, {this.scale = 1.0});
 
-// class MyCacheManager extends BaseCacheManager {
-//   static MyCacheManager _instance
-//   static MyCacheManager get instance => _instance ??= MyCacheManager._();
+  @override
+  ImageStreamCompleter load(NetworkImageWithRetry key, decode) {
+    return OneFrameImageStreamCompleter(_loadWithRetry(key, decode),
+        informationCollector: () sync* {
+      yield ErrorDescription('Image provider: $this');
+      yield ErrorDescription('Image key: $key');
+    });
+  }
 
-//   MyCacheManager._() : super() {
-//     webHelper = WebHelper(store, _fetch);
-//   }
+  @override
+  Future<NetworkImageWithRetry> obtainKey(ImageConfiguration configuration) {
+    return SynchronousFuture<NetworkImageWithRetry>(this);
+  }
 
-//   ErrorResponseHandler errorHandler;
+  Future<ImageInfo> _loadWithRetry(
+      NetworkImageWithRetry key, DecoderCallback decode) async {
+    assert(key == this);
 
-//   @override
-//    getFilePath(){
+    try {
+    final uri = Uri.parse(url);
+      
+    final response = await retryClient.get(uri);
+    final codec = await decode(response.bodyBytes);
+    final image = (await codec.getNextFrame()).image;
 
-//   }
-
-//   Future<FileFetcherResponse> _fetch(String url,
-//       {required Map<String, String> headers}) async {
-//     try {
-//       final response = await http.get(Uri.parse(url), headers: headers);
-//       return new HttpFileFetcherResponse(response);
-//     } catch (e, stack) {
-//       if (errorHandler != null) {
-//         final response = await errorHandler(e, stack);
-//         return new HttpFileFetcherResponse(response);
-//       }
-//       rethrow;
-//     }
-//   }
-
-//   @override
-//   Future<void> dispose() {
-//     // TODO: implement dispose
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Future<FileInfo> downloadFile(String url, {String? key, Map<String, String>? authHeaders, bool force = false}) {
-//     // TODO: implement downloadFile
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Future<void> emptyCache() {
-//     // TODO: implement emptyCache
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Stream<FileInfo> getFile(String url, {String key, Map<String, String> headers}) {
-//     // TODO: implement getFile
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Future<FileInfo?> getFileFromCache(String key, {bool ignoreMemCache = false}) {
-//     // TODO: implement getFileFromCache
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Future<FileInfo?> getFileFromMemory(String key) {
-//     // TODO: implement getFileFromMemory
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Stream<FileResponse> getFileStream(String url, {String? key, Map<String, String>? headers, bool withProgress}) {
-//     // TODO: implement getFileStream
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Future<File> getSingleFile(String url, {String key, Map<String, String> headers}) {
-//     // TODO: implement getSingleFile
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Future<File> putFile(String url, Uint8List fileBytes, {String? key, String? eTag, Duration maxAge = const Duration(days: 30), String fileExtension = 'file'}) {
-//     // TODO: implement putFile
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Future<File> putFileStream(String url, Stream<List<int>> source, {String? key, String? eTag, Duration maxAge = const Duration(days: 30), String fileExtension = 'file'}) {
-//     // TODO: implement putFileStream
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Future<void> removeFile(String key) {
-//     // TODO: implement removeFile
-//     throw UnimplementedError();
-//   }
-// }
+    return ImageInfo(
+      image: image,
+      scale: key.scale,
+    );
+    } catch (e) {
+       final response = Image.asset("name");
+       Asset assetBundle=Asset();
+       File.fromUri(uri)
+       Uriass
+      //  Uint8List.sublistView(response.)
+      //  FileImage file=FileImage(File.fromRawPath(rawPath));
+    final codec = await decode(response.image.);
+    final image = (await codec.getNextFrame()).image;
+      return ImageInfo(image: image);
+    }
+  }
+}
