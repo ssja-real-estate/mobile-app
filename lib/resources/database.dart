@@ -10,6 +10,6 @@ class DatabaseStrings {
   static const loginFalse = "false";
   static const latitude = "latitude";
   static const longitude = "longitude";
-  static const mahabadLong= '45.71';
-  static const mahabadLat= ' 36.74';
+  static const mahabadLong= ' 45.7222';
+  static const mahabadLat= ' 36.7631';
 }
