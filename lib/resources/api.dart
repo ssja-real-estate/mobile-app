@@ -15,6 +15,5 @@ class ApiStrings {
   static const user = "user";
   static const noInternet = "لطفااز اتصال داده اطمینان حاصل کنید ";
   static const vpnOff = "لطفا وی پی ان خود را خاموش کنید";
-  static const apiError =
-      "مشکلی در اتصال پیش آمده است . لطفا بعدا تلاش نمایید";
+  static const apiError = "مشکلی در اتصال پیش آمده است . لطفا بعدا تلاش نمایید";
 }

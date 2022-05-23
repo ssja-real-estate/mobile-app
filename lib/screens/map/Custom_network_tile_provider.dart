@@ -1,17 +1,14 @@
-import 'dart:ffi';
-import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:path_provider/path_provider.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/painting.dart';
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
+import 'package:saja/resources/api.dart';
 import 'package:saja/resources/asset_addresses.dart';
+import 'package:saja/resources/strings.dart';
+import 'package:saja/services/snackbar/custom_snack_bar.dart';
 
 class NetworkTileProvider extends TileProvider {
   @override
@@ -21,15 +18,9 @@ class NetworkTileProvider extends TileProvider {
 }
 
 class NetworkImageWithRetry extends ImageProvider<NetworkImageWithRetry> {
-  /// The URL from which the image will be fetched.
   final String url;
-
-  /// The scale to place in the [ImageInfo] object of the image.
   final double scale;
-
-  /// The http RetryClient that is used for the requests
   final RetryClient retryClient = RetryClient(Client());
-
   NetworkImageWithRetry(this.url, {this.scale = 1.0});
 
   @override
@@ -49,22 +40,21 @@ class NetworkImageWithRetry extends ImageProvider<NetworkImageWithRetry> {
   Future<ImageInfo> _loadWithRetry(
       NetworkImageWithRetry key, DecoderCallback decode) async {
     assert(key == this);
-
     try {
       final uri = Uri.parse(url);
       final response = await retryClient.get(uri);
       final codec = await decode(response.bodyBytes);
       final image = (await codec.getNextFrame()).image;
-
       return ImageInfo(
         image: image,
         scale: key.scale,
       );
     } catch (e) {
-      print("error test.dart");
+      CustomSnackBar.showSnackbar(
+          title: AppStrings.error, message: ApiStrings.noInternet);
+      print("error Custom_network.dart");
       print(e);
-      final response = Image.asset("name");
-      Uint8List data = (await rootBundle.load("assets/images/logo.png"))
+      Uint8List data = (await rootBundle.load(AppAssetAddress.logoAddress))
           .buffer
           .asUint8List();
       //  Uint8List.sublistView(response.)

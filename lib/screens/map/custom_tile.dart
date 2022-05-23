@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/painting/image_provider.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:saja/screens/map/test.dart' as test;
+import 'package:saja/resources/api.dart';
+import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/map/Custom_network_tile_provider.dart'
+    as networkProvider;
+import 'package:saja/services/snackbar/custom_snack_bar.dart';
 
-class MyTile extends TileProvider {
+class MyCustomTile extends TileProvider {
+  MyCustomTile({required this.image});
+  AssetImage image;
   @override
   ImageProvider<Object> getImage(Coords<num> coords, TileLayerOptions options) {
-    // TODO: implement getImage
     try {
-      return test.NetworkTileProvider().getImage(coords, options);
-      // return test.NetworkImageWithRetry();
-      ;
+      return networkProvider.NetworkTileProvider().getImage(coords, options);
     } catch (e) {
-      var x = AssetImage("assets/images/logo.png");
-
+       CustomSnackBar.showSnackbar(
+          title: AppStrings.error, message: ApiStrings.noInternet);
       print("error");
       print(e);
-      return x;
+      return image;
     }
-    throw UnimplementedError();
   }
 
   @override
@@ -44,14 +45,3 @@ class MyTile extends TileProvider {
     throw UnimplementedError();
   }
 }
-
-// class name extends StatelessWidget {
-//   const name({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ErrorWidget.builder((x){
-//       FlutterErrorDetails;
-//     });
-//   }
-// }

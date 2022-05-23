@@ -11,8 +11,9 @@ import 'package:saja/models/enums/map_type.dart';
 import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/database.dart';
+import 'package:saja/resources/map.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/screens/map/test2.dart';
+import 'package:saja/screens/map/custom_tile.dart';
 import 'package:saja/services/database/hive_services.dart';
 import 'package:saja/widgets/custom_text_button.dart';
 
@@ -65,8 +66,7 @@ class MapScreeen extends StatelessWidget {
                     layers: [
                       TileLayerOptions(
                           backgroundColor: AppColors.accent(),
-                          urlTemplate:
-                              "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                          urlTemplate: MapResources.openStreetAddress,
                           subdomains: ['a', 'b', 'c'],
                           attributionBuilder: (_) {
                             return Align(
@@ -76,8 +76,8 @@ class MapScreeen extends StatelessWidget {
                                   child: const Text("Amlak"),
                                 ));
                           },
-                          // errorImage: AssetImage("assets/images/logo.png"),
-                          tileProvider: MyTile(),
+                          tileProvider: MyCustomTile(
+                              image: AssetImage(AppAssetAddress.logoAddress)),
                           errorTileCallback: (x, y) async {
                             print("error eccured");
                           }),
