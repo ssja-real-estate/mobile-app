@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saja/models/estate_item.dart';
+import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/services/utility/string_extensions.dart';
@@ -32,7 +33,7 @@ class EstateItemWidget extends StatelessWidget {
       BlendMode.lighten,
     ),
     child: Image.asset(
-      'assets/images/logo.png',
+      AppAssetAddress.logoAddress,
       fit: BoxFit.cover,
       width: 120,
       height: 120,

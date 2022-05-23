@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saja/models/enums/login_status.dart';
 import 'package:saja/models/user_model.dart';
+import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/profile/forget.dart';
@@ -49,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Image(
-                    image: AssetImage('assets/images/logo.png'),
+                    image: AssetImage(AppAssetAddress.logoAddress),
                     width: 100,
                     filterQuality: FilterQuality.high,
                   ),

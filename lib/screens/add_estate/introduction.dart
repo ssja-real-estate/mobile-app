@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/add_estate/estate_delegation_type.dart';
@@ -17,7 +18,7 @@ class AddEstateIntroductionScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image(
-            image: AssetImage('assets/images/logo.png'),
+            image: AssetImage(AppAssetAddress.logoAddress),
             width: 150,
             filterQuality: FilterQuality.high,
           ),
