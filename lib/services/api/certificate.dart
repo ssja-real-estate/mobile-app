@@ -9,13 +9,3 @@ class MyHttpOverrides extends HttpOverrides{
   }
 }
 
-  // Future<Record> _getRecords() async { 
-  //       var response = await http.get(Uri.encodeFull("url"),
-  //       headers: {"Authorization": "**","Accept": "application/json"});
-  //       if (response.statusCode == 200) {
-          
-  //         return recordFromJson(response.body);
-  //         } else {
-  //           print(response.statusCode);
-  //           }
-  //           } 
