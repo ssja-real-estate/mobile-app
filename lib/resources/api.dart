@@ -2,6 +2,10 @@ class ApiStrings {
   static const signupAddress = "/api/signup";
   static const signinAddress = "/api/signin";
   static const verifyAddress = "/api/verify";
+  static const forgetPssword = "/forgetpassword/mobile";
+  static const changePassword = "/change-password";
+  static const currentPassword = "currentPassword";
+  static const newPassword = "newPassword";
   static const httpSiteName = "https://www.ssja.ir:5001";
   static const siteName = "ssja.ir:5001";
   static const id = "id";

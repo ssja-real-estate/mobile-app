@@ -56,7 +56,11 @@ class UserServices {
   }
 
   //? forgetPass
-  static Future forgotPassword() async {}
+  static Future forgotPassword({required User user}) async {
+    await Api.post(json: user.mobile!, unicode: ApiStrings.forgetPssword).then((value) => {
+      
+    });
+  }
 
   //? update name
   static Future updateName() async {}
