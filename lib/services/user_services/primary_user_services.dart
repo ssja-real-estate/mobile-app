@@ -57,8 +57,14 @@ class UserServices {
 
   //? forgetPass
   static Future forgotPassword({required User user}) async {
-    await Api.post(json: user.mobile!, unicode: ApiStrings.forgetPssword).then((value) => {
-      
+    await Api.post(json: user.mobile!, unicode: ApiStrings.forgetPssword)
+        .then((value) async {
+      CustomSnackBar.showSnackbar(title: "", message: value.toString());
+      return true;
+    }).catchError((error) {
+      CustomSnackBar.showSnackbar(
+          title: AppStrings.error, message: error.toString());
+      return false;
     });
   }
 
