@@ -1,28 +1,42 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
+import 'package:saja/resources/database.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/profile/forget.dart';
+import 'package:saja/screens/profile/signup.dart';
+import 'package:saja/services/navigation/app_navigator.dart';
+import 'package:saja/services/user_services/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
-import 'package:saja/widgets/password_input_form_field.dart';
-import 'package:saja/widgets/text_input_form_field.dart';
+import 'package:saja/widgets/form_password_input.dart';
+import 'package:saja/widgets/form_text_input.dart';
 
-class SignupScreen extends StatefulWidget {
-  static const valueKey = ValueKey('Signup');
-  const SignupScreen({Key? key}) : super(key: key);
+import '../../services/size/size_config.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _SignupScreenState createState() => _SignupScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
-  final repeatPasswordController = TextEditingController();
+  bool loading = false;
+  User user = User();
 
+  late SizeConfig sizeConfig;
   @override
   Widget build(BuildContext context) {
+    print(Directory.current.path);
+    sizeConfig = SizeConfig(context);
     return Container(
       padding: EdgeInsets.all(15),
       child: SingleChildScrollView(
@@ -43,7 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     height: 15,
                   ),
                   Text(
-                    Strings.signup,
+                    AppStrings.login,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -60,13 +74,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    TextInputFormField(
-                      label: Strings.phone,
+                    FormTextInput(
+                      label: AppStrings.phone,
+                      inputType: TextInputType.number,
                       controller: phoneController,
                       onChanged: (text) {},
                       validator: (value) {
                         if (!RegexValidator.validatePhone(value)) {
-                          return Strings.invalidPhone;
+                          return AppStrings.invalidPhone;
                         }
                         return null;
                       },
@@ -75,33 +90,15 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: sizeConfig.height(7),
                     ),
-                    PasswordInputFormField(
-                      label: Strings.password,
+                    FormPasswordInput(
+                      label: AppStrings.password,
                       controller: passwordController,
                       onChanged: (text) {},
                       validator: (value) {
                         if (!RegexValidator.validatePassword(value)) {
-                          return Strings.invalidPassword;
-                        } else {
-                          return null;
-                        }
-                      },
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    PasswordInputFormField(
-                      label: Strings.repeatPassword,
-                      controller: repeatPasswordController,
-                      onChanged: (text) {},
-                      validator: (value) {
-                        if (!RegexValidator.validatePassword(value)) {
-                          return Strings.invalidPassword;
+                          return AppStrings.invalidPassword;
                         } else {
                           return null;
                         }
@@ -117,18 +114,22 @@ class _SignupScreenState extends State<SignupScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomTextButton(
-                          title: Strings.forgotPassword,
-                          onPressed: () {},
+                          title: AppStrings.forgotPassword,
+                          onPressed: () {
+                            Get.off(() => ForgetPassScreen());
+                          },
                         ),
                       ],
                     ),
                     SizedBox(
                       height: 30,
                     ),
+                    // signin button
                     CustomButton(
-                      title: Strings.signupButtonText,
-                      onPressed: () {},
-                      horizontalPadding: 20,
+                      title: AppStrings.loginButtonText,
+                      onPressed: onPressed2,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                       fontSize: 20,
                       margin: EdgeInsets.symmetric(
                         horizontal: 20,
@@ -141,10 +142,12 @@ class _SignupScreenState extends State<SignupScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(Strings.alreadyHaveAccount),
+                        Text(AppStrings.stillNotSignedIn),
                         CustomTextButton(
-                          title: Strings.login,
-                          onPressed: () {},
+                          title: AppStrings.signup,
+                          onPressed: () {
+                            AppNavigator.pushScreen(context, SignupScreen());
+                          },
                         ),
                       ],
                     ),
@@ -156,5 +159,23 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
+  }
+
+//? methods
+
+  Future onPressed2() async {
+    if (_formKey.currentState!.validate()) {
+      if (!loading) {
+        loading = true;
+        user.mobile = phoneController.text;
+        user.password = passwordController.text;
+        var result = await UserServices.signin(user: user);
+        if (result) {
+          // navigate to splash
+        } else {
+          loading = false;
+        }
+      }
+    }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 
-class TextInputFormField extends StatelessWidget {
+class FormTextInput extends StatelessWidget {
   final String? label;
   final FormFieldValidator<String>? validator;
   final TextEditingController? controller;
@@ -12,7 +12,7 @@ class TextInputFormField extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final double? fontSize;
 
-  const TextInputFormField({
+  const FormTextInput({
     Key? key,
     @required this.label,
     this.validator,
