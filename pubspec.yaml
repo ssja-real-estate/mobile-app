@@ -42,6 +42,8 @@ dependencies:
   hive_flutter:
   flutter_map: any
   geolocator: ^8.2.1
+  # geocoding: ^1.0.5
+
   latlong2: ^0.8.1
   cached_network_image: ^3.2.1
   flutter_cache_manager:

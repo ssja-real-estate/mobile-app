@@ -8,13 +8,18 @@ import 'package:hive/hive.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:saja/database/hive_database.dart';
 import 'package:saja/models/enums/map_type.dart';
+import 'package:saja/resources/api.dart';
 import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/database.dart';
 import 'package:saja/resources/map.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/map/custom_tile.dart';
+import 'package:saja/services/api/api.dart';
 import 'package:saja/services/database/hive_services.dart';
+import 'package:saja/services/map_services/map_geoLocator.dart';
+import 'package:saja/services/map_services/map_services.dart';
+import 'package:saja/services/snackbar/custom_snack_bar.dart';
 import 'package:saja/widgets/custom_text_button.dart';
 
 class MapScreeen extends StatelessWidget {
@@ -27,11 +32,14 @@ class MapScreeen extends StatelessWidget {
   late LatLng lastLatLng;
   final GeolocatorPlatform geolocatorPlatform = GeolocatorPlatform.instance;
   late Future future;
-  void move() {
-    mapControllerImpl.move(LatLng(36.740438, 45.718937), 17);
+  void move({required LatLng lastLatLng}) {
+    mapControllerImpl.move(lastLatLng, 17);
+    markers.value = MapServices.customMarker(latLng: lastLatLng);
+    gpsIcon.value = MapIcons.gpsIcon;
   }
 
   MapController mapController = MapController();
+  Rx<IconData> gpsIcon = MapIcons.gpsIcon.obs;
   @override
   Widget build(BuildContext context) {
     future = initialOptions();
@@ -94,13 +102,37 @@ class MapScreeen extends StatelessWidget {
                       child: IconButton(
                           iconSize: 50,
                           onPressed: () async {
-                            // if(!( await MapGeolocatorService.checkPermision(geolocatorPlatform: geolocatorPlatform))){
+                            gpsIcon.value = MapIcons.gpsIconTracking;
+                            if (!(await MapGeolocatorService.checkPermision(
+                                geolocatorPlatform: geolocatorPlatform))) {
+                              CustomSnackBar.showSnackbar(
+                                  title: AppStrings.error,
+                                  message: MapResources.noGpsService);
+                              gpsIcon.value = MapIcons.gpsIcon;
 
-                            // }else{
+                              print("no service");
+                            } else {
+                              print("have service");
+                              try {
+                                var position = await MapGeolocatorService
+                                    .getCurrentPosition(
+                                        geolocatorPlatform: geolocatorPlatform);
+                                lastLatLng.latitude = position.latitude;
+                                lastLatLng.longitude = position.longitude;
+                                move(lastLatLng: lastLatLng);
+                              } catch (e) {
+                                gpsIcon.value = MapIcons.gpsIcon;
 
-                            // }
+                                CustomSnackBar.showSnackbar(
+                                    title: AppStrings.error,
+                                    message: MapResources.errorTracking);
+
+                                print('e is');
+                                printError(info: e.toString());
+                              }
+                            }
                           },
-                          icon: Icon(Icons.gps_fixed_outlined)),
+                          icon: Obx(() => Icon(gpsIcon.value))),
                     )),
               ],
             );
@@ -109,18 +141,11 @@ class MapScreeen extends StatelessWidget {
   }
 
   Future initialOptions() async {
-    lastLatLng = await getLastPosition();
+    lastLatLng = await MapServices.getLastPosition();
     markerInitialize(latLng: lastLatLng);
     await HiveDatabase.close();
     mapOptions = await mapOptionsInitialize(latLng: lastLatLng);
     return true;
-  }
-
-  Future<LatLng> getLastPosition() async {
-    Box latLngBox =
-        await HiveDatabase.openBox(boxName: DatabaseStrings.latLngBox);
-    LatLng latLng = await HiveServices.getLastLatLngPosition(box: latLngBox);
-    return latLng;
   }
 
   Future<Rxn<MapOptions>> mapOptionsInitialize({required LatLng latLng}) async {
@@ -128,27 +153,11 @@ class MapScreeen extends StatelessWidget {
         center: latLng, //geolocator
         zoom: 14.0,
         onLongPress: (x, lng) {
-          markers.value = Marker(
-            width: 40.0,
-            height: 40.0,
-            point: lng,
-            builder: (ctx) => InkWell(
-              child: Image.asset(AppAssetAddress.mapMarkerAddress),
-              onTap: () {},
-            ),
-          );
+          markers = Rx(MapServices.customMarker(latLng: lng));
         }));
   }
 
   void markerInitialize({required LatLng latLng}) {
-    markers = Rx(Marker(
-      width: 40.0,
-      height: 40.0,
-      point: latLng,
-      builder: (ctx) => InkWell(
-        child: Image.asset(AppAssetAddress.mapMarkerAddress),
-        onTap: () {},
-      ),
-    ));
+    markers = Rx(MapServices.customMarker(latLng: latLng));
   }
 }
