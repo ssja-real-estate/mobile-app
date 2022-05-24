@@ -35,7 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
   late SizeConfig sizeConfig;
   @override
   Widget build(BuildContext context) {
-    print(Directory.current.path);
     sizeConfig = SizeConfig(context);
     return Container(
       padding: EdgeInsets.all(15),
