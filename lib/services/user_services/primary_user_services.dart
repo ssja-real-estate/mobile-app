@@ -9,26 +9,17 @@ import '../snackbar/custom_snack_bar.dart';
 class UserServices {
   //? signup user
   static Future signup({required User user}) async {
-    try {
-      await Api.post(json: user.toJson(), unicode: ApiStrings.signupAddress)
-          .then((data) {
-        CustomSnackBar.showSnackbar(title: "", message: data);
-        //? Get.off(()=> VerifySms());
-      }).catchError((error) {
-        print("we have an error in user services signup future");
-
-        CustomSnackBar.showSnackbar(title: AppStrings.error, message: error);
-        print(error);
-      });
-    } catch (e) {
-      print("we have an error in user services signup try-catch");
-      print(e);
-    }
+    await Api.post(json: user.toJson(), unicode: ApiStrings.signupAddress)
+        .then((data) {
+      CustomSnackBar.showSnackbar(title: "", message: data);
+      //? Get.off(()=> VerifySms());
+    }).catchError((error) {
+      CustomSnackBar.showSnackbar(title: AppStrings.error, message: error);
+    });
   }
 
   //? signin user
   static Future signin({required User user}) async {
-    print("signin started");
     bool result;
     try {
       result =
@@ -41,17 +32,12 @@ class UserServices {
 
         return true;
       }).catchError((error) {
-        print("we have an error in user service signin future");
         CustomSnackBar.showSnackbar(title: AppStrings.error, message: error);
-        print(error);
         return false;
       });
     } catch (e) {
-      print("we have an error in user services signin try-catch");
-      print(e);
       result = false;
     }
-    print("signin ended");
     return result;
   }
 
@@ -65,14 +51,8 @@ class UserServices {
               val: {ApiStrings.code: smsCode, ApiStrings.mobile: user.mobile},
               unicode: ApiStrings.verifyAddress)
           .then((value) {})
-          .catchError((error) {
-        print("we have an error in user services verify future");
-        print(error);
-      });
-    } catch (e) {
-      print("we have an error in user services verify try-catch");
-      print(e);
-    }
+          .catchError((error) {});
+    } catch (e) {}
   }
 
   //? forgetPass

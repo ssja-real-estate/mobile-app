@@ -11,37 +11,21 @@ class Api {
   static Future post({required String json, required String unicode}) async {
     // unicode :
     if (await CheckInternet.hasInternet()) {
-      if (await CheckInternet.usingVpn()) {
-        throw ApiStrings.vpnOff;
-      } else {
-        try {
-          print("post in api started");
-          print(ApiStrings.siteName);
           var uri = Uri.http(ApiStrings.siteName, unicode);
-          print("json is :" + json);
           var response = await http
               .post(uri, body: json, headers: Api.headeroption)
               .onError((error, stackTrace) {
             //! when get error in posting
-            print("error");
-            print(error);
             throw error!;
           });
-          print(utf8.decode(response.bodyBytes));
-          print(response.statusCode);
           var result = jsonDecode(utf8.decode(response.bodyBytes));
           if (response.statusCode == 200) {
-            print("status is 200");
             return result;
           } else {
-            print("post in api ended2");
             throw result['error'];
           }
-        } catch (e) {
-          print(e.toString());
-          throw ApiStrings.apiError;
-        }
-      }
+        
+      
     } else {
       throw ApiStrings.noInternet;
     }
@@ -53,8 +37,6 @@ class Api {
     Uri uri = Uri.http(ApiStrings.siteName, unicode, val);
     var response = await http.get(uri).onError((error, stackTrace) {
       //! when get error in get
-      print("error");
-      print(error);
       throw error!;
     });
     if (response.statusCode == 200) {

@@ -70,21 +70,17 @@ class _MainAppScreenState extends State<MainAppScreen> {
             !await _navigatorKeys[_currentTabIndex]!.currentState!.maybePop();
         if (isFirstRouteInCurrentTab) {
           // if it's on the main tab, return to main tab
-          print('1');
           _toggleBottomNavBar(false);
           if (_currentTabIndex != 0) {
-            print('2');
 
             _selectTab(0);
 
             return false;
           }
         } else {
-          print('3');
 
           _toggleBottomNavBar(true);
         }
-        print('4');
 
         // let system handle back button if we're on the first route
         return isFirstRouteInCurrentTab;

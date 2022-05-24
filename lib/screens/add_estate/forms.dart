@@ -85,13 +85,11 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
             color: AppColors.primary(),
             fontSize: 20,
             onPressed: () {
-              print("pressed");
               CustomSnackBar.showSnackbar(
                 title: AppStrings.error,
                 message: AppStrings.imagesCountMoreThanLimit,
               );
 
-              // print(form.sections[4].fields[2].value);
             },
           ),
         ),
