@@ -22,7 +22,6 @@ class Api {
             scheme: "https",
             path: unicode + queryNotMap,
             queryParameters: params);
-        print(uri);
         http.Response response = await http
             .post(uri, body: json, headers: Api.headeroption)
             .then((value) {
