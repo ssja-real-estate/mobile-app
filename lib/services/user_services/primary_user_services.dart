@@ -1,6 +1,4 @@
-import 'package:hive/hive.dart';
 import 'package:saja/models/user_model.dart';
-import 'package:saja/resources/database.dart';
 import 'package:saja/services/api/api.dart';
 import '../../resources/api.dart';
 import '../../resources/strings.dart';
@@ -8,18 +6,27 @@ import '../snackbar/custom_snack_bar.dart';
 
 class UserServices {
   //? signup user
-  static Future signup({required User user}) async {
-    await Api.post(json: user.toJson(), unicode: ApiStrings.signupAddress)
-        .then((data) {
-      CustomSnackBar.showSnackbar(title: "", message: data);
-      //? Get.off(()=> VerifySms());
-    }).catchError((error) {
-      CustomSnackBar.showSnackbar(title: AppStrings.error, message: error);
-    });
+  static Future<bool> signup({required User user}) async {
+    try {
+      bool result =
+          await Api.post(json: user.toJson(), unicode: ApiStrings.signupAddress)
+              .then((data) {
+        CustomSnackBar.showSnackbar(title: "", message: data);
+        return true;
+      }).catchError((error) {
+        CustomSnackBar.showSnackbar(title: AppStrings.error, message: error);
+        return false;
+      });
+      return result;
+    } catch (e) {
+      CustomSnackBar.showSnackbar(
+          title: AppStrings.error, message: ApiStrings.apiError);
+      return false;
+    }
   }
 
   //? signin user
-  static Future signin({required User user}) async {
+  static Future<bool> signin({required User user}) async {
     bool result;
     try {
       result =
@@ -36,28 +43,19 @@ class UserServices {
         return false;
       });
     } catch (e) {
+      CustomSnackBar.showSnackbar(
+          title: AppStrings.error, message: ApiStrings.apiError);
       result = false;
     }
     return result;
   }
 
-//? forget passord
-  static Future forgetPass({required String mobile}) async {}
-
-  //? verify
-  static Future verify({required String smsCode, required User user}) async {
-    try {
-      var result = await Api.getVerify(
-              val: {ApiStrings.code: smsCode, ApiStrings.mobile: user.mobile},
-              unicode: ApiStrings.verifyAddress)
-          .then((value) {})
-          .catchError((error) {});
-    } catch (e) {}
-  }
-
   //? forgetPass
-  static Future forgotPassword({required User user}) async {
-    await Api.post(json: user.mobile!, unicode: ApiStrings.forgetPssword)
+  static Future<bool> forgotPassword({required User user}) async {
+    var result = await Api.post(
+            json: '',
+            unicode: ApiStrings.forgetPsswordAddress,
+            queryNotMap: user.mobile!)
         .then((value) async {
       CustomSnackBar.showSnackbar(title: "", message: value.toString());
       return true;
@@ -66,6 +64,28 @@ class UserServices {
           title: AppStrings.error, message: error.toString());
       return false;
     });
+
+    return result;
+  }
+
+  //? verify
+  static Future<bool> verify(
+      {required String smsCode, required User user}) async {
+    try {
+      var result = await Api.getVerify(
+              val: {ApiStrings.code: smsCode, ApiStrings.mobile: user.mobile},
+              unicode: ApiStrings.verifyAddress)
+          .then((value) {
+        CustomSnackBar.showSnackbar(title: value);
+      }).catchError((error) {
+        CustomSnackBar.showSnackbar(title: error);
+      });
+      return result;
+    } catch (e) {
+      CustomSnackBar.showSnackbar(
+          title: AppStrings.error, message: ApiStrings.noInternet);
+      return false;
+    }
   }
 
   //? update name

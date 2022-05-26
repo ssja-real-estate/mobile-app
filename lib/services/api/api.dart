@@ -14,21 +14,20 @@ class Api {
       String queryNotMap: '',
       Map<String, dynamic> params: const {}}) async {
     // unicode :
+
     try {
       if (await CheckInternet.hasInternet()) {
-        var uri2 = Uri(
+        var uri = Uri(
             host: ApiStrings.siteNameWithoutPort,
             scheme: "https",
             path: unicode + queryNotMap,
             queryParameters: params);
-        var response = await http
-            .post(uri2, body: json, headers: Api.headeroption)
-            .catchError((error) {
-          //! when get error in posting
-          print(error);
-          if (error.toString().contains("Failed host lookup")) {
-            throw ApiStrings.noInternet;
-          }
+        http.Response response = await http
+            .post(uri, body: json, headers: Api.headeroption)
+            .then((value) {
+          return value;
+        }).catchError((error) {
+          //! when get error in Posting
           throw error!;
         });
         var result;
@@ -38,16 +37,24 @@ class Api {
           result = response.body;
         }
         if (response.statusCode == 200) {
+          print(result);
+
           return result;
         } else {
-          throw result['error'] ?? ApiStrings.apiError;
+          throw result['error'];
         }
       } else {
         throw ApiStrings.noInternet;
       }
     } catch (e) {
-      print(e);
-      throw ApiStrings.apiError;
+      if (e.toString().contains("exception") ||
+          e.toString().contains("SocketException") ||
+          e.toString().contains("Exception") ||
+          e.toString().contains("Failed host lookup")) {
+        throw ApiStrings.noInternet;
+      } else {
+        rethrow;
+      }
     }
   }
 

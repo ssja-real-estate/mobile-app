@@ -7,10 +7,12 @@ class CustomSnackBar {
     Get.snackbar(
       '',
       "",
-      titleText: Center(
+      titleText: Align(
+        alignment: Alignment.centerRight,
         child: CustomSnackText.customText(text: title),
       ),
-      messageText: Center(
+      messageText: Align(
+        alignment: Alignment.centerRight,
         child: CustomSnackText.customText(text: message),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/screen_indexes.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/main_app.dart';
+import 'package:saja/services/user_services/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/form_text_input.dart';
@@ -13,7 +14,7 @@ class ForgetPassScreen extends StatelessWidget {
   ForgetPassScreen({Key? key}) : super(key: key);
   final phoneController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -90,15 +91,7 @@ class ForgetPassScreen extends StatelessWidget {
                 ),
                 CustomButton(
                   title: AppStrings.forget,
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      {
-                        User user = User();
-                        user.mobile = phoneController.value.text;
-                        // await UserServices.signup(user: user);
-                      }
-                    }
-                  },
+                  onPressed: onPress,
                   padding: EdgeInsets.symmetric(
                     horizontal: 10,
                     vertical: 15,
@@ -115,5 +108,25 @@ class ForgetPassScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onPress() async {
+    if (!loading) {
+      loading = true;
+      if (_formKey.currentState!.validate()) {
+        {
+          User user = User();
+          user.mobile = phoneController.value.text;
+          bool result = await UserServices.forgotPassword(user: user);
+          if (!result) {
+            loading = false;
+          } else {
+            // go to new password screeen
+          }
+        }
+      } else {
+        loading = false;
+      }
+    }
   }
 }

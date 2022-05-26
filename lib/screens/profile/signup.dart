@@ -124,15 +124,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(
                           height: 15,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomTextButton(
-                              title: AppStrings.forgotPassword,
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
                         SizedBox(
                           height: 30,
                         ),
@@ -186,7 +177,6 @@ class _SignupScreenState extends State<SignupScreen> {
           user.password = passwordController.value.text;
           bool result = await UserServices.signup(user: user);
           if (result) {
-            
           } else {
             loading = false;
           }
