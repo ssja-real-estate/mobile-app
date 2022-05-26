@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/database.dart';
+import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/profile/change_pass.dart';
 import 'package:saja/screens/profile/forget.dart';
 import 'package:saja/screens/profile/signup.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
@@ -115,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         CustomTextButton(
                           title: AppStrings.forgotPassword,
                           onPressed: () {
-                            Get.off(() => ForgetPassScreen());
+                            AppNavigator.pushScreen(RouteNames.forgetPass);
                           },
                         ),
                       ],
@@ -145,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         CustomTextButton(
                           title: AppStrings.signup,
                           onPressed: () {
-                            AppNavigator.pushScreen(context, SignupScreen());
+                            AppNavigator.pushScreen(RouteNames.signup);
                           },
                         ),
                       ],

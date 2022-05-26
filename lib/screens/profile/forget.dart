@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
+import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/screen_indexes.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/main_app.dart';
+import 'package:saja/screens/profile/signup.dart';
+import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/user_services/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
@@ -19,14 +22,7 @@ class ForgetPassScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.off(() => SafeArea(
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: MainAppScreen(
-                  tabIndex: ScreenIndexes.profile,
-                ),
-              ),
-            ));
+        AppNavigator.off(RouteNames.mainAppProfile);
         return true;
       },
       child: Directionality(
@@ -111,6 +107,7 @@ class ForgetPassScreen extends StatelessWidget {
   }
 
   void onPress() async {
+    AppNavigator.pushScreen(RouteNames.signup);
     if (!loading) {
       loading = true;
       if (_formKey.currentState!.validate()) {

@@ -150,7 +150,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             CustomTextButton(
                               title: AppStrings.login,
                               onPressed: () {
-                                AppNavigator.popScreen(context);
+                                AppNavigator.popScreen();
                               },
                             ),
                           ],

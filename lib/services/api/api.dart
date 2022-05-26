@@ -37,7 +37,6 @@ class Api {
           result = response.body;
         }
         if (response.statusCode == 200) {
-          print(result);
 
           return result;
         } else {
@@ -53,7 +52,6 @@ class Api {
           e.toString().contains("Failed host lookup")) {
         throw ApiStrings.noInternet;
       } else {
-        // print(e);
         rethrow;
       }
     }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:saja/models/user_model.dart';
 import 'package:saja/services/api/api.dart';
 import '../../resources/api.dart';
@@ -93,4 +95,19 @@ class UserServices {
 
   //? logout
   static Future logout() async {}
+
+  static Future changePassword(
+      {required User user,
+      required String currentPassword,
+      required String newPassword}) async {
+    // it's will be continued later
+    try {
+      var json = jsonEncode({
+        "currentPassword": currentPassword,
+        "newPassword": newPassword,
+      });
+      var result =
+          await Api.post(json: json, unicode: ApiStrings.changePasswordAddress);
+    } catch (e) {}
+  }
 }
