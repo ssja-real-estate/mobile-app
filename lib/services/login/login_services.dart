@@ -5,7 +5,7 @@ import 'package:saja/models/enums/login_status.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/database.dart';
 import 'package:saja/services/database/hive_services.dart';
-import 'package:saja/services/user_services/primary_user_services.dart';
+import 'package:saja/services/user/primary_user_services.dart';
 import 'package:saja/services/utility/string_extensions.dart';
 
 class LoginServices {

@@ -3,7 +3,7 @@ import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
-import 'package:saja/services/user_services/primary_user_services.dart';
+import 'package:saja/services/user/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';

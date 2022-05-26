@@ -4,7 +4,7 @@ import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/services/login_services/login_services.dart';
+import 'package:saja/services/login/login_services.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
