@@ -23,7 +23,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final repeatPasswordController = TextEditingController();
-
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -59,7 +59,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     ],
                   ),
                 ),
-               
                 SizedBox(
                   height: 15,
                 ),
@@ -180,10 +179,18 @@ class _SignupScreenState extends State<SignupScreen> {
   void onPress() async {
     if (_formKey.currentState!.validate()) {
       {
-        User user = User();
-        user.mobile = phoneController.value.text;
-        user.password = passwordController.value.text;
-        await UserServices.signup(user: user);
+        if (!loading) {
+          loading = true;
+          User user = User();
+          user.mobile = phoneController.value.text;
+          user.password = passwordController.value.text;
+          bool result = await UserServices.signup(user: user);
+          if (result) {
+            
+          } else {
+            loading = false;
+          }
+        }
       }
     }
   }
