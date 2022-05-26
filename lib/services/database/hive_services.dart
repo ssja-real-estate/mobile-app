@@ -8,31 +8,21 @@ import 'package:saja/resources/api.dart';
 import 'package:saja/resources/database.dart';
 
 class HiveServices {
-  static Future userToDatabase(
-      {required String userJson, required Box box}) async {
-    Map map = jsonDecode(userJson);
-    await HiveDatabase.putAll(map: map, box: box);
-    print("hive services : role in box is " +
-        box.get(ApiStrings.role).toString());
-    print("hive services : keys in box is " + box.keys.toString());
+  static Future tokenToDatabase(
+      {required String token, required Box box}) async {
+    print("token is : " + token);
+    await HiveDatabase.put(
+        key: DatabaseStrings.tokenKey, box: box, value: token.toString());
   }
 
-  static Future databaseToUser({required Box box, required User user}) async {
-    user.id = await HiveDatabase.get(key: ApiStrings.id, box: box);
-    user.name = await HiveDatabase.get(key: ApiStrings.name, box: box);
-    user.mobile = await HiveDatabase.get(key: ApiStrings.mobile, box: box);
-    user.password = await HiveDatabase.get(key: ApiStrings.password, box: box);
-    user.token = await HiveDatabase.get(key: ApiStrings.token, box: box);
-    user.role = await HiveDatabase.get(key: ApiStrings.role, box: box);
-    print("values in hive services databasetouser   user box is");
-    print(box.keys);
-    print(box.values);
-    print(user.password);
+  static Future databaseToTokenUser(
+      {required Box box, required User user}) async {
+    user.token =
+        await HiveDatabase.get(key: DatabaseStrings.tokenKey, box: box);
   }
 
   static Future loginSetStatus(
       {required Box loginBox, required String status}) async {
-   
     await HiveDatabase.put(
         box: loginBox, key: DatabaseStrings.loginKey, value: status);
   }
@@ -42,7 +32,7 @@ class HiveServices {
 
     Box box = await HiveDatabase.openBox(boxName: DatabaseStrings.userBox);
     if (HiveDatabase.boxkeys(box: box).toList().length != 0) {
-      await HiveServices.databaseToUser(user: User(), box: box);
+      await HiveServices.databaseToTokenUser(user: User(), box: box);
       await HiveDatabase.close();
       return true;
     }

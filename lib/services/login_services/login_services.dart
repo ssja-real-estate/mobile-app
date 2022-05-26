@@ -20,7 +20,7 @@ class LoginServices{
   }
   static Future setToDatabase({required User user,required LoginStatuses loginStatuses})async{
  Box box = await HiveDatabase.openBox(boxName: DatabaseStrings.userBox);
-    await HiveServices.userToDatabase(userJson: user.toJson(), box: box);
+    await HiveServices.tokenToDatabase(token: user.token!, box: box);
     box = await HiveDatabase.openBox(boxName: DatabaseStrings.loginBox);
     await HiveServices.loginSetStatus(
         loginBox: box, status: loginStatuses.name);
