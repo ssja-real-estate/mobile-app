@@ -30,8 +30,10 @@ class _AppState extends State<App> {
         FocusScope.of(context).requestFocus(new FocusNode());
       },
       child: GetMaterialApp(
+        getPages: Routs.getPages,
+        
         initialRoute: "/",
-        routes: Routs.routes,
+        // routes: Routs.routes,
         textDirection: TextDirection.rtl,
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:saja/resources/screen_indexes.dart';
 import 'package:saja/screens/add_estate/estate_delegation_type.dart';
 import 'package:saja/screens/add_estate/forms.dart';
@@ -41,4 +42,80 @@ class Routs {
     RouteNames.addEstateForms: (p0) => AddEstateFormsScreen(),
     RouteNames.main: (p0) => MainAppScreen()
   };
+
+  static List<GetPage<dynamic>> getPages = [
+    GetPage(
+        name: RouteNames.mainAppHome,
+        page: (() => MainAppScreen(
+              tabIndex: ScreenIndexes.home,
+            )),
+        curve: CustomTransitonClass.defultCurve,
+        transition: CustomTransitonClass.transition,
+        transitionDuration: CustomTransitonClass.transitionDuration),
+    GetPage(
+        name: RouteNames.mainAppAddEstate,
+        page: (() => MainAppScreen(
+              tabIndex: ScreenIndexes.addEstate,
+            )),
+        curve: CustomTransitonClass.defultCurve,
+        transition: CustomTransitonClass.transition,
+        transitionDuration: CustomTransitonClass.transitionDuration),
+    GetPage(
+        name: RouteNames.mainAppProfile,
+        page: (() => MainAppScreen(
+              tabIndex: ScreenIndexes.profile,
+            )),
+        curve: CustomTransitonClass.defultCurve,
+        transition: CustomTransitonClass.transition,
+        transitionDuration: CustomTransitonClass.transitionDuration),
+    GetPage(
+        name: RouteNames.signup,
+        page: () => SignupScreen(),
+        curve: CustomTransitonClass.defultCurve,
+        transition: CustomTransitonClass.transition,
+        transitionDuration: CustomTransitonClass.transitionDuration),
+    GetPage(
+        name: RouteNames.forgetPass,
+        page: () => ForgetPassScreen(),
+        curve: CustomTransitonClass.defultCurve,
+        transition: CustomTransitonClass.transition,
+        transitionDuration: CustomTransitonClass.transitionDuration),
+    GetPage(
+        name: RouteNames.changePass,
+        page: () => changePasswordScreen(),
+        curve: CustomTransitonClass.defultCurve,
+        transition: CustomTransitonClass.transition,
+        transitionDuration: CustomTransitonClass.transitionDuration),
+    GetPage(
+        name: RouteNames.estateDelegationType,
+        page: () => EstateDelegationTypeScreen(),
+        curve: CustomTransitonClass.defultCurve,
+        transition: CustomTransitonClass.transition,
+        transitionDuration: CustomTransitonClass.transitionDuration),
+    GetPage(
+        name: RouteNames.ProvinceCity,
+        page: () => ProvinceCityScreen(),
+        curve: CustomTransitonClass.defultCurve,
+        transition: CustomTransitonClass.transition,
+        transitionDuration: CustomTransitonClass.transitionDuration),
+    GetPage(
+        name: RouteNames.addEstateForms,
+        page: () => AddEstateFormsScreen(),
+        curve: CustomTransitonClass.defultCurve,
+        transition: CustomTransitonClass.transition,
+        transitionDuration: CustomTransitonClass.transitionDuration),
+    GetPage(
+        name: RouteNames.main,
+        page: () => MainAppScreen(),
+        curve: CustomTransitonClass.defultCurve,
+        transition: CustomTransitonClass.transition,
+        transitionDuration: CustomTransitonClass.transitionDuration),
+  ];
+}
+
+class CustomTransitonClass {
+  static const Transition transition = Transition.circularReveal;
+  static const Curve defultCurve = Curves.linear;
+
+  static const Duration transitionDuration = Duration(seconds: 2);
 }

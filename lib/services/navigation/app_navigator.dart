@@ -26,9 +26,9 @@ class AppNavigator {
 
   static Future offAll(String route, {bool waiting: false}) async {
     if (waiting) {
-      return await Get.offAll(route);
+      return await Get.offAllNamed(route);
     }
 
-    return Get.offAll(route);
+    return Get.offAllNamed(route);
   }
 }
