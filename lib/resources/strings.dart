@@ -1,5 +1,3 @@
-import 'package:saja/screens/profile/change_pass.dart';
-
 class AppStrings {
   static const saja = "سامانه ثجا";
   static const login = "ورود";

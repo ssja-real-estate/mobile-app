@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/screens/add_estate/estate_delegation_type.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/widgets/custom_button.dart';
 

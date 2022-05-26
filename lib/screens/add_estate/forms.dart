@@ -89,7 +89,6 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
                 title: AppStrings.error,
                 message: AppStrings.imagesCountMoreThanLimit,
               );
-
             },
           ),
         ),

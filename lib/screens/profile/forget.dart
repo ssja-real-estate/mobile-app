@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
-import 'package:saja/resources/routes.dart';
-import 'package:saja/resources/screen_indexes.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/screens/main_app.dart';
-import 'package:saja/screens/profile/signup.dart';
-import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/user_services/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/form_text_input.dart';
+import 'package:saja/services/utility/string_extensions.dart';
 
+
+// ignore: must_be_immutable
 class ForgetPassScreen extends StatelessWidget {
   ForgetPassScreen({Key? key}) : super(key: key);
   final phoneController = TextEditingController();
@@ -105,8 +102,9 @@ class ForgetPassScreen extends StatelessWidget {
       loading = true;
       if (_formKey.currentState!.validate()) {
         {
+          
           User user = User();
-          user.mobile = phoneController.value.text;
+          user.mobile = phoneController.value.text.convertToEnglish();
           bool result = await UserServices.forgotPassword(user: user);
           if (!result) {
             loading = false;

@@ -1,15 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:saja/models/enums/login_status.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/screens/profile/change_pass.dart';
-import 'package:saja/screens/profile/forget.dart';
-import 'package:saja/screens/profile/signup.dart';
 import 'package:saja/services/login_services/login_services.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/services/validation/regex_validator.dart';

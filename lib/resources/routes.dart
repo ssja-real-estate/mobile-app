@@ -35,7 +35,7 @@ class Routs {
         )),
     RouteNames.signup: (p0) => SignupScreen(),
     RouteNames.forgetPass: (p0) => ForgetPassScreen(),
-    RouteNames.changePass: (p0) => changePasswordScreen(),
+    RouteNames.changePass: (p0) => ChangePasswordScreen(),
     RouteNames.estateDelegationType: (p0) => EstateDelegationTypeScreen(),
     RouteNames.ProvinceCity: (p0) => ProvinceCityScreen(),
     RouteNames.addEstateForms: (p0) => AddEstateFormsScreen(),
@@ -81,7 +81,7 @@ class Routs {
         transitionDuration: CustomTransitonClass.transitionDuration),
     GetPage(
         name: RouteNames.changePass,
-        page: () => changePasswordScreen(),
+        page: () => ChangePasswordScreen(),
         curve: CustomTransitonClass.defultCurve,
         transition: CustomTransitonClass.transition,
         transitionDuration: CustomTransitonClass.transitionDuration),

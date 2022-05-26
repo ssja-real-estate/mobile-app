@@ -3,7 +3,6 @@ import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/other.dart';
 import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/screens/add_estate/province_city.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_dropdown.dart';

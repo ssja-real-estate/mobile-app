@@ -3,13 +3,13 @@ import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
-import 'package:saja/services/snackbar/custom_snack_bar.dart';
 import 'package:saja/services/user_services/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
 import 'package:saja/widgets/form_password_input.dart';
 import 'package:saja/widgets/form_text_input.dart';
+import 'package:saja/services/utility/string_extensions.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -173,8 +173,8 @@ class _SignupScreenState extends State<SignupScreen> {
         if (!loading) {
           loading = true;
           User user = User();
-          user.mobile = phoneController.value.text;
-          user.password = passwordController.value.text;
+          user.mobile = phoneController.value.text.convertToEnglish();
+          user.password = passwordController.value.text.convertToEnglish();
           bool result = await UserServices.signup(user: user);
           if (result) {
           } else {
