@@ -7,7 +7,6 @@ import 'package:saja/resources/database.dart';
 class HiveServices {
   static Future tokenToDatabase(
       {required String token, required Box box}) async {
-    print("token is : " + token);
     await HiveDatabase.put(
         key: DatabaseStrings.tokenKey, box: box, value: token.toString());
   }

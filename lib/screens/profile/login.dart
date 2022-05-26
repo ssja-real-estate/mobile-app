@@ -167,7 +167,6 @@ class _LoginScreenState extends State<LoginScreen> {
             passwordController: passwordController,
             user: user);
         if (result) {
-          print("result in login onpressed is true");
           await setToDatabase();
           // navigate to splash
         } else {
