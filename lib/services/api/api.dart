@@ -8,26 +8,46 @@ class Api {
     "Content-Type": "application/json;charset=utf-8"
   };
   // todo post
-  static Future post({required String json, required String unicode}) async {
+  static Future post(
+      {required String json,
+      required String unicode,
+      String queryNotMap: '',
+      Map<String, dynamic> params: const {}}) async {
     // unicode :
-    if (await CheckInternet.hasInternet()) {
-          var uri = Uri.http(ApiStrings.siteName, unicode);
-          var response = await http
-              .post(uri, body: json, headers: Api.headeroption)
-              .onError((error, stackTrace) {
-            //! when get error in posting
-            throw error!;
-          });
-          var result = jsonDecode(utf8.decode(response.bodyBytes));
-          if (response.statusCode == 200) {
-            return result;
-          } else {
-            throw result['error'];
+    try {
+      if (await CheckInternet.hasInternet()) {
+        var uri2 = Uri(
+            host: ApiStrings.siteNameWithoutPort,
+            scheme: "https",
+            path: unicode + queryNotMap,
+            queryParameters: params);
+        var response = await http
+            .post(uri2, body: json, headers: Api.headeroption)
+            .catchError((error) {
+          //! when get error in posting
+          print(error);
+          if (error.toString().contains("Failed host lookup")) {
+            throw ApiStrings.noInternet;
           }
-        
-      
-    } else {
-      throw ApiStrings.noInternet;
+          throw error!;
+        });
+        var result;
+        try {
+          result = jsonDecode(utf8.decode(response.bodyBytes));
+        } catch (e) {
+          result = response.body;
+        }
+        if (response.statusCode == 200) {
+          return result;
+        } else {
+          throw result['error'] ?? ApiStrings.apiError;
+        }
+      } else {
+        throw ApiStrings.noInternet;
+      }
+    } catch (e) {
+      print(e);
+      throw ApiStrings.apiError;
     }
   }
 
