@@ -4,7 +4,6 @@ import 'package:saja/resources/screen_indexes.dart';
 import 'package:saja/screens/add_estate/estate_delegation_type.dart';
 import 'package:saja/screens/add_estate/forms.dart';
 import 'package:saja/screens/add_estate/province_city.dart';
-import 'package:saja/screens/app.dart';
 import 'package:saja/screens/main_app.dart';
 import 'package:saja/screens/profile/change_pass.dart';
 import 'package:saja/screens/profile/forget.dart';
