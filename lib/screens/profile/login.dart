@@ -2,16 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:saja/models/enums/login_status.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/colors.dart';
-import 'package:saja/resources/database.dart';
 import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/profile/change_pass.dart';
 import 'package:saja/screens/profile/forget.dart';
 import 'package:saja/screens/profile/signup.dart';
+import 'package:saja/services/login_services/login_services.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
-import 'package:saja/services/user_services/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
@@ -165,18 +165,26 @@ class _LoginScreenState extends State<LoginScreen> {
 //? methods
 
   Future onPressed2() async {
-    if (_formKey.currentState!.validate()) {
+    if (LoginServices.formValidator(formKey: _formKey)) {
       if (!loading) {
         loading = true;
-        user.mobile = phoneController.text;
-        user.password = passwordController.text;
-        var result = await UserServices.signin(user: user);
+        var result = await LoginServices.signinOptions(
+            phoneController: phoneController,
+            passwordController: passwordController,
+            user: user);
         if (result) {
+          print("result in login onpressed is true");
+          await setToDatabase();
           // navigate to splash
         } else {
           loading = false;
         }
       }
     }
+  }
+
+  Future<void> setToDatabase() async {
+    await LoginServices.setToDatabase(
+        user: user, loginStatuses: LoginStatuses.loggedIn);
   }
 }
