@@ -36,7 +36,8 @@ dependencies:
   hive: ^2.2.0
   hive_flutter:
   flutter_map: any
-  geolocator: ^8.2.1
+  geolocator: any
+  permission_handler: ^9.2.0
   # geocoding: ^1.0.5
 
   latlong2: ^0.8.1
