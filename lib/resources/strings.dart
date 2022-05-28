@@ -37,4 +37,6 @@ class AppStrings {
   static const newPassword = "گذرواژه جدید";
   static const changePassword = "تغییر رمز";
   static const userChangePassword = "تغییر رمز کاربری";
+  static const ok = "تایید";
+  static const cancel = "لغو";
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saja/models/user_model.dart';
+import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/services/user/primary_user_services.dart';

@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:saja/database/hive_database.dart';
 import 'package:saja/models/enums/login_status.dart';
 import 'package:saja/models/user_model.dart';
@@ -23,10 +24,8 @@ class HiveServices {
         box: loginBox, key: DatabaseStrings.loginKey, value: status);
   }
 
-  static Future<bool> databaseInitializing() async {
-    await Hive.initFlutter();
+  static Future<bool> databaseInitializing({required Box box}) async {
 
-    Box box = await HiveDatabase.openBox(boxName: DatabaseStrings.userBox);
     if (HiveDatabase.boxkeys(box: box).toList().length != 0) {
       await HiveServices.databaseToTokenUser(user: User(), box: box);
       await HiveDatabase.close();
@@ -36,12 +35,34 @@ class HiveServices {
     return false;
   }
 
-  static Future loginInitializing(bool bool) async {
+  static Future loginInitializing(
+      {required bool bool, required Box box}) async {
     if (!bool) {
-      Box box = await HiveDatabase.openBox(boxName: DatabaseStrings.loginBox);
       await HiveServices.loginSetStatus(
           loginBox: box, status: LoginStatuses.notLoggedIn.name);
     }
     await HiveDatabase.close();
+  }
+
+  static Future setLastLatLngPositions(
+      {required LatLng latLng, required Box box}) async {
+    await HiveDatabase.put(
+        box: box,
+        key: DatabaseStrings.latitude,
+        value: latLng.latitude.toString());
+    await HiveDatabase.put(
+        box: box,
+        key: DatabaseStrings.longitude,
+        value: latLng.longitude.toString());
+  }
+
+  static Future<LatLng> getLastLatLngPosition({required Box box}) async {
+    double? longitude = double.parse(
+        await HiveDatabase.get(box: box, key: DatabaseStrings.longitude) ??
+            DatabaseStrings.mahabadLong);
+    double? latitude = double.parse(
+        await HiveDatabase.get(box: box, key: DatabaseStrings.latitude) ??
+            DatabaseStrings.mahabadLat);
+    return LatLng(latitude, longitude);
   }
 }

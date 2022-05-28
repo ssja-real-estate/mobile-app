@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saja/models/user_model.dart';
+import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
@@ -42,7 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Column(
                     children: [
                       Image(
-                        image: AssetImage('assets/images/logo.png'),
+                        image: AssetImage(AppAssetAddress.logoAddress),
                         width: 100,
                         filterQuality: FilterQuality.high,
                       ),

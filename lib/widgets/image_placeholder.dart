@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saja/resources/asset_addresses.dart';
 
 import 'package:saja/resources/colors.dart';
 
@@ -23,7 +24,7 @@ class ImagePlaceholder extends StatelessWidget {
           BlendMode.lighten,
         ),
         child: Image.asset(
-          'assets/images/logo.png',
+          AppAssetAddress.logoAddress,
           fit: BoxFit.cover,
           width: width,
           height: height,
