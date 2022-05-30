@@ -6,7 +6,8 @@ class MapResources {
   static const noGpsService = "سرویس مکان یابی برای شما فعال نشده است";
   static const permanentlyDenied =
       "تا زمانی که مجوز استفاده از موقعیت مکانی را ندهید سرویس دریافت موقعیت کار نخواهد کرد";
-  static const errorTracking = "خطا در مسیریابی";
+  static const errorTracking =
+      "خطا در مسیریابی ، لطفا از فعال بودن سرویس مکان یابی اطمینان حاصل کنید";
 }
 
 class MapIcons {
