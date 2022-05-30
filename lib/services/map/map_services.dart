@@ -17,10 +17,8 @@ class MapServices {
     CustomSnackBar.showSnackbar(title: AppStrings.error, message: errorMassage);
   }
 
-  static Future<Position> getCurrentLocation(
-      {required GeolocatorPlatform geolocatorPlatform}) async {
-    var position = await MapGeolocatorService.getCurrentPosition(
-        geolocatorPlatform: geolocatorPlatform);
+  static Future<Position> getCurrentLocation() async {
+    var position = await MapGeolocatorService.getCurrentPosition();
     return position;
   }
 

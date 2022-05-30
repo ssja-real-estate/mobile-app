@@ -36,13 +36,18 @@ dependencies:
   hive: ^2.2.0
   hive_flutter:
   flutter_map: any
-  geolocator: any
   permission_handler: ^9.2.0
-  # geocoding: ^1.0.5
-
   latlong2: ^0.8.1
-  cached_network_image: ^3.2.1
-  flutter_cache_manager:
+  geolocator: any
+  geocoding: any
+  # current_location: any
+  location: ^4.0.0
+  # awareframework_locations: ^0.1.1
+
+
+  # fl_location: ^1.2.1
+
+  # flutter_geofence: ^0.4.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

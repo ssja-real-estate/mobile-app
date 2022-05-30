@@ -1,4 +1,6 @@
 // ignore_for_file: avoid_print, must_be_immutable
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:geolocator/geolocator.dart';
@@ -25,7 +27,7 @@ class MapScreeen extends StatelessWidget {
   late Rxn<MapOptions> mapOptions = Rxn();
   late Rx<Marker> markers;
   late LatLng lastLatLng;
-  final GeolocatorPlatform geolocatorPlatform = GeolocatorPlatform.instance;
+  // final GeolocatorPlatform geolocatorPlatform = GeolocatorPlatform.instance;
   late Future future;
   bool loading = false;
   void move({required LatLng lastLatLng}) {
@@ -108,15 +110,29 @@ class MapScreeen extends StatelessWidget {
 
   Future<void> gpsLocate() async {
     if (!loading) {
+      bool changing = false;
+      Timer chngGpsIcon = Timer.periodic(Duration(seconds: 2), (t) {
+        changing = !changing;
+        changing
+            ? changeGpsIcon(icon: Icons.gps_not_fixed)
+            : changeGpsIcon(icon: Icons.gps_fixed);
+      });
       loading = true;
       try {
         changeGpsIcon(icon: MapIcons.gpsIconTracking);
         var locationPermission = Permission.location;
         bool status = await MapServices.getStatus(locationPermission);
-        if (!status) {
+        var locationPermission2 = Permission.locationAlways;
+        bool status2 = await MapServices.getStatus(locationPermission2);
+        var locationPermission3 = Permission.locationWhenInUse;
+        bool status3 = await MapServices.getStatus(locationPermission3);
+
+        if (!status || !status2 || !status3) {
           print("no service");
           bool setStatus = await MapServices.setStatus(locationPermission);
-          if (!setStatus) {
+          bool setStatus2 = await MapServices.setStatus(locationPermission2);
+          bool setStatus3 = await MapServices.setStatus(locationPermission3);
+          if (!setStatus || !setStatus2 || !setStatus3) {
             falseOrCatchMethod(errorMessage: MapResources.noGpsService);
           } else {
             loading = false;
@@ -126,10 +142,13 @@ class MapScreeen extends StatelessWidget {
           try {
             print("have service");
             await getAndchangeLocation();
+            loading = false;
+            chngGpsIcon.cancel();
           } catch (e) {
             falseOrCatchMethod(errorMessage: MapResources.errorTracking);
             print('e is');
             printError(info: e.toString());
+            chngGpsIcon.cancel();
           }
         }
       } catch (e) {
@@ -137,18 +156,19 @@ class MapScreeen extends StatelessWidget {
         changeGpsIcon(icon: MapIcons.gpsIcon);
         loading = false;
         print(e);
+        chngGpsIcon.cancel();
       }
     }
   }
 
   Future<void> getAndchangeLocation() async {
-    Position position = await MapServices.getCurrentLocation(
-        geolocatorPlatform: geolocatorPlatform);
+    Position position = await MapServices.getCurrentLocation();
     changeLastLatLng(position);
     move(lastLatLng: lastLatLng);
   }
 
   void changeLastLatLng(Position position) {
+    print(position);
     lastLatLng.latitude = position.latitude;
     lastLatLng.longitude = position.longitude;
   }
@@ -170,7 +190,7 @@ class MapScreeen extends StatelessWidget {
         center: latLng, //geolocator
         zoom: 14.0,
         onLongPress: (x, lng) {
-          markers = Rx(MapServices.customMarker(latLng: lng));
+          markers.value = (MapServices.customMarker(latLng: lng));
         }));
   }
 
