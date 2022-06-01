@@ -14,9 +14,7 @@ import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/map.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/screens/map/custom_tile.dart';
-import 'package:saja/services/map/map_geoLocator.dart';
 import 'package:saja/services/map/map_services.dart';
-import 'package:saja/services/snackbar/custom_snack_bar.dart';
 import 'package:saja/widgets/custom_text_button.dart';
 
 class MapScreeen extends StatelessWidget {
@@ -108,14 +106,15 @@ class MapScreeen extends StatelessWidget {
     );
   }
 
+  //gps
   Future<void> gpsLocate() async {
     if (!loading) {
       bool changing = false;
       Timer chngGpsIcon = Timer.periodic(Duration(seconds: 2), (t) {
         changing = !changing;
         changing
-            ? changeGpsIcon(icon: Icons.gps_not_fixed)
-            : changeGpsIcon(icon: Icons.gps_fixed);
+            ? changeGpsIcon(icon: MapIcons.gpsIconTracking)
+            : changeGpsIcon(icon: MapIcons.gpsIcon);
       });
       loading = true;
       try {
@@ -161,8 +160,12 @@ class MapScreeen extends StatelessWidget {
     }
   }
 
+//main to gps
   Future<void> getAndchangeLocation() async {
-    Position position = await MapServices.getCurrentLocation();
+
+    Position position = await MapServices.getCurrentLocation(forceAndroidLocationManager:false).catchError((x)async{
+      return await MapServices.getCurrentLocation(forceAndroidLocationManager: true);
+    });
     changeLastLatLng(position);
     move(lastLatLng: lastLatLng);
   }
@@ -173,10 +176,12 @@ class MapScreeen extends StatelessWidget {
     lastLatLng.longitude = position.longitude;
   }
 
+//gps
   void changeGpsIcon({required IconData icon}) {
     gpsIcon.value = icon;
   }
 
+  // main
   Future initialOptions() async {
     lastLatLng = await MapServices.getLastPosition();
     markerInitialize(latLng: lastLatLng);
@@ -185,19 +190,21 @@ class MapScreeen extends StatelessWidget {
     return true;
   }
 
+// main
   Future<Rxn<MapOptions>> mapOptionsInitialize({required LatLng latLng}) async {
-    return Rxn(MapOptions(
-        center: latLng, //geolocator
-        zoom: 14.0,
-        onLongPress: (x, lng) {
-          markers.value = (MapServices.customMarker(latLng: lng));
-        }));
+    var onLongPress = (x, lng) {
+      markers.value = (MapServices.customMarker(latLng: lng));
+    };
+    return Rxn(
+        MapOptions(center: latLng, zoom: 14.0, onLongPress: onLongPress));
   }
 
+// main
   void markerInitialize({required LatLng latLng}) {
     markers = Rx(MapServices.customMarker(latLng: latLng));
   }
 
+//gps
   void falseOrCatchMethod({required String errorMessage}) {
     MapServices.showError(errorMassage: errorMessage);
     changeGpsIcon(icon: MapIcons.gpsIcon);
