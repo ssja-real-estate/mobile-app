@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saja/screens/add_estate/introduction.dart';
 import 'package:saja/screens/home.dart';
 import 'package:saja/screens/profile/login.dart';
+import 'package:saja/screens/profile/user.dart';
 
 class TabNavigator extends StatelessWidget {
   final GlobalKey<NavigatorState> navigatorKey;
@@ -11,9 +12,11 @@ class TabNavigator extends StatelessWidget {
 
   Map<int, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
+
       0: (context) =>  HomeScreen(),
       1: (context) =>  AddEstateIntroductionScreen(),
       2: (context) =>  LoginScreen(),
+
     };
   }
 

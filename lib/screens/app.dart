@@ -22,10 +22,13 @@ class App extends StatefulWidget {
   _AppState createState() => _AppState();
 }
 
+
 class _AppState extends State<App> {
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return GestureDetector(
+
       onTap: () {
         FocusScope.of(context).requestFocus(new FocusNode());
       },
@@ -41,13 +44,16 @@ class _AppState extends State<App> {
           primaryColor: AppColors.primary(),
           colorScheme: ColorScheme.light(
             primary: AppColors.accent(),
+
           ),
-          brightness: Brightness.light,
-          fontFamily: AppFonts.iranSans,
+          brightness:Brightness.light,
+          fontFamily:AppFonts.iranSans,
         ),
+
         // home: SafeArea(
         //   child: MainAppScreen(),
         // ),
+
       ),
     );
   }
