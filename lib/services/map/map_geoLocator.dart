@@ -19,12 +19,12 @@ class MapGeolocatorService {
     return true;
   }
 
-  static Future<Position> getCurrentPosition() async {
-    print("continue");
+  static Future<Position> getCurrentPosition(
+      {required bool forceAndroidLocationManager}) async {
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.medium,
-        // timeLimit: Duration(seconds: 30),
-        forceAndroidLocationManager: true);
+        timeLimit: Duration(minutes: 1, seconds: 20),
+        forceAndroidLocationManager: forceAndroidLocationManager);
   }
 
   static Future<bool> requestPermission(

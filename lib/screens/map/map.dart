@@ -13,7 +13,9 @@ import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/map.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/screens/map/map_widget.dart';
 import 'package:saja/screens/map/custom_tile.dart';
+import 'package:saja/screens/map/gps.dart';
 import 'package:saja/services/map/map_services.dart';
 import 'package:saja/widgets/custom_text_button.dart';
 
@@ -23,14 +25,14 @@ class MapScreeen extends StatelessWidget {
   MapControllerImpl mapControllerImpl = MapControllerImpl();
 
   late Rxn<MapOptions> mapOptions = Rxn();
-  late Rx<Marker> markers;
+  late Rx<Marker> marker;
   late LatLng lastLatLng;
   // final GeolocatorPlatform geolocatorPlatform = GeolocatorPlatform.instance;
   late Future future;
   bool loading = false;
   void move({required LatLng lastLatLng}) {
     mapControllerImpl.move(lastLatLng, 17);
-    markers.value = MapServices.customMarker(latLng: lastLatLng);
+    marker.value = MapServices.customMarker(latLng: lastLatLng);
     gpsIcon.value = MapIcons.gpsIcon;
   }
 
@@ -38,16 +40,19 @@ class MapScreeen extends StatelessWidget {
   Rx<IconData> gpsIcon = MapIcons.gpsIcon.obs;
   @override
   Widget build(BuildContext context) {
+    print(mapType);
     future = initialOptions();
     // initialOptions();
 
     return Scaffold(
       appBar: AppBar(
         actions: [
-          CustomTextButton(
-            title: AppStrings.ok,
-            color: AppColors.white(),
-          )
+          mapType == MapType.choose
+              ? (CustomTextButton(
+                  title: AppStrings.ok,
+                  color: AppColors.white(),
+                ))
+              : Container()
         ],
       ),
       body: FutureBuilder(
@@ -60,112 +65,40 @@ class MapScreeen extends StatelessWidget {
                 ),
               ));
             }
+
             return Stack(
               children: [
-                Obx(
-                  () => FlutterMap(
-                    key: ValueKey(MediaQuery.of(context).orientation),
-                    mapController: mapControllerImpl,
-                    options: mapOptions.value!,
-                    layers: [
-                      TileLayerOptions(
-                          backgroundColor: AppColors.accent(),
-                          urlTemplate: MapResources.openStreetAddress,
-                          subdomains: ['a', 'b', 'c'],
-                          attributionBuilder: (_) {
-                            return Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Text("Amlak"),
-                                ));
-                          },
-                          tileProvider: MyCustomTile(
-                              image: AssetImage(AppAssetAddress.logoAddress)),
-                          errorTileCallback: (x, y) async {
-                            print("error eccured");
-                          }),
-                      MarkerLayerOptions(
-                        markers: [markers.value],
-                      ),
-                    ],
-                  ),
-                ),
-                Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 20, right: 10),
-                      child: IconButton(
-                          iconSize: 50,
-                          onPressed: gpsLocate,
-                          icon: Obx(() => Icon(gpsIcon.value))),
-                    )),
+                mapType == MapType.choose
+                    ? (MapWidget(
+                        mapControllerImpl: mapControllerImpl,
+                        marker: marker,
+                        mapOptions: mapOptions))
+                    : (MapWidget(
+                        mapControllerImpl: mapControllerImpl,
+                        markers: [],
+                        mapOptions: mapOptions)),
+                GpsWidget(
+                  mapControllerImpl: mapControllerImpl,
+                  getAndchangeLocation: getAndchangeLocation,
+                  lastLatLng: lastLatLng,
+                )
               ],
             );
-          }), // This trailing comma makes auto-formatting nicer for build methods.
+          }),
     );
   }
 
-  //gps
-  Future<void> gpsLocate() async {
-    if (!loading) {
-      bool changing = false;
-      Timer chngGpsIcon = Timer.periodic(Duration(seconds: 2), (t) {
-        changing = !changing;
-        changing
-            ? changeGpsIcon(icon: MapIcons.gpsIconTracking)
-            : changeGpsIcon(icon: MapIcons.gpsIcon);
-      });
-      loading = true;
-      try {
-        changeGpsIcon(icon: MapIcons.gpsIconTracking);
-        var locationPermission = Permission.location;
-        bool status = await MapServices.getStatus(locationPermission);
-        var locationPermission2 = Permission.locationAlways;
-        bool status2 = await MapServices.getStatus(locationPermission2);
-        var locationPermission3 = Permission.locationWhenInUse;
-        bool status3 = await MapServices.getStatus(locationPermission3);
-
-        if (!status || !status2 || !status3) {
-          print("no service");
-          bool setStatus = await MapServices.setStatus(locationPermission);
-          bool setStatus2 = await MapServices.setStatus(locationPermission2);
-          bool setStatus3 = await MapServices.setStatus(locationPermission3);
-          if (!setStatus || !setStatus2 || !setStatus3) {
-            falseOrCatchMethod(errorMessage: MapResources.noGpsService);
-          } else {
-            loading = false;
-            await gpsLocate();
-          }
-        } else {
-          try {
-            print("have service");
-            await getAndchangeLocation();
-            loading = false;
-            chngGpsIcon.cancel();
-          } catch (e) {
-            falseOrCatchMethod(errorMessage: MapResources.errorTracking);
-            print('e is');
-            printError(info: e.toString());
-            chngGpsIcon.cancel();
-          }
-        }
-      } catch (e) {
-        // TODO
-        changeGpsIcon(icon: MapIcons.gpsIcon);
-        loading = false;
-        print(e);
-        chngGpsIcon.cancel();
-      }
-    }
-  }
-
-//main to gps
   Future<void> getAndchangeLocation() async {
-
-    Position position = await MapServices.getCurrentLocation(forceAndroidLocationManager:false).catchError((x)async{
-      return await MapServices.getCurrentLocation(forceAndroidLocationManager: true);
-    });
+    print("get location map-test started");
+    late Position position;
+    try {
+      position = await MapServices.getCurrentLocation(
+          forceAndroidLocationManager: false);
+    } catch (e) {
+      print("e in get and change location started map test");
+      position = await MapServices.getCurrentLocation(
+          forceAndroidLocationManager: true);
+    }
     changeLastLatLng(position);
     move(lastLatLng: lastLatLng);
   }
@@ -174,11 +107,6 @@ class MapScreeen extends StatelessWidget {
     print(position);
     lastLatLng.latitude = position.latitude;
     lastLatLng.longitude = position.longitude;
-  }
-
-//gps
-  void changeGpsIcon({required IconData icon}) {
-    gpsIcon.value = icon;
   }
 
   // main
@@ -193,7 +121,7 @@ class MapScreeen extends StatelessWidget {
 // main
   Future<Rxn<MapOptions>> mapOptionsInitialize({required LatLng latLng}) async {
     var onLongPress = (x, lng) {
-      markers.value = (MapServices.customMarker(latLng: lng));
+      marker.value = (MapServices.customMarker(latLng: lng));
     };
     return Rxn(
         MapOptions(center: latLng, zoom: 14.0, onLongPress: onLongPress));
@@ -201,13 +129,6 @@ class MapScreeen extends StatelessWidget {
 
 // main
   void markerInitialize({required LatLng latLng}) {
-    markers = Rx(MapServices.customMarker(latLng: latLng));
-  }
-
-//gps
-  void falseOrCatchMethod({required String errorMessage}) {
-    MapServices.showError(errorMassage: errorMessage);
-    changeGpsIcon(icon: MapIcons.gpsIcon);
-    loading = false;
+    marker = Rx(MapServices.customMarker(latLng: latLng));
   }
 }

@@ -7,7 +7,6 @@ import 'package:saja/screens/add_estate/forms.dart';
 import 'package:saja/screens/add_estate/province_city.dart';
 import 'package:saja/screens/main_app.dart';
 import 'package:saja/screens/map/map.dart';
-import 'package:saja/screens/map/map_test.dart';
 import 'package:saja/screens/profile/change_pass.dart';
 import 'package:saja/screens/profile/forget.dart';
 import 'package:saja/screens/profile/signup.dart';
@@ -24,7 +23,6 @@ class RouteNames {
   static const ProvinceCity = "/province-city";
   static const addEstateForms = "/add-estate-forms";
   static const mapAdd = "/map-add";
-  static const mapAddTest = "/map-add-test";
   static const mapView = "/map-view";
 }
 
@@ -104,14 +102,7 @@ class Routs {
         curve: CustomTransitonClass.defultCurve,
         transition: CustomTransitonClass.transition,
         transitionDuration: CustomTransitonClass.transitionDuration),
-    GetPage(
-        name: RouteNames.mapAddTest,
-        page: () => MapScreeenTest(
-              mapType: MapType.choose,
-            ),
-        curve: CustomTransitonClass.defultCurve,
-        transition: CustomTransitonClass.transition,
-        transitionDuration: CustomTransitonClass.transitionDuration),
+   
     GetPage(
         name: RouteNames.mapView,
         page: () => MapScreeen(

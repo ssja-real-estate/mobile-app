@@ -9,11 +9,12 @@ class CustomSnackBar {
       "",
       titleText: Align(
         alignment: Alignment.centerRight,
-        child: CustomSnackText.customText(text: title),
+        child: CustomSnackText.customText(
+            text: title, fontWeight: FontWeight.bold),
       ),
       messageText: Align(
         alignment: Alignment.centerRight,
-        child: CustomSnackText.customText(text: message),
+        child: CustomSnackText.customText(text: message, fontSize: 14),
       ),
     );
   }

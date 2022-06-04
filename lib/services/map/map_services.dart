@@ -17,8 +17,11 @@ class MapServices {
     CustomSnackBar.showSnackbar(title: AppStrings.error, message: errorMassage);
   }
 
-  static Future<Position> getCurrentLocation() async {
-    var position = await MapGeolocatorService.getCurrentPosition();
+  static Future<Position> getCurrentLocation(
+      {required bool forceAndroidLocationManager}) async {
+    var position = await MapGeolocatorService.getCurrentPosition(
+            forceAndroidLocationManager: forceAndroidLocationManager)
+        .timeout(Duration(minutes: 1, seconds: 20));
     return position;
   }
 

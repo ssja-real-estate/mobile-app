@@ -1,27 +1,32 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:get/get.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/map.dart';
 import 'package:saja/screens/map/custom_tile.dart';
 
-class ChooseWidget extends StatelessWidget {
-  ChooseWidget(
+class MapWidget extends StatelessWidget {
+  MapWidget(
       {Key? key,
       required this.mapControllerImpl,
-      required this.markers,
+      this.markers,
+      this.marker,
       required this.mapOptions})
       : super(key: key);
   final MapControllerImpl mapControllerImpl; // It's have to be a dependency
   late Rxn<MapOptions> mapOptions = Rxn();
-  late Rx<Marker> markers;
+  Rx<Marker>? marker;
+  List<Rx<Marker>>? markers;
+  List<Marker>? markersList;
   @override
   Widget build(BuildContext context) {
+    if (marker == null) {
+      print("if in build started");
+      markersList = markersToList(markers!);
+    }
     return Stack(
       children: [
         Obx(
@@ -48,12 +53,20 @@ class ChooseWidget extends StatelessWidget {
                     print("error eccured");
                   }),
               MarkerLayerOptions(
-                markers: [markers.value],
+                markers: markersList ?? [marker!.value],
               ),
             ],
           ),
         ),
       ],
     );
+  }
+
+  List<Marker> markersToList(List<Rx<Marker>> markers) {
+    List<Marker> list = [];
+    for (var i = 0; i < markers.length; i++) {
+      list.add(markers[i].value);
+    }
+    return list;
   }
 }
