@@ -46,4 +46,7 @@ class Api {
       throw response.statusCode;
     }
   }
+  static Future put(
+{required }
+  )async{}
 }

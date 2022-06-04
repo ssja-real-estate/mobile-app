@@ -14,30 +14,26 @@ class App extends StatefulWidget {
   @override
   _AppState createState() => _AppState();
 }
-
-class _AppState extends State<App> {
-
+class _AppState extends State<App>{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).requestFocus(new FocusNode());
-      },
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.light,
-        theme: ThemeData(
-          primaryColor: AppColors.primary(),
-          colorScheme: ColorScheme.light(
-            primary: AppColors.accent(),
+      onTap:(){ FocusScope.of(context).requestFocus(new FocusNode());},
+      child: GetMaterialApp(     
+        debugShowCheckedModeBanner:false,
+        themeMode:ThemeMode.light,
+        theme:ThemeData(
+          primaryColor:AppColors.primary(),
+          colorScheme:ColorScheme.light(
+            primary:AppColors.accent(),
           ),
-          brightness: Brightness.light,
-          fontFamily: AppFonts.iranSans,
+          brightness:Brightness.light,
+          fontFamily:AppFonts.iranSans,
         ),
-        home: SafeArea(
-          child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: MainAppScreen(),
+        home:SafeArea(
+          child:Directionality(
+            textDirection:TextDirection.rtl,
+            child:MainAppScreen(),
           ),
         ),
       ),
