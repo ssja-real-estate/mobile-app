@@ -3,8 +3,8 @@ extension StringExtension on String {
     var result = "";
     for (int i = 0; i < this.length; i++) {
       var char = this[i];
-      if (PersianNumberMapper.keys.contains(char))
-        result += PersianNumberMapper[char] ?? "";
+      if (persianNumberMapper.keys.contains(char))
+        result += persianNumberMapper[char] ?? "";
       else
         result += char;
     }
@@ -12,7 +12,20 @@ extension StringExtension on String {
     return result;
   }
 
-  static const Map<String, String> PersianNumberMapper = {
+  String convertToEnglish() {
+    var result = "";
+    for (int i = 0; i < this.length; i++) {
+      var char = this[i];
+      if (EnglishNumberMapper.keys.contains(char))
+        result += EnglishNumberMapper[char] ?? "";
+      else
+        result += char;
+    }
+
+    return result;
+  }
+
+  static const Map<String, String> persianNumberMapper = {
     "0": "۰",
     "1": "۱",
     "2": "۲",
@@ -23,5 +36,17 @@ extension StringExtension on String {
     "7": "۷",
     "8": "۸",
     "9": "۹",
+  };
+  static const Map<String, String> EnglishNumberMapper = {
+    "۰": "0",
+    "۱": "1",
+    "۲": "2",
+    "۳": "3",
+    "۴": "4",
+    "۵": "5",
+    "۶": "6",
+    "۷": "7",
+    "۸": "8",
+    "۹": "9",
   };
 }

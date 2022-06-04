@@ -12,9 +12,11 @@ class TabNavigator extends StatelessWidget {
 
   Map<int, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
-      0: (context) => new HomeScreen(),
-      1: (context) => new AddEstateIntroductionScreen(),
-      2: (context) => new ProfileScreen(),
+
+      0: (context) =>  HomeScreen(),
+      1: (context) =>  AddEstateIntroductionScreen(),
+      2: (context) =>  LoginScreen(),
+
     };
   }
 

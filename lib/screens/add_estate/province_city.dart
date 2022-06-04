@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/other.dart';
+import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/screens/add_estate/forms.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_dropdown.dart';
@@ -79,6 +79,13 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
                     titleMargin: _titleMargin,
                     titlePadding: _titlePadding,
                   ),
+                  IconButton(
+                      onPressed: () {
+                        // Get.to(GeolocatorWidget());
+                        // AppNavigator.pushScreen(RouteNames.mapAdd);
+                        AppNavigator.pushScreen(RouteNames.mapAdd);
+                      },
+                      icon: Icon(Icons.map_outlined)),
                 ],
               ),
               CustomButton(
@@ -90,7 +97,7 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
                 icon: Icons.keyboard_arrow_left_sharp,
                 iconPadding: 5,
                 onPressed: () {
-                  AppNavigator.pushScreen(context, AddEstateFormsScreen());
+                  AppNavigator.pushScreen(RouteNames.addEstateForms);
                 },
               ),
             ],

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:saja/models/user_model.dart';
+import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
-import 'package:saja/services/snackbar/custom_snack_bar.dart';
-import 'package:saja/services/user_services/primary_user_services.dart';
+import 'package:saja/services/user/primary_user_services.dart';
 import 'package:saja/services/validation/regex_validator.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_text_button.dart';
 import 'package:saja/widgets/form_password_input.dart';
 import 'package:saja/widgets/form_text_input.dart';
+import 'package:saja/services/utility/string_extensions.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final repeatPasswordController = TextEditingController();
-
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -42,7 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Column(
                     children: [
                       Image(
-                        image: AssetImage('assets/images/logo.png'),
+                        image: AssetImage(AppAssetAddress.logoAddress),
                         width: 100,
                         filterQuality: FilterQuality.high,
                       ),
@@ -59,7 +60,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     ],
                   ),
                 ),
-               
                 SizedBox(
                   height: 15,
                 ),
@@ -125,15 +125,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(
                           height: 15,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomTextButton(
-                              title: AppStrings.forgotPassword,
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
                         SizedBox(
                           height: 30,
                         ),
@@ -160,7 +151,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             CustomTextButton(
                               title: AppStrings.login,
                               onPressed: () {
-                                AppNavigator.popScreen(context);
+                                AppNavigator.popScreen();
                               },
                             ),
                           ],
@@ -180,10 +171,17 @@ class _SignupScreenState extends State<SignupScreen> {
   void onPress() async {
     if (_formKey.currentState!.validate()) {
       {
-        User user = User();
-        user.mobile = phoneController.value.text;
-        user.password = passwordController.value.text;
-        await UserServices.signup(user: user);
+        if (!loading) {
+          loading = true;
+          User user = User();
+          user.mobile = phoneController.value.text.convertToEnglish();
+          user.password = passwordController.value.text.convertToEnglish();
+          bool result = await UserServices.signup(user: user);
+          if (result) {
+          } else {
+            loading = false;
+          }
+        }
       }
     }
   }

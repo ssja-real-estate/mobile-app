@@ -7,11 +7,14 @@ class CustomSnackBar {
     Get.snackbar(
       '',
       "",
-      titleText: Center(
-        child: CustomSnackText.customText(text: title),
+      titleText: Align(
+        alignment: Alignment.centerRight,
+        child: CustomSnackText.customText(
+            text: title, fontWeight: FontWeight.bold),
       ),
-      messageText: Center(
-        child: CustomSnackText.customText(text: message),
+      messageText: Align(
+        alignment: Alignment.centerRight,
+        child: CustomSnackText.customText(text: message, fontSize: 14),
       ),
     );
   }

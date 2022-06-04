@@ -8,26 +8,52 @@ class Api {
     "Content-Type": "application/json;charset=utf-8"
   };
   // todo post
-  static Future post({required String json, required String unicode}) async {
+  static Future post(
+      {required String json,
+      required String unicode,
+      String queryNotMap: '',
+      Map<String, dynamic> params: const {}}) async {
     // unicode :
-    if (await CheckInternet.hasInternet()) {
-          var uri = Uri.http(ApiStrings.siteName, unicode);
-          var response = await http
-              .post(uri, body: json, headers: Api.headeroption)
-              .onError((error, stackTrace) {
-            //! when get error in posting
-            throw error!;
-          });
-          var result = jsonDecode(utf8.decode(response.bodyBytes));
-          if (response.statusCode == 200) {
-            return result;
-          } else {
-            throw result['error'];
-          }
-        
-      
-    } else {
-      throw ApiStrings.noInternet;
+
+    try {
+      if (await CheckInternet.hasInternet()) {
+        var uri = Uri(
+            host: ApiStrings.siteNameWithoutPort,
+            scheme: "https",
+            path: unicode + queryNotMap,
+            queryParameters: params);
+        http.Response response = await http
+            .post(uri, body: json, headers: Api.headeroption)
+            .then((value) {
+          return value;
+        }).catchError((error) {
+          //! when get error in Posting
+          throw error!;
+        });
+        var result;
+        try {
+          result = jsonDecode(utf8.decode(response.bodyBytes));
+        } catch (e) {
+          result = response.body;
+        }
+        if (response.statusCode == 200) {
+
+          return result;
+        } else {
+          throw result['error'];
+        }
+      } else {
+        throw ApiStrings.noInternet;
+      }
+    } catch (e) {
+      if (e.toString().contains("exception") ||
+          e.toString().contains("SocketException") ||
+          e.toString().contains("Exception") ||
+          e.toString().contains("Failed host lookup")) {
+        throw ApiStrings.noInternet;
+      } else {
+        rethrow;
+      }
     }
   }
 

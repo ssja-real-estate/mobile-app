@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
+import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/strings.dart';
-import 'package:saja/screens/add_estate/estate_delegation_type.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
 import 'package:saja/widgets/custom_button.dart';
 
@@ -17,7 +18,7 @@ class AddEstateIntroductionScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image(
-            image: AssetImage('assets/images/logo.png'),
+            image: AssetImage(AppAssetAddress.logoAddress),
             width: 150,
             filterQuality: FilterQuality.high,
           ),
@@ -52,7 +53,7 @@ class AddEstateIntroductionScreen extends StatelessWidget {
             icon: Icons.keyboard_arrow_left_sharp,
             iconPadding: 5,
             onPressed: () {
-              AppNavigator.pushScreen(context, EstateDelegationTypeScreen());
+              AppNavigator.pushScreen(RouteNames.estateDelegationType);
             },
           )
         ],

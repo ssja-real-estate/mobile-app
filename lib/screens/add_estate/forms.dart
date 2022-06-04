@@ -89,7 +89,6 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
                 title: AppStrings.error,
                 message: AppStrings.imagesCountMoreThanLimit,
               );
-
             },
           ),
         ),
@@ -324,7 +323,7 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
                 setState(() {
                   _images.remove(image);
                   values.remove(image.path);
-                  AppNavigator.popScreen(context);
+                  AppNavigator.popScreen();
                 });
               },
               child: Text(
@@ -334,7 +333,7 @@ class _AddEstateFormsScreenState extends State<AddEstateFormsScreen>
             ),
             ElevatedButton(
               onPressed: () {
-                AppNavigator.popScreen(context);
+                AppNavigator.popScreen();
               },
               child: Text(
                 AppStrings.no,

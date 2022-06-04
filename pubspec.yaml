@@ -35,6 +35,21 @@ dependencies:
   connectivity_plus: ^2.3.0
 
   hive: ^2.2.0
+  hive_flutter:
+  flutter_map: any
+  permission_handler: ^9.2.0
+  latlong2: ^0.8.1
+  geolocator: any
+  geocoding: any
+  # current_location: any
+  location: ^4.0.0
+  # awareframework_locations: ^0.1.1
+
+
+  # fl_location: ^1.2.1
+
+  # flutter_geofence: ^0.4.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -52,6 +67,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/logo.png
+    - assets/images/Map-Marker-icon.png
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
