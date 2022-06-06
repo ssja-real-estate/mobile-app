@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:saja/models/user_model.dart';
 import 'package:saja/services/api/connectivity.dart';
+import 'package:saja/services/database/hive_services.dart';
 import '../../resources/api.dart';
 
 class Api {
@@ -37,7 +39,6 @@ class Api {
           result = response.body;
         }
         if (response.statusCode == 200) {
-
           return result;
         } else {
           throw result['error'];
@@ -57,6 +58,56 @@ class Api {
     }
   }
 
+  static Future get(
+      {Map<String, String> header = const {},
+      required String unicode,
+      String queryNotMap: '',
+      Map<String, dynamic> params: const {}}) async {
+    try {
+      if (await CheckInternet.hasInternet()) {
+        var uri = Uri(
+            host: ApiStrings.siteNameWithoutPort,
+            scheme: "https",
+            path: unicode + queryNotMap,
+            // path: unicode + "/:token",
+            queryParameters: params);
+        print(uri);
+        print("header is : " + header.toString());
+        http.Response response = await http
+            .get(
+          uri,
+          // headers: header,
+          headers: header,
+        )
+            .then((value) {
+          return value;
+        }).catchError((error) {
+          //! when get error in Posting
+          print("catch error");
+          throw error!;
+        });
+        print('get continued');
+
+        var result;
+        try {
+          result = jsonDecode(utf8.decode(response.bodyBytes));
+        } catch (e) {
+          result = jsonDecode(response.body);
+        }
+        if (response.statusCode == 200) {
+          return result;
+        } else {
+          throw result['error'];
+        }
+      } else {
+        throw ApiStrings.noInternet;
+      }
+    } on Exception catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
   // todo verify user
   static Future getVerify(
       {required Map<String, dynamic> val, required String unicode}) async {
@@ -72,7 +123,6 @@ class Api {
       throw response.statusCode;
     }
   }
-  static Future put(
-{required }
-  )async{}
+
+  static Future put({required}) async {}
 }
