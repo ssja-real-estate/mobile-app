@@ -39,4 +39,6 @@ class AppStrings {
   static const userChangePassword = "تغییر رمز کاربری";
   static const ok = "تایید";
   static const cancel = "لغو";
+  static const errorChoose = "لطفا گذینه ها را مشخص نمایید";
+  static const errorSignIn = "لطفا ابتدا وارد سامانه شوید";
 }
