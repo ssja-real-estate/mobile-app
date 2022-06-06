@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
+import 'package:saja/services/snackbar/custom_snack_bar.dart';
 import 'package:saja/widgets/custom_button.dart';
 
 class AddEstateIntroductionScreen extends StatelessWidget {
-  const AddEstateIntroductionScreen({Key? key}) : super(key: key);
-
+  AddEstateIntroductionScreen({Key? key}) : super(key: key);
+  User user = User();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,12 +54,19 @@ class AddEstateIntroductionScreen extends StatelessWidget {
             fontSize: 20,
             icon: Icons.keyboard_arrow_left_sharp,
             iconPadding: 5,
-            onPressed: () {
-              AppNavigator.pushScreen(RouteNames.estateDelegationType);
-            },
+            onPressed: onPress,
           )
         ],
       ),
     );
+  }
+
+  void onPress() {
+    if (user.token == null || user.token == "") {
+      CustomSnackBar.showSnackbar(
+          title: AppStrings.error, message: AppStrings.errorSignIn);
+      AppNavigator.offAll(RouteNames.mainAppProfile);
+    }
+    AppNavigator.pushScreen(RouteNames.estateDelegationType);
   }
 }
