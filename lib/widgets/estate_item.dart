@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saja/models/estate_item.dart';
+import 'package:saja/models/estate/estate_item.dart';
 import 'package:saja/resources/asset_addresses.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
@@ -79,15 +79,14 @@ class EstateItemWidget extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  EstateItem.getDelegationType(
-                                      estate.delegationType),
+                                  estate.delegationType!,
                                   style: _headerStyle,
                                 ),
                                 SizedBox(
                                   width: 3,
                                 ),
                                 Text(
-                                  EstateItem.getEstateType(estate.estateType),
+                                  estate.estateType!,
                                   style: _headerStyle,
                                 ),
                               ],
@@ -99,7 +98,7 @@ class EstateItemWidget extends StatelessWidget {
                               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  estate.province,
+                                  estate.province!,
                                   style: _locationStyle,
                                 ),
                                 SizedBox(
@@ -110,7 +109,7 @@ class EstateItemWidget extends StatelessWidget {
                                   width: 2,
                                 ),
                                 Text(
-                                  estate.city,
+                                  estate.city!,
                                   style: _locationStyle,
                                 ),
                               ],
