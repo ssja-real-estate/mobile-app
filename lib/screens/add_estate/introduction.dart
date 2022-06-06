@@ -66,7 +66,8 @@ class AddEstateIntroductionScreen extends StatelessWidget {
       CustomSnackBar.showSnackbar(
           title: AppStrings.error, message: AppStrings.errorSignIn);
       AppNavigator.offAll(RouteNames.mainAppProfile);
+    } else {
+      AppNavigator.pushScreen(RouteNames.estateDelegationType);
     }
-    AppNavigator.pushScreen(RouteNames.estateDelegationType);
   }
 }

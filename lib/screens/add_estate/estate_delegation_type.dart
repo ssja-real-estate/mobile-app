@@ -95,9 +95,10 @@ class _EstateDelegationTypeScreenState
 
   Future future() async {
     if (!isInitialized) {
+      print(user.token!.toString());
       try {
         estateTypeModels =
-            await EstateServices.getEstateType(token: user.token!)
+            await EstateServices.getEstateType(token: user.token!.toString())
                 .catchError((e) async {
           throw e;
         });
@@ -160,7 +161,7 @@ class _EstateDelegationTypeScreenState
           ),
         ];
         isInitialized = true;
-      } on Exception catch (e) {
+      } catch (e) {
         print(e);
         CustomSnackBar.showSnackbar(
             title: AppStrings.error, message: e.toString());
