@@ -1,4 +1,4 @@
-import 'package:saja/models/estate_item.dart';
+import 'package:saja/models/estate/estate_item.dart';
 
 class Constants {
   static const Map<String, PropertyDelegationType> delegationTypeMap = {
@@ -6,7 +6,7 @@ class Constants {
     "اجاره": PropertyDelegationType.Rent
   };
 
-  static const Map<String, EstateType> estateTypeMap = {
+  static const Map<String, EstateType> estateTypeMap = const {
     "خانه": EstateType.Home,
     "آپارتمان": EstateType.Apartment
   };
@@ -34,4 +34,3 @@ enum PropertyType {
   House,
   Apartment,
 }
-

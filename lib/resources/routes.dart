@@ -102,7 +102,6 @@ class Routs {
         curve: CustomTransitonClass.defultCurve,
         transition: CustomTransitonClass.transition,
         transitionDuration: CustomTransitonClass.transitionDuration),
-   
     GetPage(
         name: RouteNames.mapView,
         page: () => MapScreeen(

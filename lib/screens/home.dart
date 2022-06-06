@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saja/models/estate_item.dart';
+import 'package:saja/models/estate/estate_item.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/strings.dart';
 import 'package:saja/widgets/custom_button.dart';

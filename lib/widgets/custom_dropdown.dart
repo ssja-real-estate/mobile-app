@@ -53,58 +53,57 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
               ),
             ),
           Container(
-            margin: widget.margin,
-            padding: widget.padding,
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.primary(), width: 1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: DropdownButton(
-              autofocus: false,
-              icon: Icon(
-                Icons.arrow_drop_down_circle_outlined,
-                color: AppColors.accent(),
+              margin: widget.margin,
+              padding: widget.padding,
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColors.primary(), width: 1),
+                borderRadius: BorderRadius.circular(10),
               ),
-              iconSize: 30,
-              value: widget.dropDownValue,
-              hint: Text(
-                widget.hint,
-                style: TextStyle(
-                  fontFamily: AppFonts.iranSans,
+              child: DropdownButton(
+                autofocus: false,
+                icon: Icon(
+                  Icons.arrow_drop_down_circle_outlined,
                   color: AppColors.accent(),
                 ),
-              ),
-              underline: SizedBox(),
-              isExpanded: true,
-              style: TextStyle(
-                fontSize: 16,
-                color: AppColors.black(),
-              ),
-              dropdownColor: AppColors.white(),
-              items: widget.menuItems.map((value) {
-                return DropdownMenuItem(
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      value,
-                      style: TextStyle(
-                        fontFamily: AppFonts.iranSans,
-                        color: AppColors.accent(),
-                      ),
-                      textDirection: TextDirection.rtl,
-                    ),
+                iconSize: 30,
+                value: widget.dropDownValue,
+                hint: Text(
+                  widget.hint,
+                  style: TextStyle(
+                    fontFamily: AppFonts.iranSans,
+                    color: AppColors.accent(),
                   ),
-                  value: value,
-                );
-              }).toList(),
-              onChanged: (value) {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                if (widget.onChange != null) {
-                  widget.onChange!.call(value);
-                }
-              },
-            ),
-          ),
+                ),
+                underline: SizedBox(),
+                isExpanded: true,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppColors.black(),
+                ),
+                dropdownColor: AppColors.white(),
+                items: widget.menuItems.map((value) {
+                  return DropdownMenuItem(
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        value,
+                        style: TextStyle(
+                          fontFamily: AppFonts.iranSans,
+                          color: AppColors.accent(),
+                        ),
+                        textDirection: TextDirection.rtl,
+                      ),
+                    ),
+                    value: value,
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  // FocusScope.of(context).requestFocus(new FocusNode());
+                  if (widget.onChange != null) {
+                    widget.onChange!.call(value);
+                  }
+                },
+              )),
         ],
       ),
     );
