@@ -8,6 +8,10 @@ class MapResources {
       "تا زمانی که مجوز استفاده از موقعیت مکانی را ندهید سرویس دریافت موقعیت کار نخواهد کرد";
   static const errorTracking =
       "خطا در مسیریابی ، لطفا از فعال بودن سرویس مکان یابی اطمینان حاصل کنید";
+  static const mapInfo = "mapInfo";
+  static const latitude = "latitude";
+  static const longitude = "longitude";
+  static const zoom = "zoom";
 }
 
 class MapIcons {
