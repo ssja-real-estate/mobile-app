@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:saja/models/estate/city_model.dart';
+import 'package:saja/models/estate/province_model.dart';
+import 'package:saja/models/user_model.dart';
+import 'package:saja/resources/Estate.dart';
 import 'package:saja/resources/colors.dart';
 import 'package:saja/resources/other.dart';
 import 'package:saja/resources/routes.dart';
 import 'package:saja/resources/strings.dart';
+import 'package:saja/services/estate/estate_services.dart';
 import 'package:saja/services/navigation/app_navigator.dart';
+import 'package:saja/services/snackbar/custom_snack_bar.dart';
 import 'package:saja/widgets/custom_button.dart';
 import 'package:saja/widgets/custom_dropdown.dart';
 
@@ -17,8 +24,8 @@ class ProvinceCityScreen extends StatefulWidget {
 class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
   var provincesMap = Constants.Provinces;
   var citiesMap = Constants.Cities;
-  var provinceKey;
-  var cityKey;
+  late Rxn<String?> provinceKey = Rxn();
+  late Rxn<String?> cityKey = Rxn();
   EdgeInsets _margin = EdgeInsets.symmetric(
     horizontal: 30,
     vertical: 5,
@@ -30,8 +37,21 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
     top: 10,
   );
   EdgeInsets _titlePadding = EdgeInsets.only(left: 5, right: 10);
+  bool isProvinceInitialized = false;
+  bool isInitialized = false;
+  bool isCityInitialized = false;
+  User user = User();
+  List<Widget> children2 = [];
+  List<ProvinceModel> provinceModels = [];
+  List<CityModel> cityModels = [];
+  List<String> provinceListNames = [];
+  Rxn<List<String>> cityListNames = Rxn([]);
+  Widget? provinceWidget;
+  late Rxn<Future> cfuture = Rxn();
   @override
   Widget build(BuildContext context) {
+    // futureProvince();
+    cfuture.value = future();
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -39,87 +59,151 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
             vertical: 15,
           ),
           padding: EdgeInsets.all(15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  CustomDropDownButton(
-                    AppStrings.province,
-                    provincesMap.entries.map((e) => e.key).toList(),
-                    dropDownValue: provinceKey,
-                    onChange: (value) {
-                      setState(() {
-                        provinceKey = value;
-                      });
-                    },
-                    hint: AppStrings.chooseAnOption,
-                    textDirection: TextDirection.rtl,
-                    margin: _margin,
-                    padding: _padding,
-                    titleMargin: _titleMargin,
-                    titlePadding: _titlePadding,
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  CustomDropDownButton(
-                    AppStrings.city,
-                    getCitiesFromProvinces(),
-                    dropDownValue: cityKey,
-                    onChange: (value) {
-                      setState(() {
-                        cityKey = value;
-                      });
-                    },
-                    hint: AppStrings.chooseAnOption,
-                    textDirection: TextDirection.rtl,
-                    margin: _margin,
-                    padding: _padding,
-                    titleMargin: _titleMargin,
-                    titlePadding: _titlePadding,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        // Get.to(GeolocatorWidget());
-                        // AppNavigator.pushScreen(RouteNames.mapAdd);
-                        AppNavigator.pushScreen(RouteNames.mapAdd);
-                      },
-                      icon: Icon(Icons.map_outlined)),
-                ],
-              ),
-              CustomButton(
-                margin: _margin,
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                title: AppStrings.completeInfo,
-                color: AppColors.primary(),
-                fontSize: 20,
-                icon: Icons.keyboard_arrow_left_sharp,
-                iconPadding: 5,
-                onPressed: () {
-                  AppNavigator.pushScreen(RouteNames.addEstateForms);
-                },
-              ),
-            ],
-          ),
+          child: Obx(() {
+            return FutureBuilder(
+                future: cfuture.value!.then((value) => value).catchError((e) {
+                  CustomSnackBar.showSnackbar(
+                      title: AppStrings.error, message: e.toString());
+                  Future.delayed(Duration(seconds: 3), () {
+                    cfuture.value = future();
+                  });
+                  return false;
+                }),
+                builder: (context, snap) {
+                  if (snap.hasError || !snap.hasData || snap.data == false) {
+                    return Column(
+                      mainAxisAlignment: (MainAxisAlignment.spaceBetween),
+                      children: [
+                        Container(
+                          height: 500,
+                          child: Center(child: CircularProgressIndicator()),
+                        ),
+                        continueButton(),
+                      ],
+                    );
+                  }
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      for (Widget x in children2) x,
+                      SizedBox(height: 15),
+                      continueButton()
+                    ],
+                  );
+                });
+          }),
         ),
       ),
     );
   }
 
-  List<String> getCitiesFromProvinces() {
-    List<String> cities = citiesMap.entries.map((e) => e.key).toList();
-    if (provinceKey != null) {
-      int provinceId = provincesMap[provinceKey] ?? 0;
-      if (provinceId != 0) {
-        if (citiesMap.containsValue(provinceId)) {
-          return citiesMap.entries
-              .where((element) => element.value == provinceId)
-              .map((e) => e.key)
-              .toList();
+  CustomButton continueButton() {
+    return CustomButton(
+      margin: _margin,
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      title: AppStrings.completeInfo,
+      color: AppColors.primary(),
+      fontSize: 20,
+      icon: Icons.keyboard_arrow_left_sharp,
+      iconPadding: 5,
+      onPressed: () {
+        AppNavigator.pushScreen(RouteNames.addEstateForms);
+      },
+    );
+  }
+
+  void getCitiesFromProvinces() {
+    if (provinceKey.value != null && provinceKey.value.toString().length != 0) {
+      bool isNotAvailable = true;
+      for (var element in provinceModels) {
+        if (element.name == provinceKey.value) {
+          isNotAvailable = false;
+          cityModels = [];
+          cityListNames.value = [];
+          for (var cityElement in element.cities) {
+            cityModels.add(CityModel.fromMap(map: cityElement));
+          }
+          for (var element2 in cityModels) {
+            cityListNames.value!.add(element2.name);
+          }
+          break;
         }
       }
+      if (isNotAvailable) {
+        throw EstateStrings.noCityError;
+      }
     }
-    return cities;
+  }
+
+  Future future() async {
+    if (!isInitialized) {
+      cityModels = [];
+      cityListNames.value = [];
+      try {
+        provinceModels =
+            await EstateServices.getProvince(token: user.token!.toString())
+                .catchError((e) async {
+          throw e;
+        });
+        for (var element in provinceModels) {
+          provinceListNames.add(element.name);
+        }
+        children2 = [
+          Column(
+            children: [
+              Obx(() {
+                return CustomDropDownButton(
+                  AppStrings.delegationType,
+                  // Constants.delegationTypeMap.entries.map((e) => e.key).toList(),
+                  provinceListNames,
+                  dropDownValue: provinceKey.value,
+                  onChange: (value) {
+                    provinceKey.value = value.toString();
+                    cityListNames.value = [];
+                    cityModels = [];
+                    cityKey.value = null;
+                    getCitiesFromProvinces();
+                  },
+                  hint: AppStrings.chooseAnOption,
+                  textDirection: TextDirection.rtl,
+                  margin: _margin,
+                  padding: _padding,
+                  titleMargin: _titleMargin,
+                  titlePadding: _titlePadding,
+                );
+              }),
+              SizedBox(
+                height: 15,
+              ),
+              Obx(() {
+                return CustomDropDownButton(
+                  AppStrings.estateType,
+                  cityListNames.value!,
+                  dropDownValue: cityKey.value,
+                  onChange: (value) {
+                    cityKey.value = value.toString();
+                  },
+                  hint: AppStrings.chooseAnOption,
+                  textDirection: TextDirection.rtl,
+                  margin: _margin,
+                  padding: _padding,
+                  titleMargin: _titleMargin,
+                  titlePadding: _titlePadding,
+                );
+              }),
+              IconButton(
+                  onPressed: () {
+                    AppNavigator.pushScreen(RouteNames.mapAdd);
+                  },
+                  icon: Icon(Icons.map)),
+            ],
+          ),
+        ];
+        isInitialized = true;
+        return true;
+      } catch (e) {
+        rethrow;
+      }
+    }
   }
 }
