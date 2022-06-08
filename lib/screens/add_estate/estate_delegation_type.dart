@@ -41,8 +41,11 @@ class _EstateDelegationTypeScreenState
   List<EstateTypeModel> estateTypeModels = [];
   bool isInitialized = false;
   EstateItem estateItem = EstateItem();
+
+  late Rxn<Future> cfuture=Rxn();
   @override
   Widget build(BuildContext context) {
+    cfuture.value = future();
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -50,29 +53,38 @@ class _EstateDelegationTypeScreenState
             vertical: 15,
           ),
           padding: EdgeInsets.all(15),
-          child: FutureBuilder(
-              future: future().then((value) => true),
-              builder: (context, snap) {
-                if (snap.hasError || !snap.hasData) {
+          child: Obx(() {
+            return FutureBuilder(
+                future: cfuture.value!.then((value) => value).catchError((e) {
+                  CustomSnackBar.showSnackbar(
+                      title: AppStrings.error, message: e.toString());
+                  Future.delayed(Duration(seconds: 3), () {
+                    cfuture.value = future();
+                  });
+                  return false;
+                }),
+                builder: (context, snap) {
+                  if (snap.hasError || !snap.hasData || snap.data == false) {
+                    return Column(
+                      mainAxisAlignment: (MainAxisAlignment.spaceBetween),
+                      children: [
+                        Container(
+                          height: 500,
+                          child: Center(child: CircularProgressIndicator()),
+                        ),
+                        continueButton(),
+                      ],
+                    );
+                  }
                   return Column(
                     mainAxisAlignment: (MainAxisAlignment.spaceBetween),
                     children: [
-                      Container(
-                        height: 500,
-                        child: Center(child: CircularProgressIndicator()),
-                      ),
+                      for (Widget x in children2) x,
                       continueButton(),
                     ],
                   );
-                }
-                return Column(
-                  mainAxisAlignment: (MainAxisAlignment.spaceBetween),
-                  children: [
-                    for (Widget x in children2) x,
-                    continueButton(),
-                  ],
-                );
-              }),
+                });
+          }),
         ),
       ),
     );
@@ -95,7 +107,6 @@ class _EstateDelegationTypeScreenState
 
   Future future() async {
     if (!isInitialized) {
-      print(user.token!.toString());
       try {
         estateTypeModels =
             await EstateServices.getEstateType(token: user.token!.toString())
@@ -105,7 +116,6 @@ class _EstateDelegationTypeScreenState
         delegationModels = await EstateServices.getAssignmentType(
           token: user.token!,
         ).catchError((e) async {
-          print(e);
           throw e;
         });
         List<String> assignmentListNames = [];
@@ -126,7 +136,6 @@ class _EstateDelegationTypeScreenState
                   assignmentListNames,
                   dropDownValue: assignmentType.value,
                   onChange: (value) {
-                    print(value);
                     assignmentType.value = value.toString();
                   },
                   hint: AppStrings.chooseAnOption,
@@ -146,7 +155,6 @@ class _EstateDelegationTypeScreenState
                   estateTypelistNames,
                   dropDownValue: estateTypeKey.value,
                   onChange: (value) {
-                    print(value);
                     estateTypeKey.value = value.toString();
                   },
                   hint: AppStrings.chooseAnOption,
@@ -161,10 +169,9 @@ class _EstateDelegationTypeScreenState
           ),
         ];
         isInitialized = true;
+        return true;
       } catch (e) {
-        print(e);
-        CustomSnackBar.showSnackbar(
-            title: AppStrings.error, message: e.toString());
+        rethrow;
       }
     }
   }
@@ -172,7 +179,6 @@ class _EstateDelegationTypeScreenState
   void onPress({required EstateItem estateItem}) {
     String? assignmentId;
     String? estateTypeId;
-    print(assignmentType);
     if (assignmentType.value == null || estateTypeKey.value == null) {
       CustomSnackBar.showSnackbar(
           title: AppStrings.error, message: AppStrings.errorChoose);
@@ -188,8 +194,6 @@ class _EstateDelegationTypeScreenState
           estateTypeId = element.id;
         }
       }
-      print(assignmentId);
-      print(estateTypeId);
       estateItem.delegationType = assignmentType.value;
       estateItem.estateType = estateTypeKey.value;
       AppNavigator.pushScreen(RouteNames.ProvinceCity);
