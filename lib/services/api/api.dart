@@ -69,24 +69,18 @@ class Api {
             host: ApiStrings.siteNameWithoutPort,
             scheme: "https",
             path: unicode + queryNotMap,
-            // path: unicode + "/:token",
             queryParameters: params);
-        print(uri);
-        print("header is : " + header.toString());
         http.Response response = await http
             .get(
           uri,
-          // headers: header,
           headers: header,
         )
             .then((value) {
           return value;
         }).catchError((error) {
-          //! when get error in Posting
-          print("catch error");
+          //! when get error in Getting
           throw error!;
         });
-        print('get continued');
 
         var result;
         try {
@@ -102,9 +96,15 @@ class Api {
       } else {
         throw ApiStrings.noInternet;
       }
-    } on Exception catch (e) {
-      print(e);
-      rethrow;
+    } catch (e) {
+      if (e.toString().contains("exception") ||
+          e.toString().contains("SocketException") ||
+          e.toString().contains("Exception") ||
+          e.toString().contains("Failed host lookup")) {
+        throw ApiStrings.noInternet;
+      } else {
+        rethrow;
+      }
     }
   }
 
