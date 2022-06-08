@@ -24,7 +24,6 @@ class MapWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (marker == null) {
-      print("if in build started");
       markersList = markersToList(markers!);
     }
     return Stack(
@@ -50,7 +49,6 @@ class MapWidget extends StatelessWidget {
                   tileProvider: MyCustomTile(
                       image: AssetImage(AppAssetAddress.logoAddress)),
                   errorTileCallback: (x, y) async {
-                    print("error eccured");
                   }),
               MarkerLayerOptions(
                 markers: markersList ?? [marker!.value],

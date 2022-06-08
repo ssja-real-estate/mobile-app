@@ -16,8 +16,6 @@ class MyCustomTile extends TileProvider {
     } catch (e) {
        CustomSnackBar.showSnackbar(
           title: AppStrings.error, message: ApiStrings.noInternet);
-      print("error");
-      print(e);
       return image;
     }
   }

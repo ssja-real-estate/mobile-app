@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print, must_be_immutable
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -40,7 +39,6 @@ class MapScreeen extends StatelessWidget {
   Rx<IconData> gpsIcon = MapIcons.gpsIcon.obs;
   @override
   Widget build(BuildContext context) {
-    print(mapType);
     future = initialOptions();
     // initialOptions();
 
@@ -89,13 +87,11 @@ class MapScreeen extends StatelessWidget {
   }
 
   Future<void> getAndchangeLocation() async {
-    print("get location map-test started");
     late Position position;
     try {
       position = await MapServices.getCurrentLocation(
           forceAndroidLocationManager: false);
     } catch (e) {
-      print("e in get and change location started map test");
       position = await MapServices.getCurrentLocation(
           forceAndroidLocationManager: true);
     }
@@ -104,7 +100,6 @@ class MapScreeen extends StatelessWidget {
   }
 
   void changeLastLatLng(Position position) {
-    print(position);
     lastLatLng.latitude = position.latitude;
     lastLatLng.longitude = position.longitude;
   }

@@ -66,7 +66,6 @@ class GpsWidget extends StatelessWidget {
         bool status3 = await MapServices.getStatus(locationPermission3);
 
         if (!status || !status2 || !status3) {
-          print("no service");
           bool setStatus = await MapServices.setStatus(locationPermission);
           bool setStatus2 = await MapServices.setStatus(locationPermission2);
           bool setStatus3 = await MapServices.setStatus(locationPermission3);
@@ -78,15 +77,12 @@ class GpsWidget extends StatelessWidget {
           }
         } else {
           try {
-            print("have service");
             await getAndchangeLocation();
             loading = false;
             chngGpsIcon.cancel();
           } on Exception catch (e) {
             chngGpsIcon.cancel();
             falseOrCatchMethod(errorMessage: MapResources.errorTracking);
-            print('e is');
-            printError(info: e.toString());
             loading = false;
           }
         }
@@ -97,7 +93,6 @@ class GpsWidget extends StatelessWidget {
         chngGpsIcon.cancel();
         changeGpsIcon(icon: MapIcons.gpsIcon);
         loading = false;
-        print(e);
       }
       chngGpsIcon.cancel();
       changeGpsIcon(icon: MapIcons.gpsIcon);

@@ -52,8 +52,6 @@ class NetworkImageWithRetry extends ImageProvider<NetworkImageWithRetry> {
     } catch (e) {
       CustomSnackBar.showSnackbar(
           title: AppStrings.error, message: ApiStrings.noInternet);
-      print("error Custom_network.dart");
-      print(e);
       Uint8List data = (await rootBundle.load(AppAssetAddress.logoAddress))
           .buffer
           .asUint8List();

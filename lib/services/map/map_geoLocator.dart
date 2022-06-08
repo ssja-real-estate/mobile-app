@@ -6,7 +6,6 @@ import 'package:saja/services/permissions/permission_services.dart';
 class MapGeolocatorService {
   static Future<bool> checkPermission(
       {required permission.PermissionWithService locationPermission}) async {
-    print("start checking permmision");
     permission.PermissionStatus status =
         await PermissionServices.permisionStatus(
             permission: locationPermission);
