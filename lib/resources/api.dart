@@ -22,6 +22,7 @@ class ApiStrings {
   static const apiError = "مشکلی در اتصال پیش آمده است . لطفا بعدا تلاش نمایید";
   static const assignmentTypeAddress = "api/assignmenttype";
   static const estateTypeAddress = "api/estateType";
+  static const provinceAddress = "api/province";
+  static const cityAndStateAddress = "api/province/";
   static const authorization = "authorization";
-
 }
