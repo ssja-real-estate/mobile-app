@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:saja/models/estate/delegation_model.dart';
 import 'package:saja/models/estate/estate_type_model.dart';
+import 'package:saja/models/estate/province_model.dart';
 import 'package:saja/resources/api.dart';
 import 'package:saja/services/api/api.dart';
 
@@ -9,7 +10,6 @@ class EstateServices {
   static Future<List<AssignmentModel>> getAssignmentType(
       {required String token}) async {
     try {
-      print("start");
       Map<String, String> map = {};
       map.addAll({ApiStrings.authorization: token});
       map.addAll(Api.headeroption);
@@ -18,15 +18,11 @@ class EstateServices {
               .catchError((e) {
         throw e;
       });
-      print("continue in services");
 
       var list = (result);
-      print("continue 2 in services");
 
       List<AssignmentModel> delegationModels = [];
       for (var element in list) {
-        print("element is :");
-        print(element);
         delegationModels.add(AssignmentModel.fromMap(map: element));
       }
       return delegationModels;
@@ -44,15 +40,29 @@ class EstateServices {
       List<EstateTypeModel> estateTypeModels = [];
       var result =
           await Api.get(unicode: ApiStrings.estateTypeAddress, header: map);
-      print("result in get estate type is :");
 
-      print(result);
       for (var element in result) {
         estateTypeModels.add(EstateTypeModel.fromMap(map: element));
       }
       return estateTypeModels;
     } catch (e) {
-      print(e);
+      rethrow;
+    }
+  }
+  static Future<List<ProvinceModel>> getProvince(
+      {required String token}) async {
+    Map<String, String> map = {};
+    map.addAll({ApiStrings.authorization: token});
+    map.addAll(Api.headeroption);
+    try {
+      List<ProvinceModel> provinceModels = [];
+      var result =
+          await Api.get(unicode: ApiStrings.provinceAddress, header: map);
+      for (var element in result) {
+        provinceModels.add(ProvinceModel.fromMap(map: element));
+      }
+      return provinceModels;
+    } catch (e) {
       rethrow;
     }
   }
