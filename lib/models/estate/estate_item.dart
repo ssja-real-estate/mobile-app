@@ -1,35 +1,34 @@
 import 'dart:convert';
 
+import 'package:saja/models/estate/city_model.dart';
+import 'package:saja/models/estate/delegation_model.dart';
+import 'package:saja/models/estate/estate_type_model.dart';
+import 'package:saja/models/estate/province_model.dart';
+
 class EstateItem {
   late String id;
-  late String? estateType;
-  late String? estateTypeId;
-  String? delegationTypeId;
-  String? delegationType;
-  late String? province;
-  late String? city;
+  // late String? estateType;
+  // late String? estateTypeId;
+  // String? delegationTypeId;
+  // String? delegationType;
+  // late String? province;
+  // late String? city;
   late String? price;
   late String? imageUrl;
-
-  // EstateItem({
-  //   required this.id,
-  //   required this.estateType,
-  //   required this.delegationType,
-  //   required this.province,
-  //   required this.city,
-  //   required this.price,
-  //   this.imageUrl,
-  // });
+  late EstateTypeModel? estateTypeModel;
+  late AssignmentModel? assignmentModel;
+  late CityModel? cityModel;
+  late ProvinceModel? provinceModel;
   static final EstateItem _instance = EstateItem._internal();
   factory EstateItem() => _instance;
   EstateItem._internal();
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'estateType': estateType,
-      'delegationType': delegationType,
-      'province': province,
-      'city': city,
+      'estateType': estateTypeModel!.name,
+      'delegationType': assignmentModel!.name,
+      'province': provinceModel!.name,
+      'city': cityModel!.name,
       'price': price,
     };
   }
@@ -37,10 +36,10 @@ class EstateItem {
   EstateItem.notSingle();
   EstateItem.fromMap(Map<String, dynamic> map) {
     id = map['id'];
-    estateType = map['estateType'];
-    delegationType = map['delegationType'];
-    province = map['province'];
-    city = map['city'];
+    estateTypeModel!.name = map['estateType'];
+    assignmentModel!.name = map['delegationType'];
+    provinceModel!.name = map['province'];
+    cityModel!.name = map['city'];
     price = map['price'];
     // return EstateItem(
     //   id: map['id'],
