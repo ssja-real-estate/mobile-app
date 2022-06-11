@@ -49,6 +49,7 @@ class EstateServices {
       rethrow;
     }
   }
+
   static Future<List<ProvinceModel>> getProvince(
       {required String token}) async {
     Map<String, String> map = {};
