@@ -42,7 +42,7 @@ class _EstateDelegationTypeScreenState
   bool isInitialized = false;
   EstateItem estateItem = EstateItem();
 
-  late Rxn<Future> cfuture=Rxn();
+  late Rxn<Future> cfuture = Rxn();
   @override
   Widget build(BuildContext context) {
     cfuture.value = future();
@@ -177,26 +177,29 @@ class _EstateDelegationTypeScreenState
   }
 
   void onPress({required EstateItem estateItem}) {
-    String? assignmentId;
-    String? estateTypeId;
     if (assignmentType.value == null || estateTypeKey.value == null) {
       CustomSnackBar.showSnackbar(
           title: AppStrings.error, message: AppStrings.errorChoose);
     } else {
-      for (var element in delegationModels) {
-        if (element.name == assignmentType.value) {
-          assignmentId = element.id;
-          break;
-        }
-      }
-      for (var element in estateTypeModels) {
-        if (element.name == estateTypeKey.value) {
-          estateTypeId = element.id;
-        }
-      }
-      estateItem.delegationType = assignmentType.value;
-      estateItem.estateType = estateTypeKey.value;
+      addToEstate(estateItem);
+
       AppNavigator.pushScreen(RouteNames.ProvinceCity);
+    }
+  }
+
+  void addToEstate(EstateItem estateItem) {
+    for (var element in delegationModels) {
+      if (element.name == assignmentType.value) {
+        estateItem.assignmentModel = element;
+        break;
+      }
+    }
+    for (var element in estateTypeModels) {
+      if (element.name == estateTypeKey.value) {
+        estateItem.estateTypeModel = element;
+
+        break;
+      }
     }
   }
 }
