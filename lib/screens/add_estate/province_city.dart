@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:saja/models/estate/city_model.dart';
+import 'package:saja/models/estate/estate_item.dart';
 import 'package:saja/models/estate/province_model.dart';
 import 'package:saja/models/user_model.dart';
 import 'package:saja/resources/Estate.dart';
@@ -48,6 +49,7 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
   Rxn<List<String>> cityListNames = Rxn([]);
   Widget? provinceWidget;
   late Rxn<Future> cfuture = Rxn();
+  EstateItem estateItem = EstateItem();
   @override
   Widget build(BuildContext context) {
     // futureProvince();
@@ -107,9 +109,19 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
       icon: Icons.keyboard_arrow_left_sharp,
       iconPadding: 5,
       onPressed: () {
-        AppNavigator.pushScreen(RouteNames.addEstateForms);
+        onPress(estateItem: estateItem);
       },
     );
+  }
+
+  void onPress({required EstateItem estateItem}) {
+    if (cityKey.value != null && provinceKey.value != null) {
+      addToEstate(estateItem: estateItem);
+      AppNavigator.pushScreen(RouteNames.addEstateForms);
+    } else {
+      CustomSnackBar.showSnackbar(
+          title: AppStrings.error, message: AppStrings.errorChoose);
+    }
   }
 
   void getCitiesFromProvinces() {
@@ -203,6 +215,21 @@ class _ProvinceCityScreenState extends State<ProvinceCityScreen> {
         return true;
       } catch (e) {
         rethrow;
+      }
+    }
+  }
+
+  void addToEstate({required EstateItem estateItem}) {
+    for (var element in provinceModels) {
+      if (provinceKey.value == element.name) {
+        estateItem.provinceModel = element;
+        break;
+      }
+    }
+    for (var element in cityModels) {
+      if (cityKey.value == element.name) {
+        estateItem.cityModel = element;
+        break;
       }
     }
   }
