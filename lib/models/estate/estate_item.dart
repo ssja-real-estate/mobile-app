@@ -7,12 +7,12 @@ import 'package:saja/models/estate/province_model.dart';
 
 class EstateItem {
   late String id;
-  // late String? estateType;
-  // late String? estateTypeId;
-  // String? delegationTypeId;
-  // String? delegationType;
-  // late String? province;
-  // late String? city;
+  late String? estateType;
+  late String? estateTypeId;
+  String? delegationTypeId;
+  String? delegationType;
+  late String? province;
+  late String? city;
   late String? price;
   late String? imageUrl;
   late EstateTypeModel? estateTypeModel;
