@@ -7,10 +7,6 @@ import 'package:saja/models/estate/province_model.dart';
 
 class EstateItem {
   late String id;
-  late String? estateType;
-  late String? estateTypeId;
-  String? delegationTypeId;
-  String? delegationType;
   late String? province;
   late String? city;
   late String? price;
@@ -41,14 +37,7 @@ class EstateItem {
     provinceModel!.name = map['province'];
     cityModel!.name = map['city'];
     price = map['price'];
-    // return EstateItem(
-    //   id: map['id'],
-    //   estateType: map['estateType'],
-    //   delegationType: map['delegationType'],
-    //   province: map['province'],
-    //   city: map['city'],
-    //   price: map['price'],
-    // );
+ 
   }
 
   String toJson() => json.encode(toMap());

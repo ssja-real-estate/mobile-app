@@ -79,14 +79,14 @@ class EstateItemWidget extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  estate.delegationType!,
+                                  estate.assignmentModel!.name,
                                   style: _headerStyle,
                                 ),
                                 SizedBox(
                                   width: 3,
                                 ),
                                 Text(
-                                  estate.estateType!,
+                                  estate.estateTypeModel!.name!,
                                   style: _headerStyle,
                                 ),
                               ],
